@@ -10,10 +10,10 @@ i18n.use(initReactI18next).init({
     ru: { translation: ru },
     kgz: { translation: kgz },
   },
-  lng: 'ru', // Язык по умолчанию
-  fallbackLng: 'en', // Резервный язык
+  lng: 'ru',
+  fallbackLng: 'en',
   interpolation: {
-    escapeValue: false, // React уже экранирует данные
+    escapeValue: false,
   },
 });
 

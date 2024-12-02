@@ -15,7 +15,7 @@ const LanguageSelector = () => {
     dispatch(fetchLanguages());
   }, [dispatch]);
 
-  // Обработчик смены языка
+
   const handleChange = (event) => {
     const selectedLang = event.target.value;
     dispatch(setSelectedLanguage(selectedLang)); // Обновляем Redux-состояние
