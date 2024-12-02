@@ -5,7 +5,7 @@ import { API_URL } from "@/store/api/api.js";
 export const fetchCategories = createAsyncThunk(
   "categories/fetchCategories",
   async (_, { getState }) => {
-    const language = getState().language.currentLanguage;
+    const language = getState().language.selectedLanguage;
     const response = await axios.get(`${API_URL}/category?lang=${language}`);
     return response.data;
   }

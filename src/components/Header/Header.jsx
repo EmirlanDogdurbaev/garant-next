@@ -55,7 +55,7 @@ const Header = () => {
                         <p>{t("header.b2b")}</p>
                     </section>
                     <p className={styles.desk}>{t("header.description")}</p>
-                    <Link href={"/catalog"} className={styles.btn_to_category}>
+                    <Link href={"/page"} className={styles.btn_to_category}>
                         {t("header.toCatalog")}
                     </Link>
                 </div>

@@ -27,17 +27,17 @@ const Catalog = () => {
     return (
         <div className={styles.catalog}>
             <section className={styles.title}>
-                <h3>{t("catalog.title")}</h3>
-                <Link href={"/catalog"}> {t("catalog.link")}</Link>
+                <h3>{t("page.title")}</h3>
+                <Link href={"/page"}> {t("page.link")}</Link>
             </section>
 
             <section className={styles.section}>
                 <div className={styles.sectionContent}>
-                    <h2>{t("catalog.subtitle1")}</h2>
+                    <h2>{t("page.subtitle1")}</h2>
                     <p>
-                        {t("catalog.description1")}
+                        {t("page.description1")}
                     </p>
-                    <Link href={"/catalog"} className={styles.link}>{t("catalog.link")}</Link>
+                    <Link href={"/page"} className={styles.link}>{t("page.link")}</Link>
                 </div>
                 <div className={styles.productGrid}>
                     {topProductsToShow.map(product => (
@@ -61,11 +61,11 @@ const Catalog = () => {
 
             <section className={styles.section}>
                 <div className={styles.sectionContent_black}>
-                    <h2>{t("catalog.subtitle2")}</h2>
+                    <h2>{t("page.subtitle2")}</h2>
                     <p>
-                        {t("catalog.description2")}
+                        {t("page.description2")}
                     </p>
-                    <Link href={"/catalog"} className={styles.link}>{t("catalog.link2")}</Link>
+                    <Link href={"/page"} className={styles.link}>{t("page.link2")}</Link>
                 </div>
                 <div className={styles.productGrid}>
                     {bottomProductsToShow.map(product => (
