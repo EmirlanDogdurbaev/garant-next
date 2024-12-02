@@ -123,6 +123,8 @@ export const fetchByDistr = createAsyncThunk(
             `${API_URL}/search?lang=${language}&is_producer=false`
         );
 
+        console.log(response.data)
+
         return [...response.data.items, ...response.data.collections];
     }
 );
@@ -238,6 +240,18 @@ const productsSlice = createSlice({
                 state.error = action.error.message;
             })
             .addCase(fetchAllProducts.pending, (state) => {
+                state.loading = true;
+                state.error = null;
+            })
+            .addCase(fetchByDistr.fulfilled, (state, action) => {
+                state.loading = false;
+                state.distr = action.payload;
+            })
+            .addCase(fetchByDistr.rejected, (state, action) => {
+                state.loading = false;
+                state.error = action.error.message;
+            })
+            .addCase(fetchByDistr.pending, (state) => {
                 state.loading = true;
                 state.error = null;
             })
