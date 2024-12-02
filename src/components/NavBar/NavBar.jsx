@@ -11,11 +11,16 @@ import {
 } from "@/store/slices/languages/languageSlice";
 import styles from "./NavBar.module.scss";
 import Logo from "@/components/Logo/Logo";
+import {useRouter} from "next/navigation";
+import {fetchByDistributivFilter, fetchByProducerFilter, fetchByProducerIsPainted} from "@/store/slices/filter/search";
 
 const NavBar = () => {
     const dispatch = useDispatch();
     const {t} = useTranslation();
+    const router = useRouter();
+
     const {languages, loading, error} = useSelector((state) => state.language);
+
     const [isMenuOpen, setIsMenuOpen] = useState(false);
     const [isDropdownOpen, setIsDropdownOpen] = useState(false);
     const [isLoggedIn, setIsLoggedIn] = useState(false);
@@ -30,6 +35,11 @@ const NavBar = () => {
             setIsLoggedIn(!!token);
         }
     }, []);
+
+    const handleSearchAndNavigate = (action, path) => {
+        dispatch(action());
+        router.push(path);
+    };
 
     const handleLanguageChange = (lang) => {
         i18n.changeLanguage(lang);
@@ -68,22 +78,38 @@ const NavBar = () => {
                     >
                         {t("nav.production")}
                         {isDropdownOpen && (
-                            <div className={styles.dropdown} style={{"minWidth": "250px"}}>
-                                <button>{t("nav.item1")}</button>
-                                <button>{t("nav.item2")}</button>
+                            <div className={styles.dropdown} style={{minWidth: "250px"}}>
+                                <button
+                                    onClick={() =>
+                                        handleSearchAndNavigate(fetchByProducerFilter, "/catalog")
+                                    }
+                                >
+                                    {t("nav.item1")}
+                                </button>
+                                <button
+                                    onClick={() =>
+                                        handleSearchAndNavigate(fetchByProducerIsPainted, "/catalog")
+                                    }
+                                >
+                                    {t("nav.item2")}
+                                </button>
                             </div>
                         )}
                     </li>
                     <li className={styles.menuItem}>
-                        <Link href="/distribution">{t("nav.distribution")}</Link>
+                        <button onClick={() =>
+                            handleSearchAndNavigate(fetchByDistributivFilter, "/catalog")
+                        }>{t("nav.distribution")}</button>
                     </li>
                     <li className={styles.menuItem}>
                         <Link href="/vacancies">{t("nav.vacancies")}</Link>
                     </li>
                     <li className={styles.menuItem}>
-                        <button className={styles.currentLanguage}>{i18n.language.toUpperCase()}</button>
+                        <button className={styles.currentLanguage}>
+                            {i18n.language.toUpperCase()}
+                        </button>
                         <div className={styles.dropdown}>
-                            <div className={styles.dropdownMenu} style={{"minWidth": "80px"}}>
+                            <div className={styles.dropdownMenu} style={{minWidth: "80px"}}>
                                 {languages.map((language) => (
                                     <button
                                         key={language.code}

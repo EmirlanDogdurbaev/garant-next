@@ -4,41 +4,53 @@ import {API_URL} from "@/store/api/api.js";
 
 export const fetchCollectionById = createAsyncThunk(
     "products/fetchCollectionById",
-    async (collectionId, {getState}) => {
-        const language = getState().language.currentLanguage;
-        const response = await axios.get(
-            `${API_URL}/collection?collection_id=${collectionId}&lang=${language}`
-        );
-        return response.data;
+    async (id, {getState, rejectWithValue}) => {
+        try {
+            const language = getState().language.selectedLanguage;
+            const response = await axios.get(
+                `${API_URL}/collection?collection_id=${id}&lang=${language}`
+            );
+            return response.data;
+        } catch (error) {
+            return rejectWithValue(error.response?.data || "failed request")
+        }
     }
 );
-
 export const fetchProductById = createAsyncThunk(
     "products/fetchProductById",
-    async (productId, {getState}) => {
-        const language = getState().language.currentLanguage;
-        const response = await axios.get(
-            `${API_URL}/item?item_id=${productId}&lang=${language}`
-        );
-        return response.data;
+    async (productId, { getState, rejectWithValue }) => {
+        const language = getState().language.selectedLanguage;
+        try {
+            const response = await axios.get(
+                `${API_URL}/item?item_id=${productId}&lang=${language}`
+            );
+            return response.data;
+        } catch (error) {
+            console.error("Error fetching product:", error.response?.data || error.message);
+            return rejectWithValue(error.response?.data || "Failed to fetch product");
+        }
     }
 );
 
 export const fetchProductInCollection = createAsyncThunk(
     "products/fetchProductInCollection",
-    async (productId, {getState}) => {
-        const language = getState().language.currentLanguage;
-        const response = await axios.get(
-            `${API_URL}/items/collection?collection_id=${productId}&lang=${language}`
-        );
-        return response.data;
+    async (productId, {getState, rejectWithValue}) => {
+        try {
+            const language = getState().language.selectedLanguage;
+            const response = await axios.get(
+                `${API_URL}/items/collection?collection_id=${productId}&lang=${language}`
+            );
+            return response.data;
+        } catch (error) {
+            return rejectWithValue(error.response?.data || "Failed to fetch data")
+        }
     }
 );
 
 export const fetchPopularProducts = createAsyncThunk(
     "products/fetchPopularProducts",
     async (_, {getState}) => {
-        const language = getState().language.currentLanguage;
+        const language = getState().language.selectedLanguage;
         const response = await axios.get(`${API_URL}/popular?lang=${language}`);
         const collection = response.data.collections;
         const item = response.data.items;
@@ -49,7 +61,7 @@ export const fetchPopularProducts = createAsyncThunk(
 export const fetchNewProducts = createAsyncThunk(
     "products/fetchNewProducts",
     async (_, {getState}) => {
-        const language = getState().language.currentLanguage;
+        const language = getState().language.selectedLanguage;
         const response = await axios.get(`${API_URL}/new?lang=${language}`);
         const collection = response.data.collections;
 
@@ -62,7 +74,7 @@ export const fetchProducts = createAsyncThunk(
     "products/fetchProducts",
     async (categoryId, {getState, rejectWithValue}) => {
         try {
-            const language = getState().language.currentLanguage;
+            const language = getState().language.selectedLanguage;
             const response = await axios.get(
                 `${API_URL}/items?categoryId=${categoryId}&lang=${language}`,
                 {
@@ -80,7 +92,7 @@ export const fetchProducts = createAsyncThunk(
 export const fetchByProducer = createAsyncThunk(
     "products/fetchByProducer",
     async (_, {getState}) => {
-        const language = getState().language.currentLanguage;
+        const language = getState().language.selectedLanguage;
         const response = await axios.get(
             `${API_URL}/search?lang=${language}&is_producer=true`
         );
@@ -100,25 +112,11 @@ export const fetchAllProducts = createAsyncThunk(
     }
 );
 
-export const searchByInputValue = createAsyncThunk(
-    "products/searchByInputValue",
-    async (inputValue, {getState, rejectWithValue}) => {
-        try {
-            const language = getState().language.currentLanguage;
-            const response = await axios.get(
-                `${API_URL}/search?lang=${language}&q=${inputValue}`
-            );
-            return [...response.data.collections, ...response.data.items];
-        } catch (error) {
-            return rejectWithValue(error.response?.data || "Failed to fetch data");
-        }
-    }
-);
 
 export const fetchByDistr = createAsyncThunk(
     "products/fetchByDistr",
     async (_, {getState}) => {
-        const language = getState().language.currentLanguage;
+        const language = getState().language.selectedLanguage;
         const response = await axios.get(
             `${API_URL}/search?lang=${language}&is_producer=false`
         );
@@ -133,7 +131,7 @@ export const fetchRecommendationCollection = createAsyncThunk(
     "products/fetchRecommendationCollection",
     async (_, {rejectWithValue, getState}) => {
         try {
-            const language = getState().language.currentLanguage;
+            const language = getState().language.selectedLanguage;
             const response = await axios.get(
                 `${API_URL}/collections/rec?lang=${language}`
             );
@@ -181,7 +179,7 @@ const productsSlice = createSlice({
     name: "products",
     initialState: {
         data: [],
-        selectedProduct: null,
+        selectedProduct: [],
         selectedCollection: null,
         productsInCollection: [],
         popularProducts: [],
@@ -198,14 +196,14 @@ const productsSlice = createSlice({
         setInputValue: (state, action) => {
             state.inputValue = action.payload;
         },
-        resetFiltered: (state) => {
-            state.filteredProducts = [];
-        },
         resetNewProducts: (state) => {
             state.newProducts = [];
         },
         resetProducts: (state) => {
             state.data = [];
+        },
+        setSelectedProduct: (state, action) => {
+            state.selectedProduct = action.payload;
         },
     },
 
@@ -269,11 +267,12 @@ const productsSlice = createSlice({
                 state.error = null;
             })
             .addCase(fetchProductById.fulfilled, (state, action) => {
+                state.loading = false;
                 state.selectedProduct = action.payload;
             })
             .addCase(fetchProductById.rejected, (state, action) => {
                 state.loading = false;
-                state.error = action.error.message;
+                state.error = action.payload || "Failed to fetch product";
             })
 
             .addCase(fetchCollectionById.pending, (state) => {
@@ -369,7 +368,7 @@ const productsSlice = createSlice({
     },
 });
 
-export const {setInputValue, resetNewProducts, resetProducts} =
+export const {setSelectedProduct, resetNewProducts, resetProducts} =
     productsSlice.actions;
 
 export default productsSlice.reducer;

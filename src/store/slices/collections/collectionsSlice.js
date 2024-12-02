@@ -2,8 +2,6 @@
 
 import { createAsyncThunk, createSlice } from "@reduxjs/toolkit";
 import axios from "axios";
-import { API_URI } from "../../../api/api.js";
-import header from "../../../../components/Header/Header.jsx";
 import { API_URL } from "@/store/api/api.js";
 
 export const fetchAllCollections = createAsyncThunk(

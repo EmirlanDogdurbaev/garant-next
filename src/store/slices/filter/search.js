@@ -36,20 +36,22 @@ export const searchByInputValue = createAsyncThunk(
 );
 
 export const searchByPriceRange = createAsyncThunk(
-  "products/searchByPriceRange",
-  async (priceRange, { getState, dispatch, rejectWithValue }) => {
-    try {
-      dispatch(clearResults());
-      const language = getState().language.currentLanguage;
-      const response = await axios.get(
-        `${API_URL}/search?lang=${language}&price_min=${priceRange.min}&price_max=${priceRange.max}`
-      );
-      return [...response.data.collections, ...response.data.items];
-    } catch (error) {
-      return rejectWithValue(error.response?.data || "Failed to fetch data");
+    "products/searchByPriceRange",
+    async ({ priceRange, productType }, { getState, dispatch, rejectWithValue }) => {
+      try {
+        dispatch(clearResults());
+        const language = getState().language.currentLanguage;
+        const isProducer = productType === "iskender"; // Преобразуем тип продукта в `isProducer`
+        const response = await axios.get(
+            `${API_URL}/search?lang=${language}&is_producer=${isProducer}&price_min=${priceRange.min}&price_max=${priceRange.max}`
+        );
+        return [...response.data.collections, ...response.data.items];
+      } catch (error) {
+        return rejectWithValue(error.response?.data || "Failed to fetch data");
+      }
     }
-  }
 );
+
 
 export const fetchByProducerIsPainted = createAsyncThunk(
   "products/fetchByProducerIsPainted",

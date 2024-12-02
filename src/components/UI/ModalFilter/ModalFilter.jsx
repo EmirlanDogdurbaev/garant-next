@@ -52,8 +52,7 @@ function ModalFilter({ onClose }) {
 
         const priceRange = { min: minValue, max: maxValue };
         dispatch(setPriceRange(priceRange));
-        dispatch(searchByPriceRange(priceRange));
-        console.log('Filters submitted', { minValue, maxValue, productType });
+        dispatch(searchByPriceRange({ priceRange, productType }));
     };
 
     const handleClear = () => {

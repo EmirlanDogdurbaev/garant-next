@@ -5,6 +5,9 @@ import reviewsReducer from "./slices/reviews/reviewsSlice"
 import brandsReducer from "./slices/brands/brandsSlice"
 import searchReducer from "./slices/filter/search"
 import categoriesReducer from "./slices/categories/categoriesSlice"
+import vacanciesReducer from "./slices/vacancies/vacanciesSlice"
+import authReducer from "./slices/auth/authSlice"
+import collectionsReducer from "@/store/slices/collections/collectionsSlice";
 
 const store = configureStore({
     reducer: {
@@ -12,8 +15,11 @@ const store = configureStore({
         products: productReducer,
         reviews: reviewsReducer,
         brands: brandsReducer,
-        search:searchReducer,
-        categories: categoriesReducer
+        search: searchReducer,
+        categories: categoriesReducer,
+        vacancies: vacanciesReducer,
+        auth: authReducer,
+        collections: collectionsReducer
     },
 });
 

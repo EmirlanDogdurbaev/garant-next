@@ -5,7 +5,7 @@ import {useTranslation} from "react-i18next";
 import {clearError, searchByInputValue, setInputValue} from "@/store/slices/filter/search";
 
 const SearchBar = () => {
-    const { t } = useTranslation();
+    const {t} = useTranslation();
     const dispatch = useDispatch();
     const [localInputValue, setLocalInputValue] = useState('');
     const inputValue = useSelector((state) => state.search.filters.inputValue); // Значение из Redux (можно использовать для синхронизации)
@@ -25,7 +25,6 @@ const SearchBar = () => {
             dispatch(searchByInputValue(localInputValue));
         }
     };
-
 
     return (
         <div className={styles.searchContainer}>
