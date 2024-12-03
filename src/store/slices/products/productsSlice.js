@@ -160,20 +160,25 @@ export const fetchDiscountProducts = createAsyncThunk(
 
 export const deleteProductById = createAsyncThunk(
     "products/deleteProductById",
-    async (id, {rejectWithValue}) => {
+    async (id, { rejectWithValue }) => {
         try {
-            const response = await axios.delete(`${API_URL}/items`, {
+            const response = await axios.delete(`http://127.0.0.1:8080/items`, {
                 headers: {
                     Authorization: `Bearer ${localStorage.getItem("token")}`,
                 },
-                data: {id},
+                data: { id },
             });
+
+            console.log(localStorage.getItem("token"))
+
+            console.log(response.data);
             return response.data;
         } catch (error) {
             return rejectWithValue(error.response?.data || error.message);
         }
     }
 );
+
 
 const productsSlice = createSlice({
     name: "products",

@@ -63,7 +63,7 @@ export default function CatalogPage() {
                                     >
                                         {item.isProducer && <span className={styles.brand}>iskender</span>}
                                         <div>
-                                            <img src={item.photos?.[0]?.url || placeholderImage} alt={item.name}/>
+                                            <img src={item.photos?.[0]?.url || ""} alt={item.name}/>
                                             <aside>
                                                 <h4>{item.name}</h4>
                                                 <div className={styles.line}/>

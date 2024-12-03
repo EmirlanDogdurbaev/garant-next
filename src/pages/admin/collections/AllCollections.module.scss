@@ -1,15 +1,11 @@
-.main {
-  background-color: #ffffff;
-  min-height: 100vh;
-}
-
-.AllProducts {
-  max-width: 1400px;
-  margin: 0 auto;
+.AllCollections {
   padding: 30px 0;
-  background-color: #ffffff;
+  background-color: #FFFFFF;
 
   .search {
+    padding: 30px 0;
+    max-width: 1400px;
+    margin: 0 auto;
     display: flex;
     gap: 10px;
 
@@ -32,24 +28,22 @@
     .add_btn {
       padding: 10px 20px;
       min-width: 200px;
-      border: 1px solid #4759ff;
+      border: 1px solid #4759FF;
       border-radius: 5px;
-      background-color: #4759ff;
+      background-color: #4759FF;
       color: white;
-
       font-size: 18px;
       display: flex;
       align-items: center;
       justify-content: center;
       gap: 10px;
       text-align: center;
-      a {
-        color: #ffffff;
-      }
     }
   }
 
   .tableContainer {
+    max-width: 1400px;
+    margin: 0 auto;
     min-height: 670px;
     width: 100%;
     border-radius: 8px;
@@ -69,10 +63,10 @@
     text-align: left;
   }
 
-  .customTable th,
-  .customTable td {
+  .customTable th, .customTable td {
     padding: 20px 15px;
     border-bottom: 1px solid #ddd;
+
   }
 
   .customTable th {
@@ -84,6 +78,7 @@
     display: flex;
     justify-content: flex-end;
     gap: 10px;
+
   }
 
   .actionButton {
@@ -106,7 +101,10 @@
     color: #6b7cff;
   }
 
+
   .pagination {
+    max-width: 1400px;
+    margin: 0 auto;
     display: flex;
     justify-content: flex-start;
     align-items: center;
@@ -136,4 +134,5 @@
       }
     }
   }
+
 }

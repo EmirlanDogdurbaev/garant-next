@@ -10,6 +10,7 @@ export const fetchAllCollections = createAsyncThunk(
     try {
       const response = await axios.get(`${API_URL}/getAllCollection`);
 
+      console.log(response.data)
       return response.data;
     } catch (error) {
       return rejectWithValue(error.response?.data || error.message);
