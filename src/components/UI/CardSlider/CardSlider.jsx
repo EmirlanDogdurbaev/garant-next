@@ -45,7 +45,7 @@ const CardSlider = ({cards}) => {
                             href={`/catalog/${card.collection_id ? "product" : "collection"}/${card.id}`}
                             className={styles.Product}
                         >
-                            {card.isProducer ? <span className={styles.brand}>iskender</span> : ""}
+                            {card.isProducer ? <span className={styles.brand}>Garant</span> : ""}
                             <div>
                                 <img src={card.photos?.[0]?.url || ""} alt={card.name}/>
                                 <aside>
