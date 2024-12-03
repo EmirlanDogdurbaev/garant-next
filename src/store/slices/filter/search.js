@@ -7,7 +7,7 @@ export const searchByCategory = createAsyncThunk(
   async (categoryId, { getState, dispatch, rejectWithValue }) => {
     try {
       dispatch(clearResults());
-      const language = getState().language.currentLanguage;
+      const language = getState().language.selectedLanguage;
       const response = await axios.get(
         `${API_URL}/items?category_id=${categoryId}&lang=${language}`
       );
@@ -24,7 +24,7 @@ export const searchByInputValue = createAsyncThunk(
   async (inputValue, { getState, dispatch, rejectWithValue }) => {
     try {
       dispatch(clearResults());
-      const language = getState().language.currentLanguage;
+      const language = getState().language.selectedLanguage;
       const response = await axios.get(
         `${API_URL}/search?lang=${language}&q=${inputValue}`
       );
@@ -40,7 +40,7 @@ export const searchByPriceRange = createAsyncThunk(
     async ({ priceRange, productType }, { getState, dispatch, rejectWithValue }) => {
       try {
         dispatch(clearResults());
-        const language = getState().language.currentLanguage;
+        const language = getState().language.selectedLanguage;
         const isProducer = productType === "iskender"; // Преобразуем тип продукта в `isProducer`
         const response = await axios.get(
             `${API_URL}/search?lang=${language}&is_producer=${isProducer}&price_min=${priceRange.min}&price_max=${priceRange.max}`
@@ -58,7 +58,7 @@ export const fetchByProducerIsPainted = createAsyncThunk(
   async (_, { getState, dispatch, rejectWithValue }) => {
     try {
       dispatch(clearResults());
-      const language = getState().language.currentLanguage;
+      const language = getState().language.selectedLanguage;
       const response = await axios.get(
         `${API_URL}/search?lang=${language}&is_producer=true&is_painted=true`
       );
@@ -75,7 +75,7 @@ export const fetchByDistributivFilter = createAsyncThunk(
   async (_, { getState, dispatch, rejectWithValue }) => {
     try {
       dispatch(clearResults());
-      const language = getState().language.currentLanguage;
+      const language = getState().language.selectedLanguage;
       const response = await axios.get(
         `${API_URL}/search?lang=${language}&is_producer=false`
       );
@@ -90,7 +90,7 @@ export const fetchByDistributivFilter = createAsyncThunk(
 export const fetchByProducerFilter = createAsyncThunk(
   "products/fetchByProducer",
   async (_, { getState }) => {
-    const language = getState().language.currentLanguage;
+    const language = getState().language.selectedLanguage;
     const response = await axios.get(
       `${API_URL}/search?lang=${language}&is_producer=true`
     );

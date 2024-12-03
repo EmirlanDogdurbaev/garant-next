@@ -9,9 +9,10 @@ export const login = createAsyncThunk(
     async ({password, username}, {rejectWithValue}) => {
         try {
             const response = await axios.post(`${API_URL}/login`, {
-                password,
-                username,
-            });
+                    password,
+                    username,
+                },
+                {headers: {"Content-Type": "application/json"}});
             const token = response.data.token;
 
             if (typeof window !== "undefined") {
@@ -21,6 +22,7 @@ export const login = createAsyncThunk(
 
             return {username, token};
         } catch (error) {
+            console.log(error)
             return rejectWithValue(error.response?.data || "Failed request");
         }
     }

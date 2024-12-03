@@ -1,9 +1,9 @@
 "use client";
 
-import {useEffect, useState, useMemo, useCallback, useRef} from "react";
-import {useRouter} from "next/router";
-import {useDispatch, useSelector} from "react-redux";
-import {useTranslation} from "react-i18next";
+import { useEffect, useState, useMemo, useCallback, useRef } from "react";
+import { useRouter } from "next/router";
+import { useDispatch, useSelector } from "react-redux";
+import { useTranslation } from "react-i18next";
 
 import Layout from "@/components/Layout/Layout";
 import CardSlider from "@/components/UI/CardSlider/CardSlider";
@@ -18,10 +18,10 @@ import {
     setSelectedProduct,
 } from "@/store/slices/products/productsSlice";
 
-const ProductDetailPage = ({initialData, initialLanguage}) => {
-    const {t} = useTranslation();
+const ProductDetailPage = ({ initialData, initialLanguage }) => {
+    const { t } = useTranslation();
     const router = useRouter();
-    const {id, type} = router.query;
+    const { id, type } = router.query;
 
     const dispatch = useDispatch();
     const language = useSelector((state) => state.language.selectedLanguage) || initialLanguage;
@@ -33,6 +33,7 @@ const ProductDetailPage = ({initialData, initialLanguage}) => {
 
     const previousCollectionId = useRef(null);
     const [currentIndex, setCurrentIndex] = useState(0);
+    const [selectedColor, setSelectedColor] = useState(null);
 
     useEffect(() => {
         if (!router.isReady) return;
@@ -49,7 +50,7 @@ const ProductDetailPage = ({initialData, initialLanguage}) => {
     useEffect(() => {
         if (product?.collection_id && product.collection_id !== previousCollectionId.current) {
             previousCollectionId.current = product.collection_id;
-            dispatch(fetchProductInCollection({collectionId: product.collection_id, language}));
+            dispatch(fetchProductInCollection({ collectionId: product.collection_id, language }));
         }
     }, [product?.collection_id, dispatch, language]);
 
@@ -57,26 +58,45 @@ const ProductDetailPage = ({initialData, initialLanguage}) => {
         dispatch(fetchRecommendationCollection(language));
     }, [dispatch, language]);
 
-    const thumbnails = useMemo(() => {
-        if (product?.photos && product.photos.length > 0) {
-            return product.photos.map((pic) => pic.url);
+    // Получение уникальных цветов
+    const uniqueColors = useMemo(() => {
+        if (product?.photos) {
+            return [...new Set(product.photos.map((photo) => photo.hashColor))];
         }
-        return [placeholderImage];
+        return [];
     }, [product]);
 
-    const mainImage = thumbnails.length > 0 ? thumbnails[currentIndex % thumbnails.length] : placeholderImage;
+
+    console.log(product)
+    // Фильтрация изображений по цвету
+    const filteredThumbnails = useMemo(() => {
+        if (selectedColor && product?.photos) {
+            return product.photos
+                .filter((photo) => photo.hash_color === selectedColor)
+                .map((photo) => photo.url);
+        }
+        if (product?.photos) {
+            return product.photos.map((photo) => photo.url);
+        }
+        return [placeholderImage];
+    }, [selectedColor, product]);
+
+    const mainImage =
+        filteredThumbnails.length > 0
+            ? filteredThumbnails[currentIndex % filteredThumbnails.length]
+            : placeholderImage;
 
     const handleNextImage = useCallback(() => {
-        if (thumbnails.length > 0) {
-            setCurrentIndex((currentIndex + 1) % thumbnails.length);
+        if (filteredThumbnails.length > 0) {
+            setCurrentIndex((currentIndex + 1) % filteredThumbnails.length);
         }
-    }, [currentIndex, thumbnails.length]);
+    }, [currentIndex, filteredThumbnails.length]);
 
     const handlePrevImage = useCallback(() => {
-        if (thumbnails.length > 0) {
-            setCurrentIndex((currentIndex - 1 + thumbnails.length) % thumbnails.length);
+        if (filteredThumbnails.length > 0) {
+            setCurrentIndex((currentIndex - 1 + filteredThumbnails.length) % filteredThumbnails.length);
         }
-    }, [currentIndex, thumbnails.length]);
+    }, [currentIndex, filteredThumbnails.length]);
 
     if (loading || !router.isReady) {
         return <div className={styles.loading}>{t("loading")}</div>;
@@ -84,7 +104,6 @@ const ProductDetailPage = ({initialData, initialLanguage}) => {
     if (!product || Object.keys(product).length === 0) {
         return <div className={styles.notFound}>{t("product_not_found")}</div>;
     }
-
 
     return (
         <Layout>
@@ -98,27 +117,27 @@ const ProductDetailPage = ({initialData, initialLanguage}) => {
                 <section className={styles.cont}>
                     <div className={styles.imageSection}>
                         <aside className={styles.box}>
-                            <img src={mainImage} alt={product?.name} className={styles.mainImage}/>
+                            <img src={mainImage} alt={product?.name} className={styles.mainImage} />
                             <span>
                                 <button
                                     className={styles.arrowButton}
                                     onClick={handlePrevImage}
-                                    disabled={thumbnails.length === 0}
+                                    disabled={filteredThumbnails.length === 0}
                                 >
                                     ⬅
                                 </button>
                                 <button
                                     className={styles.arrowButton}
                                     onClick={handleNextImage}
-                                    disabled={thumbnails.length === 0}
+                                    disabled={filteredThumbnails.length === 0}
                                 >
                                     ➡
                                 </button>
                             </span>
                         </aside>
-                        {thumbnails.length > 0 ? (
+                        {filteredThumbnails.length > 0 ? (
                             <div className={styles.thumbnailContainer}>
-                                {thumbnails.map((thumbnail, index) => (
+                                {filteredThumbnails.map((thumbnail, index) => (
                                     <img
                                         key={index}
                                         src={thumbnail}
@@ -135,22 +154,48 @@ const ProductDetailPage = ({initialData, initialLanguage}) => {
 
                     <div className={styles.infoSection}>
                         <h2 className={styles.title}>{product?.name}</h2>
-                        <p className={styles.price}>{product?.price} {t("currency")}</p>
+                        <p className={styles.price}>
+                            {product?.price} {t("currency")}
+                        </p>
                         <div className={styles.description}>
                             <h3>{t("description")}</h3>
                             <p>{product?.description}</p>
+                        </div>
+                        {/* Выбор цвета */}
+                        <div className={styles.colorFilter}>
+                            <h3>{t("filter_by_color")}</h3>
+                            <div className={styles.colorOptions}>
+                                {uniqueColors.map((color, index) => (
+                                    <button
+                                        key={index}
+                                        className={`${styles.colorButton} ${
+                                            selectedColor === color ? styles.active : ""
+                                        }`}
+                                        style={{ backgroundColor: color }}
+                                        onClick={() => setSelectedColor(color)}
+                                    >{color}</button>
+                                ))}
+                                <button
+                                    className={`${styles.colorButton} ${
+                                        selectedColor === null ? styles.active : ""
+                                    }`}
+                                    onClick={() => setSelectedColor(null)}
+                                >
+                                    {t("all_colors")}
+                                </button>
+                            </div>
                         </div>
                     </div>
                 </section>
 
                 <section className={styles.cont2}>
                     <h3>{t("detail_page.block1")}</h3>
-                    <CardSlider cards={collection || []}/>
+                    <CardSlider cards={collection || []} />
                 </section>
 
                 <section className={styles.cont2}>
                     <h3>{t("detail_page.block2")}</h3>
-                    <CardSlider cards={rec || []}/>
+                    <CardSlider cards={rec || []} />
                 </section>
             </div>
         </Layout>

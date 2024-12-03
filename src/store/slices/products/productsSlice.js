@@ -149,7 +149,7 @@ export const fetchDiscountProducts = createAsyncThunk(
             const language = getState().language.selectedLanguage;
             console.log(language);
             const response = await axios.get(`${API_URL}/discounts?lang=${language}`);
-            console.log(response.data)
+            console.table(response.data)
 
             return response.data;
         } catch (error) {

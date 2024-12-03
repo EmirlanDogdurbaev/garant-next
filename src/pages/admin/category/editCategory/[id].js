@@ -1,16 +1,17 @@
 import styles from "./editCategory.module.scss";
-import { useDispatch, useSelector } from "react-redux";
-import { useEffect, useState } from "react";
-import { fetchCategoriesById, updateCategory } from "@/store/slices/categories/categoriesSlice";
-import { useRouter } from "next/router";
+import {useDispatch, useSelector} from "react-redux";
+import {useEffect, useState} from "react";
+import {fetchCategoriesById, updateCategory} from "@/store/slices/categories/categoriesSlice";
+import {useRouter} from "next/router";
 import Link from "next/link";
+import AdminLayout from "@/pages/admin/layout";
 
 const EditCategory = () => {
     const router = useRouter();
-    const { id } = router.query;
+    const {id} = router.query;
     const dispatch = useDispatch();
 
-    const { category, status, error } = useSelector((state) => state.categories);
+    const {category, status, error} = useSelector((state) => state.categories);
 
     const [data, setData] = useState({
         ru: "",
@@ -50,12 +51,12 @@ const EditCategory = () => {
         }
 
         const categoryData = [
-            { language_code: "ru", name: data.ru.trim() },
-            { language_code: "en", name: data.en.trim() },
-            { language_code: "kgz", name: data.kgz.trim() },
+            {language_code: "ru", name: data.ru.trim()},
+            {language_code: "en", name: data.en.trim()},
+            {language_code: "kgz", name: data.kgz.trim()},
         ];
 
-        dispatch(updateCategory({ id, categoryData }))
+        dispatch(updateCategory({id, categoryData}))
             .unwrap()
             .then(() => {
                 alert("Категория успешно обновлена!");
@@ -67,54 +68,57 @@ const EditCategory = () => {
     };
 
     return (
-        <div className={styles.EditCategory}>
-            <section>
-                <h3>Изменить категорию</h3>
-            </section>
-            {status === "loading" ? (
-                <p>Загрузка данных...</p>
-            ) : (
-                <form onSubmit={handleFormSubmit}>
-                    <label>
-                        <h5>Название категории (Русский)</h5>
-                        <input
-                            type="text"
-                            placeholder="Введите название на русском"
-                            value={data.ru}
-                            onChange={(event) => handleInputChange(event, "ru")}
-                            disabled={status === "loading"}
-                        />
-                    </label>
-                    <label>
-                        <h5>Название категории (English)</h5>
-                        <input
-                            type="text"
-                            placeholder="Enter category name in English"
-                            value={data.en}
-                            onChange={(event) => handleInputChange(event, "en")}
-                            disabled={status === "loading"}
-                        />
-                    </label>
-                    <label>
-                        <h5>Название категории (Кыргызча)</h5>
-                        <input
-                            type="text"
-                            placeholder="Категорияны кыргызча жазыңыз"
-                            value={data.kgz}
-                            onChange={(event) => handleInputChange(event, "kgz")}
-                            disabled={status === "loading"}
-                        />
-                    </label>
-                    <button type="submit" disabled={status === "loading"}>
-                        {status === "loading" ? "Сохраняем..." : "Сохранить"}
-                    </button>
-                    <Link href="/admin/category">
-                       Отмена
-                    </Link>
-                    {error && <p className={styles.error}>Ошибка: {error}</p>}
-                </form>
-            )}
-        </div>
+        <AdminLayout>
+            <div className={styles.EditCategory}>
+                <section>
+                    <h3>Изменить категорию</h3>
+                </section>
+                {status === "loading" ? (
+                    <p>Загрузка данных...</p>
+                ) : (
+                    <form onSubmit={handleFormSubmit}>
+                        <label>
+                            <h5>Название категории (Русский)</h5>
+                            <input
+                                type="text"
+                                placeholder="Введите название на русском"
+                                value={data.ru}
+                                onChange={(event) => handleInputChange(event, "ru")}
+                                disabled={status === "loading"}
+                            />
+                        </label>
+                        <label>
+                            <h5>Название категории (English)</h5>
+                            <input
+                                type="text"
+                                placeholder="Enter category name in English"
+                                value={data.en}
+                                onChange={(event) => handleInputChange(event, "en")}
+                                disabled={status === "loading"}
+                            />
+                        </label>
+                        <label>
+                            <h5>Название категории (Кыргызча)</h5>
+                            <input
+                                type="text"
+                                placeholder="Категорияны кыргызча жазыңыз"
+                                value={data.kgz}
+                                onChange={(event) => handleInputChange(event, "kgz")}
+                                disabled={status === "loading"}
+                            />
+                        </label>
+                        <button type="submit" disabled={status === "loading"}>
+                            {status === "loading" ? "Сохраняем..." : "Сохранить"}
+                        </button>
+                        <Link href="/admin/category">
+                            Отмена
+                        </Link>
+                        {error && <p className={styles.error}>Ошибка: {error}</p>}
+                    </form>
+                )}
+            </div>
+
+        </AdminLayout>
     );
 };
 

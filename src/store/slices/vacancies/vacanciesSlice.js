@@ -8,7 +8,6 @@ export const fetchVacancies = createAsyncThunk(
         try {
             const language = getState().language.selectedLanguage;
 
-            console.log(language)
             const response = await axios.get(`${API_URL}/vacancies?lang=${language}`);
             console.log(response.data)
             return response.data;
@@ -41,7 +40,8 @@ export const fetchVacancyById = createAsyncThunk(
     "getVacancies/fetchVacancyById",
     async (id, {rejectWithValue}) => {
         try {
-            const response = await axios.get(`${API_URL}/vacancy/${id}`);
+            const response = await axios.get(`${API_URL}/vacancy?vacancy_id=${id}`);
+            console.log(response.data)
             return response.data;
         } catch (error) {
             return rejectWithValue(error.response?.data || error.message);
@@ -66,6 +66,32 @@ export const deleteVacancyById = createAsyncThunk(
     }
 );
 
+export const updateVacancy = createAsyncThunk(
+    "vacancies/updateVacancy",
+    async ({ data }, { rejectWithValue }) => {
+        try {
+            console.log(data)
+
+            const response = await axios.put(
+                `${API_URL}/vacancy`,
+                data, // Отправляем данные в указанном формате
+                {
+                    headers: {
+                        Authorization: `Bearer ${localStorage.getItem("token")}`, // Замените на реальный токен
+                        "Content-Type": "application/json",
+                    },
+                }
+            );
+            return response.data;
+        } catch (error) {
+            console.error("Failed to update vacancy:", error);
+            return rejectWithValue(error.response?.data || "Ошибка при обновлении вакансии");
+        }
+    }
+);
+
+
+
 export const getVacancy = createSlice({
     name: "vacancy",
     initialState: {
@@ -74,9 +100,31 @@ export const getVacancy = createSlice({
         status: "idle",
         error: null,
     },
-    reducers: {},
+    reducers: {
+        setSelectedVacancy(state, action) {
+            state.selectedVacancy = action.payload;
+        },
+    },
     extraReducers: (builder) => {
         builder
+
+            .addCase(updateVacancy.pending, (state) => {
+                state.status = "loading";
+                state.error = null;
+            })
+            .addCase(updateVacancy.fulfilled, (state, action) => {
+                state.status = "succeeded";
+                state.error = null;
+
+                const index = state.vacancies.findIndex((v) => v.id === action.payload.id);
+                if (index !== -1) {
+                    state.vacancies[index] = action.payload;
+                }
+            })
+            .addCase(updateVacancy.rejected, (state, action) => {
+                state.status = "failed";
+                state.error = action.payload;
+            })
 
             .addCase(fetchVacancies.pending, (state) => {
                 state.status = "loading";
@@ -129,5 +177,7 @@ export const getVacancy = createSlice({
             });
     },
 });
+
+export const {setSelectedVacancy} = getVacancy.actions;
 
 export default getVacancy.reducer;

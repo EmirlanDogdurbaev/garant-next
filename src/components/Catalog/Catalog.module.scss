@@ -124,8 +124,9 @@
 
 }
 
+
 .productCard {
-  min-width: 310px;
+  width: 250px;
   padding: 0 10px;
   text-align: center;
   height: 391px;
@@ -144,15 +145,16 @@
   }
 }
 
+
 .productImage {
-  max-width: 100%;
+  width: 100%;
   height: auto;
   margin-bottom: 10px;
   transition: .2s ease-in all;
 }
 
 .productCard:hover .productImage {
-  transform: scale(1.09);
+  transform: scale(1.02);
 }
 
 .brandLabel {
@@ -302,3 +304,4 @@
   }
 
 }
+

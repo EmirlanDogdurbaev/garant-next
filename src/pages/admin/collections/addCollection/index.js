@@ -2,6 +2,7 @@ import styles from "./AddCollection.module.scss";
 import {useState} from "react";
 import axios from "axios";
 import {API_URL} from "@/store/api/api";
+import AdminLayout from "@/pages/admin/layout";
 
 const AddCollection = () => {
     const [formState, setFormState] = useState({
@@ -105,31 +106,31 @@ const AddCollection = () => {
 
 
     return (
+        <AdminLayout>
+            <div className={styles.AddCollection}>
+                <div className={styles.inner}>
+                    <section className={styles.title}>
+                        <h2>Коллекции / добавить товар </h2>
+                        <div className={styles.line}></div>
+                    </section>
 
-        <div className={styles.AddCollection}>
-            <div className={styles.inner}>
-                <section className={styles.title}>
-                    <h2>Коллекции / добавить товар </h2>
-                    <div className={styles.line}></div>
-                </section>
+                    <main className={styles.Form}>
+                        <form onSubmit={handleSubmit}>
+                            <section className={styles.title}>
+                                <h2>Коллекции / Создать новую коллекцию</h2>
+                                <div className={styles.line}></div>
+                            </section>
 
-                <main className={styles.Form}>
-                    <form onSubmit={handleSubmit}>
-                        <section className={styles.title}>
-                            <h2>Коллекции / Создать новую коллекцию</h2>
-                            <div className={styles.line}></div>
-                        </section>
-
-                        {formState.collections.map((collection, index) => (
-                            <section key={index} className={styles.info_container}>
-                                <h4>
-                                    {collection.language_code === "ru"
-                                        ? "Русский"
-                                        : collection.language_code === "kgz"
-                                            ? "Кыргызча"
-                                            : "English"}
-                                </h4>
-                                <span>
+                            {formState.collections.map((collection, index) => (
+                                <section key={index} className={styles.info_container}>
+                                    <h4>
+                                        {collection.language_code === "ru"
+                                            ? "Русский"
+                                            : collection.language_code === "kgz"
+                                                ? "Кыргызча"
+                                                : "English"}
+                                    </h4>
+                                    <span>
               <label>
                 <h5>
                   {collection.language_code === "ru"
@@ -165,162 +166,164 @@ const AddCollection = () => {
                 />
               </label>
             </span>
-                                <label htmlFor="" className={styles.textarea}>
-                                    <h5>
-                                        {collection.language_code === "ru"
-                                            ? "Описание"
-                                            : collection.language_code === "kgz"
-                                                ? "Суроттомо"
-                                                : "Description"}
-                                    </h5>
-                                    <textarea
-                                        cols="180"
-                                        rows="10"
-                                        placeholder="Описание коллекции"
-                                        value={collection.description}
-                                        onChange={(e) =>
-                                            handleCollectionChange(index, "description", e.target.value)
-                                        }
-                                    />
-                                </label>
-                            </section>
-                        ))}
+                                    <label htmlFor="" className={styles.textarea}>
+                                        <h5>
+                                            {collection.language_code === "ru"
+                                                ? "Описание"
+                                                : collection.language_code === "kgz"
+                                                    ? "Суроттомо"
+                                                    : "Description"}
+                                        </h5>
+                                        <textarea
+                                            cols="180"
+                                            rows="10"
+                                            placeholder="Описание коллекции"
+                                            value={collection.description}
+                                            onChange={(e) =>
+                                                handleCollectionChange(index, "description", e.target.value)
+                                            }
+                                        />
+                                    </label>
+                                </section>
+                            ))}
 
-                        <div className={styles.filters}>
-                            <div className={styles.group}>
-                                <h5>Производство</h5>
-                                <label>
-                                    <input
-                                        type="radio"
-                                        name="isProducer"
-                                        value={true}
-                                        checked={formState.isProducer === true}
-                                        onChange={() => handleFormChange("isProducer", true)}
-                                    />
-                                    Производитель
-                                </label>
-                                <label>
-                                    <input
-                                        type="radio"
-                                        name="isProducer"
-                                        value={false}
-                                        checked={formState.isProducer === false}
-                                        onChange={() => handleFormChange("isProducer", false)}
-                                    />
-                                    Дистрибьютор
-                                </label>
+                            <div className={styles.filters}>
+                                <div className={styles.group}>
+                                    <h5>Производство</h5>
+                                    <label>
+                                        <input
+                                            type="radio"
+                                            name="isProducer"
+                                            value={true}
+                                            checked={formState.isProducer === true}
+                                            onChange={() => handleFormChange("isProducer", true)}
+                                        />
+                                        Производитель
+                                    </label>
+                                    <label>
+                                        <input
+                                            type="radio"
+                                            name="isProducer"
+                                            value={false}
+                                            checked={formState.isProducer === false}
+                                            onChange={() => handleFormChange("isProducer", false)}
+                                        />
+                                        Дистрибьютор
+                                    </label>
+                                </div>
+
+                                <div className={styles.group}>
+                                    <h5>Отделка</h5>
+                                    <label>
+                                        <input
+                                            type="radio"
+                                            name="isPainted"
+                                            value={true}
+                                            checked={formState.isPainted === true}
+                                            onChange={() => handleFormChange("isPainted", true)}
+                                        />
+                                        Крашеная
+                                    </label>
+                                    <label>
+                                        <input
+                                            type="radio"
+                                            name="isPainted"
+                                            value={false}
+                                            checked={formState.isPainted === false}
+                                            onChange={() => handleFormChange("isPainted", false)}
+                                        />
+                                        Не крашеная
+                                    </label>
+                                </div>
+
+                                <div className={styles.group}>
+                                    <h5>Дополнительно</h5>
+                                    <label>
+                                        <input
+                                            type="checkbox"
+                                            checked={formState.isPopular}
+                                            onChange={() =>
+                                                handleFormChange("isPopular", !formState.isPopular)
+                                            }
+                                        />
+                                        Популярный товар
+                                    </label>
+                                    <label>
+                                        <input
+                                            type="checkbox"
+                                            checked={formState.isNew}
+                                            onChange={() => handleFormChange("isNew", !formState.isNew)}
+                                        />
+                                        Новый товар (новинка)
+                                    </label>
+                                </div>
                             </div>
 
-                            <div className={styles.group}>
-                                <h5>Отделка</h5>
-                                <label>
-                                    <input
-                                        type="radio"
-                                        name="isPainted"
-                                        value={true}
-                                        checked={formState.isPainted === true}
-                                        onChange={() => handleFormChange("isPainted", true)}
-                                    />
-                                    Крашеная
-                                </label>
-                                <label>
-                                    <input
-                                        type="radio"
-                                        name="isPainted"
-                                        value={false}
-                                        checked={formState.isPainted === false}
-                                        onChange={() => handleFormChange("isPainted", false)}
-                                    />
-                                    Не крашеная
-                                </label>
-                            </div>
-
-                            <div className={styles.group}>
-                                <h5>Дополнительно</h5>
-                                <label>
-                                    <input
-                                        type="checkbox"
-                                        checked={formState.isPopular}
-                                        onChange={() =>
-                                            handleFormChange("isPopular", !formState.isPopular)
-                                        }
-                                    />
-                                    Популярный товар
-                                </label>
-                                <label>
-                                    <input
-                                        type="checkbox"
-                                        checked={formState.isNew}
-                                        onChange={() => handleFormChange("isNew", !formState.isNew)}
-                                    />
-                                    Новый товар (новинка)
-                                </label>
-                            </div>
-                        </div>
-
-                        <div className={styles.photos}>
-                            <p>Фотографии</p>
-                            <div className={styles.grid}>
-                                {photos.map((photo, index) => (
-                                    <div key={index} className={styles.cardWrapper}>
-                                        <div className={styles.card} style={{height: "300px", width: "300px"}}>
-                                            {photo.file ? (
-                                                <img
-                                                    src={URL.createObjectURL(photo.file)}
-                                                    alt={`Фото ${index + 1}`}
-                                                />
-                                            ) : (
+                            <div className={styles.photos}>
+                                <p>Фотографии</p>
+                                <div className={styles.grid}>
+                                    {photos.map((photo, index) => (
+                                        <div key={index} className={styles.cardWrapper}>
+                                            <div className={styles.card} style={{height: "300px", width: "300px"}}>
+                                                {photo.file ? (
+                                                    <img
+                                                        src={URL.createObjectURL(photo.file)}
+                                                        alt={`Фото ${index + 1}`}
+                                                    />
+                                                ) : (
+                                                    <input
+                                                        style={{height: "300px", width: "300px"}}
+                                                        type="file"
+                                                        onChange={(e) => handleFileChange(index, e.target.files[0])}
+                                                    />
+                                                )}
+                                            </div>
+                                            <div className={styles.colors}>
+                                                <label>
+                                                    <input
+                                                        type="radio"
+                                                        name={`main-photo`}
+                                                        checked={photo.isMain}
+                                                        onChange={() =>
+                                                            handlePhotoFieldChange(index, "isMain", true)
+                                                        }
+                                                    />
+                                                    Главная
+                                                </label>
                                                 <input
-                                                    style={{height: "300px", width: "300px"}}
-                                                    type="file"
-                                                    onChange={(e) => handleFileChange(index, e.target.files[0])}
-                                                />
-                                            )}
-                                        </div>
-                                        <div className={styles.colors}>
-                                            <label>
-                                                <input
-                                                    type="radio"
-                                                    name={`main-photo`}
-                                                    checked={photo.isMain}
-                                                    onChange={() =>
-                                                        handlePhotoFieldChange(index, "isMain", true)
+                                                    type="color"
+                                                    value={photo.hashColor}
+                                                    onChange={(e) =>
+                                                        handlePhotoFieldChange(index, "hashColor", e.target.value)
                                                     }
                                                 />
-                                                Главная
-                                            </label>
-                                            <input
-                                                type="color"
-                                                value={photo.hashColor}
-                                                onChange={(e) =>
-                                                    handlePhotoFieldChange(index, "hashColor", e.target.value)
-                                                }
-                                            />
-                                            <button
-                                                type="button"
-                                                onClick={() => handleRemovePhoto(index)}
-                                            >
-                                                Удалить
-                                            </button>
+                                                <button
+                                                    type="button"
+                                                    onClick={() => handleRemovePhoto(index)}
+                                                >
+                                                    Удалить
+                                                </button>
+                                            </div>
                                         </div>
-                                    </div>
-                                ))}
-                                <button type="button" onClick={handleAddPhoto}
-                                        style={{height: "300px", width: "300px"}}>
-                                    Добавить фото
-                                </button>
+                                    ))}
+                                    <button type="button" onClick={handleAddPhoto}
+                                            style={{height: "300px", width: "300px"}}>
+                                        Добавить фото
+                                    </button>
+                                </div>
                             </div>
-                        </div>
 
-                        <button type="submit" className={styles.saveButton}>
-                            Сохранить
-                        </button>
+                            <button type="submit" className={styles.saveButton}>
+                                Сохранить
+                            </button>
 
-                        {error && <p style={{color: "red"}}>{error}</p>}
-                    </form>
-                </main>
+                            {error && <p style={{color: "red"}}>{error}</p>}
+                        </form>
+                    </main>
+                </div>
             </div>
-        </div>
+
+        </AdminLayout>
     )
 }
 

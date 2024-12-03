@@ -27,17 +27,17 @@ const Catalog = () => {
     return (
         <div className={styles.catalog}>
             <section className={styles.title}>
-                <h3>{t("page.title")}</h3>
-                <Link href={"/page"}> {t("page.link")}</Link>
+                <h3>{t("catalog.title")}</h3>
+                <Link href={"/catalog"}> {t("catalog.link")}</Link>
             </section>
 
             <section className={styles.section}>
                 <div className={styles.sectionContent}>
-                    <h2>{t("page.subtitle1")}</h2>
+                    <h2>{t("catalog.subtitle1")}</h2>
                     <p>
-                        {t("page.description1")}
+                        {t("catalog.description1")}
                     </p>
-                    <Link href={"/page"} className={styles.link}>{t("page.link")}</Link>
+                    <Link href={"/page"} className={styles.link}>{t("catalog.link")}</Link>
                 </div>
                 <div className={styles.productGrid}>
                     {topProductsToShow.map(product => (
@@ -45,10 +45,10 @@ const Catalog = () => {
                               key={product.id} className={styles.productCard}>
                             <div className={styles.brandLabel}>Garant</div>
                             <img
-                                src={"axaxa"}
+                                src={product.photos[0].url}
                                 alt="Описание изображения"
-                                width={300}
-                                height={300}
+                                className={styles.productImage}
+
                             />
                             <aside className={styles.productAside}>
                                 <h3 className={styles.productName}>{product.name}</h3>
@@ -61,17 +61,17 @@ const Catalog = () => {
 
             <section className={styles.section}>
                 <div className={styles.sectionContent_black}>
-                    <h2>{t("page.subtitle2")}</h2>
+                    <h2>{t("catalog.subtitle2")}</h2>
                     <p>
-                        {t("page.description2")}
+                        {t("catalog.description2")}
                     </p>
-                    <Link href={"/page"} className={styles.link}>{t("page.link2")}</Link>
+                    <Link href={"/page"} className={styles.link}>{t("catalog.link2")}</Link>
                 </div>
                 <div className={styles.productGrid}>
                     {bottomProductsToShow.map(product => (
                         <Link href={`/catalog/${product.collection_id ? "product" : "collection"}/${product.id}`}
                               key={product.id} className={styles.productCard}>
-                            <img src={img} alt={product.name} className={styles.productImage}/>
+                            <img   src={product.photos[0].url} alt={product.name} className={styles.productImage}/>
                             <aside className={styles.productAside}>
                                 <h3 className={styles.productName}>{product.name}</h3>
                                 <p className={styles.productPrice}>{product.price}</p>

@@ -7,10 +7,11 @@ import {fetchAllCollections} from "@/store/slices/collections/collectionsSlice";
 import {fetchCategories} from "@/store/slices/categories/categoriesSlice";
 import {useRouter} from "next/router";
 import {API_URL} from "@/store/api/api";
+import AdminLayout from "@/pages/admin/layout";
 
 const UpdateProducts = () => {
     const router = useRouter();
-    const {id} = router.query ;
+    const {id} = router.query;
 
     const dispatch = useDispatch();
     const categoriesList = useSelector((state) => state.categories.categories);
@@ -43,7 +44,7 @@ const UpdateProducts = () => {
         }),
     };
     useEffect(() => {
-        if (!id) return; // Ожидаем загрузки параметров маршрута
+        if (!id) return;
 
         dispatch(fetchAllCollections());
         dispatch(fetchCategories());
@@ -182,163 +183,166 @@ const UpdateProducts = () => {
 
     if (loading) return <p>Загрузка...</p>;
     return (
-        <div className={styles.AddCollection}>
-            <div className={styles.inner}>
-                <section className={styles.title}>
-                    <h2>Коллекции / добавить товар</h2>
-                    <div className={styles.line}></div>
-                </section>
+        <AdminLayout>
+            <div className={styles.AddCollection}>
+                <div className={styles.inner}>
+                    <section className={styles.title}>
+                        <h2>Коллекции / добавить товар</h2>
+                        <div className={styles.line}></div>
+                    </section>
 
-                <form onSubmit={handleSubmit}>
-                    {/* Select for categories */}
-                    <div className={styles.select_section}>
-                        <h3>Выберите категорию</h3>
-                        <Select
-                            options={categoriesList.map((category) => ({
-                                value: category.id,
-                                label: category.name,
-                            }))}
-                            styles={customStyles}
-                            name="category"
-                            placeholder="Выберите категорию"
-                            onChange={(selectedOption) =>
-                                handleFormChange("category_id", selectedOption.value)
-                            }
-                        />
-                    </div>
-
-                    {/* Select for collections */}
-                    <div className={styles.select_section}>
-                        <h3>Выберите коллекцию</h3>
-                        <Select
-                            options={collectionsList.map((collection) => ({
-                                value: collection.ID,
-                                label: collection.name,
-                            }))}
-                            styles={customStyles}
-                            name="collection"
-                            placeholder="Выберите коллекцию"
-                            onChange={(selectedOption) =>
-                                handleFormChange("collection_id", selectedOption.value)
-                            }
-                        />
-                    </div>
-
-                    {formState.items.map((item, index) => (
-                        <section key={index} className={styles.info_container}>
-                            <h4>
-                                {item.language_code === "ru"
-                                    ? "Русский"
-                                    : item.language_code === "kgz"
-                                        ? "Кыргызча"
-                                        : "English"}
-                            </h4>
-                            <label>
-                                <h5>Название</h5>
-                                <input
-                                    type="text"
-                                    placeholder="Название"
-                                    value={item.name}
-                                    onChange={(e) =>
-                                        handleCollectionChange(index, "name", e.target.value)
-                                    }
-                                />
-                            </label>
-                            <label>
-                                <h5>Описание</h5>
-                                <textarea
-                                    placeholder="Описание"
-                                    value={item.description}
-                                    onChange={(e) =>
-                                        handleCollectionChange(index, "description", e.target.value)
-                                    }
-                                />
-                            </label>
-                        </section>
-                    ))}
-
-                    <div className={styles.filters}>
-                        <label>
-                            <input
-                                type="checkbox"
-                                checked={formState.isPopular}
-                                onChange={() =>
-                                    handleFormChange("isPopular", !formState.isPopular)
+                    <form onSubmit={handleSubmit}>
+                        {/* Select for categories */}
+                        <div className={styles.select_section}>
+                            <h3>Выберите категорию</h3>
+                            <Select
+                                options={categoriesList.map((category) => ({
+                                    value: category.id,
+                                    label: category.name,
+                                }))}
+                                styles={customStyles}
+                                name="category"
+                                placeholder="Выберите категорию"
+                                onChange={(selectedOption) =>
+                                    handleFormChange("category_id", selectedOption.value)
                                 }
                             />
-                            Популярный товар
-                        </label>
-                        <label>
-                            <input
-                                type="checkbox"
-                                checked={formState.isNew}
-                                onChange={() => handleFormChange("isNew", !formState.isNew)}
-                            />
-                            Новый товар (новинка)
-                        </label>
-                    </div>
+                        </div>
 
-                    <div className={styles.photos}>
-                        <p>Фотографии</p>
-                        <div className={styles.grid}>
-                            {photos.map((photo, index) => (
-                                <div key={index} className={styles.cardWrapper}>
-                                    <div className={styles.card} style={{height: "300px", width: "300px"}}>
-                                        {photo.file ? (
-                                            <img
-                                                src={URL.createObjectURL(photo.file)}
-                                                alt={`Фото ${index + 1}`}
-                                            />
-                                        ) : (
+                        {/* Select for collections */}
+                        <div className={styles.select_section}>
+                            <h3>Выберите коллекцию</h3>
+                            <Select
+                                options={collectionsList.map((collection) => ({
+                                    value: collection.ID,
+                                    label: collection.name,
+                                }))}
+                                styles={customStyles}
+                                name="collection"
+                                placeholder="Выберите коллекцию"
+                                onChange={(selectedOption) =>
+                                    handleFormChange("collection_id", selectedOption.value)
+                                }
+                            />
+                        </div>
+
+                        {formState.items.map((item, index) => (
+                            <section key={index} className={styles.info_container}>
+                                <h4>
+                                    {item.language_code === "ru"
+                                        ? "Русский"
+                                        : item.language_code === "kgz"
+                                            ? "Кыргызча"
+                                            : "English"}
+                                </h4>
+                                <label>
+                                    <h5>Название</h5>
+                                    <input
+                                        type="text"
+                                        placeholder="Название"
+                                        value={item.name}
+                                        onChange={(e) =>
+                                            handleCollectionChange(index, "name", e.target.value)
+                                        }
+                                    />
+                                </label>
+                                <label>
+                                    <h5>Описание</h5>
+                                    <textarea
+                                        placeholder="Описание"
+                                        value={item.description}
+                                        onChange={(e) =>
+                                            handleCollectionChange(index, "description", e.target.value)
+                                        }
+                                    />
+                                </label>
+                            </section>
+                        ))}
+
+                        <div className={styles.filters}>
+                            <label>
+                                <input
+                                    type="checkbox"
+                                    checked={formState.isPopular}
+                                    onChange={() =>
+                                        handleFormChange("isPopular", !formState.isPopular)
+                                    }
+                                />
+                                Популярный товар
+                            </label>
+                            <label>
+                                <input
+                                    type="checkbox"
+                                    checked={formState.isNew}
+                                    onChange={() => handleFormChange("isNew", !formState.isNew)}
+                                />
+                                Новый товар (новинка)
+                            </label>
+                        </div>
+
+                        <div className={styles.photos}>
+                            <p>Фотографии</p>
+                            <div className={styles.grid}>
+                                {photos.map((photo, index) => (
+                                    <div key={index} className={styles.cardWrapper}>
+                                        <div className={styles.card} style={{height: "300px", width: "300px"}}>
+                                            {photo.file ? (
+                                                <img
+                                                    src={URL.createObjectURL(photo.file)}
+                                                    alt={`Фото ${index + 1}`}
+                                                />
+                                            ) : (
+                                                <input
+                                                    style={{height: "300px", width: "300px"}}
+                                                    type="file"
+                                                    onChange={(e) => handleFileChange(index, e.target.files[0])}
+                                                />
+                                            )}
+                                        </div>
+                                        <div className={styles.colors}>
+                                            <label>
+                                                <input
+                                                    type="radio"
+                                                    name={`main-photo`}
+                                                    checked={photo.isMain}
+                                                    onChange={() =>
+                                                        handlePhotoFieldChange(index, "isMain", true)
+                                                    }
+                                                />
+                                                Главная
+                                            </label>
                                             <input
-                                                style={{height: "300px", width: "300px"}}
-                                                type="file"
-                                                onChange={(e) => handleFileChange(index, e.target.files[0])}
-                                            />
-                                        )}
-                                    </div>
-                                    <div className={styles.colors}>
-                                        <label>
-                                            <input
-                                                type="radio"
-                                                name={`main-photo`}
-                                                checked={photo.isMain}
-                                                onChange={() =>
-                                                    handlePhotoFieldChange(index, "isMain", true)
+                                                type="color"
+                                                value={photo.hashColor}
+                                                onChange={(e) =>
+                                                    handlePhotoFieldChange(index, "hashColor", e.target.value)
                                                 }
                                             />
-                                            Главная
-                                        </label>
-                                        <input
-                                            type="color"
-                                            value={photo.hashColor}
-                                            onChange={(e) =>
-                                                handlePhotoFieldChange(index, "hashColor", e.target.value)
-                                            }
-                                        />
-                                        <button
-                                            type="button"
-                                            onClick={() => handleRemovePhoto(index)}
-                                        >
-                                            Удалить
-                                        </button>
+                                            <button
+                                                type="button"
+                                                onClick={() => handleRemovePhoto(index)}
+                                            >
+                                                Удалить
+                                            </button>
+                                        </div>
                                     </div>
-                                </div>
-                            ))}
-                            <button type="button" onClick={handleAddPhoto} style={{height: "300px", width: "300px"}}>
-                                Добавить фото
-                            </button>
+                                ))}
+                                <button type="button" onClick={handleAddPhoto}
+                                        style={{height: "300px", width: "300px"}}>
+                                    Добавить фото
+                                </button>
+                            </div>
                         </div>
-                    </div>
 
 
-                    <button type="submit" className={styles.saveButton}>
-                        Сохранить
-                    </button>
-                    {error && <p style={{color: "red"}}>{error}</p>}
-                </form>
+                        <button type="submit" className={styles.saveButton}>
+                            Сохранить
+                        </button>
+                        {error && <p style={{color: "red"}}>{error}</p>}
+                    </form>
+                </div>
             </div>
-        </div>
+        </AdminLayout>
     );
 };
 
