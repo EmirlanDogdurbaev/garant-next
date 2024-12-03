@@ -8,12 +8,14 @@ import Link from "next/link";
 const AllVacancy = () => {
     const dispatch = useDispatch();
 
-    const {vacancies} = useSelector((state) => state.vacancies);
+    const {vacancies} = useSelector((state) => state.vacancy.vacancies);
 
     useEffect(() => {
         dispatch(fetchVacancies());
     }, [dispatch]);
 
+
+    console.log(vacancies)
 
     const handleDelete = (id) => {
         dispatch(deleteVacancyById(id))
