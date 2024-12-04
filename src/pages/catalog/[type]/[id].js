@@ -109,7 +109,7 @@ const ProductDetailPage = ({ initialData, initialLanguage }) => {
         <Layout>
             <div className={styles.ProductDetail}>
                 <div className={styles.back_link}>
-                    <a onClick={() => router.push(`/catalog`)}>
+                    <a onClick={() => router.push(`/catalog`)} className={styles.linkk}>
                         {t("category")} / <span>{product?.name || collection?.name}</span>
                     </a>
                 </div>
@@ -148,7 +148,7 @@ const ProductDetailPage = ({ initialData, initialLanguage }) => {
                                 ))}
                             </div>
                         ) : (
-                            <p>{t("no_images")}</p>
+                            <p></p>
                         )}
                     </div>
 
@@ -160,30 +160,6 @@ const ProductDetailPage = ({ initialData, initialLanguage }) => {
                         <div className={styles.description}>
                             <h3>{t("description")}</h3>
                             <p>{product?.description}</p>
-                        </div>
-                        {/* Выбор цвета */}
-                        <div className={styles.colorFilter}>
-                            <h3>{t("filter_by_color")}</h3>
-                            <div className={styles.colorOptions}>
-                                {uniqueColors.map((color, index) => (
-                                    <button
-                                        key={index}
-                                        className={`${styles.colorButton} ${
-                                            selectedColor === color ? styles.active : ""
-                                        }`}
-                                        style={{ backgroundColor: color }}
-                                        onClick={() => setSelectedColor(color)}
-                                    >{color}</button>
-                                ))}
-                                <button
-                                    className={`${styles.colorButton} ${
-                                        selectedColor === null ? styles.active : ""
-                                    }`}
-                                    onClick={() => setSelectedColor(null)}
-                                >
-                                    {t("all_colors")}
-                                </button>
-                            </div>
                         </div>
                     </div>
                 </section>

@@ -18,7 +18,7 @@ export const fetchCollectionById = createAsyncThunk(
 );
 export const fetchProductById = createAsyncThunk(
     "products/fetchProductById",
-    async (productId, { getState, rejectWithValue }) => {
+    async (productId, {getState, rejectWithValue}) => {
         const language = getState().language.selectedLanguage;
         try {
             const response = await axios.get(
@@ -26,7 +26,6 @@ export const fetchProductById = createAsyncThunk(
             );
             return response.data;
         } catch (error) {
-            console.error("Error fetching product:", error.response?.data || error.message);
             return rejectWithValue(error.response?.data || "Failed to fetch product");
         }
     }
@@ -160,18 +159,14 @@ export const fetchDiscountProducts = createAsyncThunk(
 
 export const deleteProductById = createAsyncThunk(
     "products/deleteProductById",
-    async (id, { rejectWithValue }) => {
+    async (id, {rejectWithValue}) => {
         try {
             const response = await axios.delete(`http://127.0.0.1:8080/items`, {
                 headers: {
                     Authorization: `Bearer ${localStorage.getItem("token")}`,
                 },
-                data: { id },
+                data: {id},
             });
-
-            console.log(localStorage.getItem("token"))
-
-            console.log(response.data);
             return response.data;
         } catch (error) {
             return rejectWithValue(error.response?.data || error.message);
@@ -272,12 +267,13 @@ const productsSlice = createSlice({
                 state.error = null;
             })
             .addCase(fetchProductById.fulfilled, (state, action) => {
-                state.loading = false;
                 state.selectedProduct = action.payload;
+                state.loading = false;
+                state.error = null;
             })
             .addCase(fetchProductById.rejected, (state, action) => {
                 state.loading = false;
-                state.error = action.payload || "Failed to fetch product";
+                state.error = "Failed to fetch product";
             })
 
             .addCase(fetchCollectionById.pending, (state) => {
@@ -290,7 +286,7 @@ const productsSlice = createSlice({
             })
             .addCase(fetchCollectionById.rejected, (state, action) => {
                 state.loading = false;
-                state.error = action.error.message;
+                state.error = 'failed request';
             })
 
             .addCase(fetchProductInCollection.pending, (state) => {

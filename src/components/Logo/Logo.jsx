@@ -3,13 +3,14 @@
 import React from 'react';
 import styles from "./Logo.module.scss";
 import Link from "next/link";
+import logo from "../../../public/logo.svg"
 
 const Logo = () => {
     return (
-        <div className={styles.logo}>
-            <Link href="/">Garant premium</Link>
-            <span className={styles.subtitle}>Sanitary ware</span>
-        </div>
+        <>
+            <Link href={"/"} className={styles.logo}>
+                <img src={logo} alt=""/>
+            </Link></>
 
     );
 };

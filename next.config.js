@@ -7,6 +7,7 @@ const nextConfig = {
     localeDetection: false,
   },
   trailingSlash: true,
+
 }
 
 module.exports = nextConfig
