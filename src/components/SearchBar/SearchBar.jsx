@@ -3,6 +3,7 @@ import {useEffect, useState} from 'react';
 import styles from './SearchBar.module.scss';
 import {useTranslation} from "react-i18next";
 import {clearError, searchByInputValue, setInputValue} from "@/store/slices/filter/search";
+import React from 'react';
 
 const SearchBar = () => {
     const {t} = useTranslation();

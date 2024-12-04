@@ -4,9 +4,7 @@ import {deleteBrand, fetchBrands} from "@/store/slices/brands/brandsSlice";
 import AdminLayout from "@/pages/admin/layout";
 import styles from "@/pages/admin/category/category.module.scss";
 import Link from "next/link";
-import {deleteCategory} from "@/store/slices/categories/categoriesSlice";
-
-
+import React from 'react';
 export default function allBrands() {
     const dispatch = useDispatch()
 

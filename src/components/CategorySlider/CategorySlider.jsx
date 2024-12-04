@@ -5,6 +5,7 @@ import {Navigation} from 'swiper/modules';
 import {useDispatch, useSelector} from 'react-redux';
 import classes from './CategorySlider.module.scss';
 import {searchByCategory, setFilterCategory} from "@/store/slices/filter/search";
+import React from 'react';
 
 const CategorySlider = ({categories}) => {
     const dispatch = useDispatch();

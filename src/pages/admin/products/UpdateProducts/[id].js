@@ -8,6 +8,7 @@ import {fetchCategories} from "@/store/slices/categories/categoriesSlice";
 import {useRouter} from "next/router";
 import {API_URL} from "@/store/api/api";
 import AdminLayout from "@/pages/admin/layout";
+import React from 'react';
 
 const UpdateProducts = () => {
     const router = useRouter();

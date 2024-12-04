@@ -1,12 +1,11 @@
 import {useDispatch, useSelector} from 'react-redux';
 import styles from "./AllCollections.module.scss";
 import {useEffect, useState} from "react";
-import SearchBar from "@/components/SearchBar/SearchBar";
 import Link from "next/link";
 import AdminLayout from "@/pages/admin/layout";
 import {setPage} from "@/store/slices/pagination/pagination";
 import {API_URL} from "@/store/api/api";
-
+import React from 'react';
 const AllCollections = () => {
     const dispatch = useDispatch();
     const {currentPage, itemsPerPage2} = useSelector((state) => state.pagination);

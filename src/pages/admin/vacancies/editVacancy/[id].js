@@ -4,7 +4,7 @@ import { useRouter } from "next/router";
 import AdminLayout from "@/pages/admin/layout";
 import { fetchVacancyById, updateVacancy } from "@/store/slices/vacancies/vacanciesSlice";
 import styles from "./editVacancy.module.scss";
-
+import React from 'react';
 const EditVacancy = () => {
     const router = useRouter();
     const { id } = router.query;

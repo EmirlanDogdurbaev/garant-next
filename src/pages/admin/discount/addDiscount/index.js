@@ -7,6 +7,7 @@ import {fetchAllProducts} from "@/store/slices/products/productsSlice";
 import {fetchAllCollections} from "@/store/slices/collections/collectionsSlice";
 import {API_URL} from "@/store/api/api";
 import AdminLayout from "@/pages/admin/layout";
+import React from 'react';
 
 const addDiscount = () => {
     const [startDate, setStartDate] = useState('');

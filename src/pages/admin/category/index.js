@@ -4,7 +4,7 @@ import {useEffect} from "react";
 import {deleteCategory, fetchCategories} from "@/store/slices/categories/categoriesSlice";
 import Link from "next/link";
 import AdminLayout from "@/pages/admin/layout";
-
+import React from 'react';
 const AllCategory = () => {
     const dispatch = useDispatch();
     const categories = useSelector((state) => state.categories.categories);

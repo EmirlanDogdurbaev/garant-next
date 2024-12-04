@@ -2,10 +2,10 @@ import styles from "./AllVacancy.module.scss"
 import {useDispatch, useSelector} from "react-redux";
 import {useEffect} from "react";
 import {deleteVacancyById, fetchVacancies} from "@/store/slices/vacancies/vacanciesSlice";
-import SearchBar from "@/components/SearchBar/SearchBar";
 import Link from "next/link";
 import AdminLayout from "@/pages/admin/layout";
 import {setPage} from "@/store/slices/pagination/pagination";
+import React from 'react';
 
 const AllVacancy = () => {
     const dispatch = useDispatch();

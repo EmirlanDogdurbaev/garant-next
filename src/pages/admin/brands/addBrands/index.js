@@ -2,7 +2,7 @@ import {useState} from "react";
 import {useDispatch, useSelector} from "react-redux";
 import {createBrand} from "@/store/slices/brands/brandsSlice";
 import AdminLayout from "@/pages/admin/layout";
-
+import React from 'react';
 const AddBrand = () => {
     const [name, setName] = useState("");
     const [photo, setPhoto] = useState(null);

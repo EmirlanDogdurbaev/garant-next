@@ -3,7 +3,7 @@ import {useDispatch, useSelector} from "react-redux";
 import {useEffect} from "react";
 import {useTranslation} from "react-i18next";
 import {fetchBrands} from "@/store/slices/brands/brandsSlice";
-
+import React from 'react';
 const Brands = () => {
     const {t} = useTranslation();
     const dispatch = useDispatch();

@@ -4,6 +4,7 @@ import styles from './ModalFilter.module.scss';
 import "rc-slider/assets/index.css";
 import { useDispatch, useSelector } from "react-redux";
 import {searchByPriceRange, setPriceRange} from "@/store/slices/filter/search";
+import React from 'react';
 
 function ModalFilter({ onClose }) {
     const [isClosing, setIsClosing] = useState(false);

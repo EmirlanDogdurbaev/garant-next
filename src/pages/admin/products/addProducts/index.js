@@ -6,7 +6,7 @@ import {useDispatch, useSelector} from "react-redux";
 import {fetchAllCollections} from "@/store/slices/collections/collectionsSlice";
 import {fetchCategories} from "@/store/slices/categories/categoriesSlice";
 import AdminLayout from "@/pages/admin/layout";
-import {API_URL} from "@/store/api/api";
+import {API_URL} from "@/store/api/api";import React from 'react';
 
 const CreateProduct = () => {
     const dispatch = useDispatch();

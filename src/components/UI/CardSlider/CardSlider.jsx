@@ -2,7 +2,7 @@ import {Swiper, SwiperSlide} from 'swiper/react';
 import {Navigation, Pagination} from 'swiper/modules';
 import {useEffect, useRef} from 'react';
 import styles from './CardSlider.module.scss';
-
+import React from 'react';
 import ArrowButton from "../ArrowButton/ArrowButton.jsx";
 import Link from "next/link";
 

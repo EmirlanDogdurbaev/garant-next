@@ -5,7 +5,7 @@ import {useEffect} from "react";
 import {useTranslation} from "react-i18next";
 import {fetchByDistr, fetchByProducer} from "@/store/slices/products/productsSlice";
 import Link from "next/link";
-
+import React from 'react';
 const Catalog = () => {
     const {t} = useTranslation();
     const dispatch = useDispatch();

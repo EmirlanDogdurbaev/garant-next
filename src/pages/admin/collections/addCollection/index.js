@@ -3,6 +3,7 @@ import {useState} from "react";
 import axios from "axios";
 import {API_URL} from "@/store/api/api";
 import AdminLayout from "@/pages/admin/layout";
+import React from 'react';
 
 const AddCollection = () => {
     const [formState, setFormState] = useState({

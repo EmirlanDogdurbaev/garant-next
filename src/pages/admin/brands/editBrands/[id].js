@@ -1,9 +1,9 @@
 import {useState, useEffect} from "react";
 import {useDispatch, useSelector} from "react-redux";
-import {updateBrand, fetchBrandById} from "@/store/slices/brands/brandsSlice"; // Функции для работы с API
+import {updateBrand, fetchBrandById} from "@/store/slices/brands/brandsSlice";
 import {useRouter} from "next/router";
+import React from 'react';
 import AdminLayout from "@/pages/admin/layout";
-
 const UpdateBrand = () => {
     const router = useRouter();
     const {id} = router.query; // Получаем ID из маршрута
@@ -11,17 +11,15 @@ const UpdateBrand = () => {
     const dispatch = useDispatch();
     const {brand, loading, error} = useSelector((state) => state.brands);
 
-    const [name, setName] = useState(""); // Поле для имени бренда
-    const [photo, setPhoto] = useState(null); // Поле для загрузки нового фото
+    const [name, setName] = useState("");
+    const [photo, setPhoto] = useState(null);
 
-    // Получение текущего бренда при загрузке
     useEffect(() => {
         if (id) {
-            dispatch(fetchBrandById(id)); // Получаем бренд из API
+            dispatch(fetchBrandById(id));
         }
     }, [id, dispatch]);
 
-    // Заполнение полей формы, если бренд загружен
     useEffect(() => {
         if (brand) {
             setName(brand.name);

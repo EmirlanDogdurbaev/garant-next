@@ -3,7 +3,7 @@ import { useDispatch, useSelector } from "react-redux";
 import styles from "./Login.module.scss";
 import { useRouter } from "next/router";
 import { login } from "@/store/slices/auth/authSlice";
-
+import React from 'react';
 const Login = () => {
     const dispatch = useDispatch();
     const router = useRouter();

@@ -5,7 +5,7 @@ import {useEffect} from "react";
 import {fetchVacancies} from "@/store/slices/vacancies/vacanciesSlice";
 import Link from "next/link";
 import {FaPhone} from "react-icons/fa";
-
+import React from 'react';
 const Footer = () => {
     const {t} = useTranslation();
     const dispatch = useDispatch();

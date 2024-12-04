@@ -2,6 +2,7 @@ import styles from "./addCategory.module.scss";
 import { useDispatch, useSelector } from "react-redux";
 import { useState } from "react";
 import {createCategory} from "@/store/slices/categories/categoriesSlice";
+import React from 'react';
 
 const addCategory = () => {
     const dispatch = useDispatch();

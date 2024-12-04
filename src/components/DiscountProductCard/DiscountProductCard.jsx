@@ -6,7 +6,7 @@ import {useDispatch, useSelector} from "react-redux";
 import {useEffect} from "react";
 import {useTranslation} from "react-i18next";
 import {fetchDiscountProducts} from "@/store/slices/products/productsSlice";
-
+import React from 'react';
 const DiscountProductCard = () => {
     const {t} = useTranslation();
     const dispatch = useDispatch();

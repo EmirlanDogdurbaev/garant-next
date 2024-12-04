@@ -4,6 +4,7 @@ import SwitchButtons from "../UI/SwitchButtons/SwitchButtons.jsx";
 import CardSlider from "../UI/CardSlider/CardSlider.jsx";
 import {useDispatch, useSelector} from "react-redux";
 import {fetchNewProducts, fetchPopularProducts} from "@/store/slices/products/productsSlice";
+import React from 'react';
 
 const SwitchSection = () => {
     const dispatch = useDispatch();

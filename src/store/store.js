@@ -9,8 +9,6 @@ import vacanciesReducer from "./slices/vacancies/vacanciesSlice";
 import authReducer from "./slices/auth/authSlice";
 import paginationReducer from "./slices/pagination/pagination";
 import collectionsReducer from "@/store/slices/collections/collectionsSlice";
-import thunk from "redux-thunk";
-
 const store = configureStore({
     reducer: {
         language: languageReducer,
@@ -27,7 +25,7 @@ const store = configureStore({
     middleware: (getDefaultMiddleware) =>
         getDefaultMiddleware({
             serializableCheck: false,
-        }).concat(thunk),
+        }),
 });
 
 export default store;

@@ -5,7 +5,7 @@ import {fetchCategoriesById, updateCategory} from "@/store/slices/categories/cat
 import {useRouter} from "next/router";
 import Link from "next/link";
 import AdminLayout from "@/pages/admin/layout";
-
+import React from 'react';
 const EditCategory = () => {
     const router = useRouter();
     const {id} = router.query;

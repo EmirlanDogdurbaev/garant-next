@@ -5,6 +5,7 @@ import {useEffect} from "react";
 import {useTranslation} from "react-i18next";
 import {fetchVacancies} from "@/store/slices/vacancies/vacanciesSlice";
 import Layout from "@/components/Layout/Layout";
+import React from 'react';
 
 const Vacancy = () => {
     const {t} = useTranslation();

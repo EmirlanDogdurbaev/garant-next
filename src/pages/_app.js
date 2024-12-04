@@ -6,7 +6,7 @@ import '../i18n';
 import 'swiper/css';
 import 'swiper/css/navigation';
 import 'swiper/css/pagination';
-
+import React from 'react';
 function MyApp({ Component, pageProps }) {
   return (
     <Provider store={store}>

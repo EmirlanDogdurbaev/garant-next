@@ -1,5 +1,5 @@
 import styles from "./ArrowButton.module.scss"
-
+import React from 'react';
 const ArrowButton = ({prevRef, nextRef}) => {
     return (
         <span className={styles.btn_cont}>

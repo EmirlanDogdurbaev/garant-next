@@ -2,11 +2,10 @@ import {useEffect} from "react";
 import {useDispatch, useSelector} from "react-redux";
 import Link from "next/link";
 import styles from "./allProducts.module.scss";
-import SearchBar from "@/components/SearchBar/SearchBar";
 import {fetchAllProducts, deleteProductById} from "@/store/slices/products/productsSlice";
 import AdminLayout from "@/pages/admin/layout";
 import {setPage} from "@/store/slices/pagination/pagination";
-
+import React from 'react';
 const AllProducts = () => {
     const dispatch = useDispatch();
     const items = useSelector((state) => state.products.data);

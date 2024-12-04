@@ -1,6 +1,6 @@
 import { useState } from "react";
 import styles from "./JobCard.module.scss";
-
+import React from 'react';
 const JobCard = ({ job }) => {
     const [isOpen, setIsOpen] = useState(false);
 

@@ -3,6 +3,7 @@ import { useDispatch, useSelector } from 'react-redux';
 import styles from "./ModalForm.module.scss";
 import {createReview} from "@/store/slices/reviews/reviewsSlice";
 import StarRating from "@/components/UI/StarRating/StarRating";
+import React from 'react';
 
 export default function ModalForm({ onClose }) {
     const dispatch = useDispatch();

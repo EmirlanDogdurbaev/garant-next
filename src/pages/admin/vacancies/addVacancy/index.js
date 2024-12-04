@@ -2,7 +2,7 @@ import {useDispatch} from "react-redux";
 import {useState} from "react";
 import styles from "./addVacancy.module.scss";
 import {createVacancy} from "@/store/slices/vacancies/vacanciesSlice";
-
+import React from 'react';
 const AddVacancy = () => {
     const dispatch = useDispatch();
 

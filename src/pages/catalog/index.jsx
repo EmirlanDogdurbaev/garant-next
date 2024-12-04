@@ -8,6 +8,7 @@ import {useDispatch, useSelector} from "react-redux";
 import {fetchCategories} from "@/store/slices/categories/categoriesSlice";
 import {useEffect, useState} from "react";
 import styles from "../../styles/CatalogPage.module.scss"
+import React from 'react';
 
 export default function CatalogPage() {
     const {t} = useTranslation();

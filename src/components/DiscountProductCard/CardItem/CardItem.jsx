@@ -1,6 +1,6 @@
 import styles from "./CardItem.module.scss";
 import Link from "next/link";
-
+import React from 'react';
 const CardItem = ({items}) => {
     const url = items?.photo?.[0]?.url;
 

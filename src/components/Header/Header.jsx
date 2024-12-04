@@ -5,6 +5,7 @@ import i18n from "../../i18n";
 import styles from "./Header.module.scss";
 import {Fade} from "react-slideshow-image";
 import Link from "next/link";
+import React from 'react';
 
 const Header = () => {
     const {t} = useTranslation();

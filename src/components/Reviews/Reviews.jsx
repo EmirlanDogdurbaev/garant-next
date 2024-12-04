@@ -6,7 +6,7 @@ import {useEffect, useState} from "react";
 import {useTranslation} from "react-i18next";
 import {fetchReviews} from "@/store/slices/reviews/reviewsSlice";
 import ModalForm from "@/components/UI/ModalForm/ModalForm";
-
+import React from 'react';
 
 const Reviews = () => {
     const { t } = useTranslation();

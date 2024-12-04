@@ -7,7 +7,7 @@ import Catalog from "@/components/Catalog/Catalog";
 import Reviews from "@/components/Reviews/Reviews";
 import Brands from "@/components/Brands/Brands";
 import Layout from "@/components/Layout/Layout";
-
+import React from 'react';
 export default function Home() {
     return (
         <>

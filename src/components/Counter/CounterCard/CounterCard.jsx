@@ -1,6 +1,6 @@
 import {useState, useEffect} from 'react';
 import styles from './CounterCard.module.scss';
-
+import React from 'react';
 const CounterCard = ({counter}) => {
     const [animatedCount, setAnimatedCount] = useState(0);
     const isNumeric = /^\d+/.test(counter.count);

@@ -4,7 +4,7 @@ import axios from "axios";
 import {useRouter} from "next/router";
 import {API_URL} from "@/store/api/api";
 import AdminLayout from "@/pages/admin/layout";
-
+import React from 'react';
 const editCollection = () => {
     const router = useRouter();
     const {id} = router.query;

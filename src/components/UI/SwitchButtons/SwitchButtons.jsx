@@ -1,6 +1,6 @@
 import styles from "./SwitchButtons.module.scss"
 import {useTranslation} from "react-i18next";
-
+import React from 'react';
 const SwitchButtons = ({active, onClick}) => {
     const {t} = useTranslation();
     return (
