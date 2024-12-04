@@ -12,9 +12,6 @@ const Catalog = () => {
     const topProducts = useSelector((state) => state.products.filteredProducts);
     const bottomProducts = useSelector((state) => state.products.distr);
 
-    console.table(topProducts)
-    console.table(bottomProducts)
-
     useEffect(() => {
         dispatch(fetchByDistr());
         dispatch(fetchByProducer());
@@ -71,7 +68,7 @@ const Catalog = () => {
                     {bottomProductsToShow.map(product => (
                         <Link href={`/catalog/${product.collection_id ? "product" : "collection"}/${product.id}`}
                               key={product.id} className={styles.productCard}>
-                            <img   src={product.photos[0].url} alt={product.name} className={styles.productImage}/>
+                            <img src={product.photos[0].url} alt={product.name} className={styles.productImage}/>
                             <aside className={styles.productAside}>
                                 <h3 className={styles.productName}>{product.name}</h3>
                                 <p className={styles.productPrice}>{product.price}</p>

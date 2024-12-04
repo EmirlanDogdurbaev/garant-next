@@ -2,7 +2,6 @@ import { useState } from "react";
 import { useDispatch, useSelector } from "react-redux";
 import styles from "./Login.module.scss";
 import { useRouter } from "next/router";
-import Link from "next/link";
 import { login } from "@/store/slices/auth/authSlice";
 
 const Login = () => {
@@ -18,7 +17,7 @@ const Login = () => {
         try {
             const response = await dispatch(login({ password, username })).unwrap();
             console.log("Успешный вход:", response);
-            router.push("/admin"); // Перенаправление на страницу после входа
+            router.push("/admin/products");
         } catch (err) {
             console.error("Ошибка входа:", err);
         }

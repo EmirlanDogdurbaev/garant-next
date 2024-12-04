@@ -7,7 +7,7 @@ const Counter = () => {
 
     const data = [
         {
-            count: `10 ${"about.years"}`,
+            count: `10 ${t("about.years")}`,
             description: t("about.years2"),
             id: 2
         },

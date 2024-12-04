@@ -1,7 +1,6 @@
 import {useState, useEffect} from 'react';
 import styles from './CounterCard.module.scss';
 
-// eslint-disable-next-line react/prop-types
 const CounterCard = ({counter}) => {
     const [animatedCount, setAnimatedCount] = useState(0);
     const isNumeric = /^\d+/.test(counter.count);

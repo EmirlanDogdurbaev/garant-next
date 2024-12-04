@@ -4,7 +4,6 @@ import 'swiper/css/navigation';
 import {Navigation} from 'swiper/modules';
 import {useDispatch, useSelector} from 'react-redux';
 import classes from './CategorySlider.module.scss';
-import {useEffect} from "react";
 import {searchByCategory, setFilterCategory} from "@/store/slices/filter/search";
 
 const CategorySlider = ({categories}) => {
@@ -12,11 +11,9 @@ const CategorySlider = ({categories}) => {
     const selectedCategory = useSelector((state) => state.search.filters.category);
 
     const handleCategoryChange = (categoryId) => {
-        dispatch(setFilterCategory(categoryId)); // Обновляем фильтр
-        dispatch(searchByCategory(categoryId)); // Запускаем асинхронный запрос
+        dispatch(setFilterCategory(categoryId));
+        dispatch(searchByCategory(categoryId));
     };
-
-
 
 
     return (
@@ -31,7 +28,6 @@ const CategorySlider = ({categories}) => {
                 </svg>
             </div>
 
-            {/* Основной слайдер категорий */}
             <Swiper
                 slidesPerView="auto"
                 spaceBetween={15}
@@ -55,7 +51,6 @@ const CategorySlider = ({categories}) => {
                 ))}
             </Swiper>
 
-            {/* Кнопка для навигации вперед */}
             <div className="swiper-button-next-categories">
                 <svg width="40" height="40" viewBox="0 0 30 30" fill="none" xmlns="http://www.w3.org/2000/svg">
                     <rect width="30" height="30" rx="15" fill="white" fillOpacity="0.3"/>

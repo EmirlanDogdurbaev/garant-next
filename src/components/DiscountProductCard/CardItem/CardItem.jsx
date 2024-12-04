@@ -2,18 +2,12 @@ import styles from "./CardItem.module.scss";
 import Link from "next/link";
 
 const CardItem = ({items}) => {
-    console.table(items);
-
     const url = items?.photo?.[0]?.url;
-    const fixedUrl = url ? url.replace(/\s+/g, "") : null;
-
-    console.log(fixedUrl);
 
     return (
         <div className={styles.CardItem}>
-            {fixedUrl && (
-                <img src={fixedUrl} alt={items.name || "Product Image"} height={300} width={350}/>
-            )}
+
+            <img src={url} alt={items.name || "Product Image"} height={300} width={350}/>
 
             <div className={styles.card_content}>
                 <article>

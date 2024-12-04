@@ -12,9 +12,6 @@ const DiscountProductCard = () => {
     const dispatch = useDispatch();
     const items = useSelector((state) => state.products.discount)
 
-    console.log(items)
-
-
     useEffect(() => {
         dispatch(fetchDiscountProducts());
     }, [dispatch]);

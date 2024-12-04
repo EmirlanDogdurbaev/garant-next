@@ -19,12 +19,12 @@ export default function ModalForm({ onClose }) {
 
     useEffect(() => {
         if (isClosing) {
-            setTimeout(() => onClose(), 500); // Задержка для анимации
+            setTimeout(() => onClose(), 500);
         }
     }, [isClosing, onClose]);
 
     const handleInputChange = (e) => {
-        const { name, value } = e.target; // Исправлено на 'name'
+        const { name, value } = e.target;
         setFormData({ ...formData, [name]: value });
     };
 

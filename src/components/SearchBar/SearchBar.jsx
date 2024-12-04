@@ -8,7 +8,7 @@ const SearchBar = () => {
     const {t} = useTranslation();
     const dispatch = useDispatch();
     const [localInputValue, setLocalInputValue] = useState('');
-    const inputValue = useSelector((state) => state.search.filters.inputValue); // Значение из Redux (можно использовать для синхронизации)
+    const inputValue = useSelector((state) => state.search.filters.inputValue);
     const handleChange = (e) => {
         dispatch(clearError());
         const value = e.target.value;
