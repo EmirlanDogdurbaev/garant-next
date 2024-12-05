@@ -1,9 +1,9 @@
 "use client";
 
-import React ,{ useEffect, useState, useMemo, useCallback, useRef } from "react";
-import { useRouter } from "next/router";
-import { useDispatch, useSelector } from "react-redux";
-import { useTranslation } from "react-i18next";
+import React, {useEffect, useState, useMemo, useCallback, useRef} from "react";
+import {useRouter} from "next/router";
+import {useDispatch, useSelector} from "react-redux";
+import {useTranslation} from "react-i18next";
 
 import Layout from "@/components/Layout/Layout";
 import CardSlider from "@/components/UI/CardSlider/CardSlider";
@@ -18,10 +18,10 @@ import {
     setSelectedProduct,
 } from "@/store/slices/products/productsSlice";
 
-const ProductDetailPage = ({ initialData, initialLanguage }) => {
-    const { t } = useTranslation();
+const ProductDetailPage = ({initialData, initialLanguage}) => {
+    const {t} = useTranslation();
     const router = useRouter();
-    const { id, type } = router.query;
+    const {id, type} = router.query;
 
     const dispatch = useDispatch();
     const language = useSelector((state) => state.language.selectedLanguage) || initialLanguage;
@@ -50,7 +50,7 @@ const ProductDetailPage = ({ initialData, initialLanguage }) => {
     useEffect(() => {
         if (product?.collection_id && product.collection_id !== previousCollectionId.current) {
             previousCollectionId.current = product.collection_id;
-            dispatch(fetchProductInCollection({ collectionId: product.collection_id, language }));
+            dispatch(fetchProductInCollection({collectionId: product.collection_id, language}));
         }
     }, [product?.collection_id, dispatch, language]);
 
@@ -117,7 +117,7 @@ const ProductDetailPage = ({ initialData, initialLanguage }) => {
                 <section className={styles.cont}>
                     <div className={styles.imageSection}>
                         <aside className={styles.box}>
-                            <img src={mainImage} alt={product?.name} className={styles.mainImage} />
+                            <img src={mainImage} alt={product?.name} className={styles.mainImage}/>
                             <span>
                                 <button
                                     className={styles.arrowButton}
@@ -164,14 +164,15 @@ const ProductDetailPage = ({ initialData, initialLanguage }) => {
                     </div>
                 </section>
 
-                <section className={styles.cont2}>
+                {collection.length > 0 ? <section className={styles.cont2}>
                     <h3>{t("detail_page.block1")}</h3>
-                    <CardSlider cards={collection || []} />
-                </section>
+                    <CardSlider cards={collection || []}/>
+                </section> : ("")}
+
 
                 <section className={styles.cont2}>
                     <h3>{t("detail_page.block2")}</h3>
-                    <CardSlider cards={rec || []} />
+                    <CardSlider cards={rec || []}/>
                 </section>
             </div>
         </Layout>

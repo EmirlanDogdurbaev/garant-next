@@ -1,5 +1,6 @@
 .ProductDetail {
-  width: 100%;
+  width: 90%;
+  margin: 0 auto;
   height: auto;
   background-color: #F5F5F5;
 
@@ -11,6 +12,7 @@
     max-width: 1440px;
     margin: auto;
     padding: 20px 20px 0;
+    cursor: pointer;
 
 
     a {
