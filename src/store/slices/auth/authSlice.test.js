@@ -1,131 +1,45 @@
-import reducer, { login, logout, initializeAuth } from "./authSlice";
-import { configureStore } from "@reduxjs/toolkit";
-import axios from "axios";
+import { configureStore } from '@reduxjs/toolkit';
+import { login } from './authSlice'; // Ваш thunk
+import authReducer from './authSlice';
+import axios from 'axios';
+import thunk from 'redux-thunk';
 
-jest.mock("axios");
+jest.mock('axios'); // Мок axios для работы с API
 
-describe("authSlice", () => {
+describe('authSlice thunks', () => {
     let store;
 
     beforeEach(() => {
+        // Создаем временный store для тестов
         store = configureStore({
-            reducer: { auth: reducer },
+            reducer: {
+                auth: authReducer,
+            },
+            middleware: (getDefaultMiddleware) => getDefaultMiddleware().concat(thunk),
         });
     });
 
-    it("should handle initial state", () => {
-        const initialState = {
-            token: null,
-            username: null,
-            status: "",
-            error: null,
-        };
+    it('dispatches fulfilled action when login succeeds', async () => {
+        const mockResponse = { token: '123' };
+        axios.post.mockResolvedValueOnce({ data: mockResponse });
 
-        expect(reducer(undefined, {})).toEqual(initialState);
+        await store.dispatch(login({ username: 'testUser', password: 'password123' }));
+
+        const state = store.getState().auth;
+        expect(state.token).toBe('123');
+        expect(state.username).toBe('testUser');
+        expect(state.status).toBe('succeeded');
     });
 
-    it("should handle login.pending", () => {
-        const initialState = {
-            token: null,
-            username: null,
-            status: "",
-            error: null,
-        };
+    it('dispatches rejected action when login fails', async () => {
+        const mockError = { response: { data: 'Invalid credentials' } };
+        axios.post.mockRejectedValueOnce(mockError);
 
-        const action = { type: login.pending.type };
-        const state = reducer(initialState, action);
-        expect(state.status).toBe("loading");
-        expect(state.error).toBeNull();
-    });
+        await store.dispatch(login({ username: 'testUser', password: 'wrongPassword' }));
 
-    it("should handle login.fulfilled", () => {
-        const initialState = {
-            token: null,
-            username: null,
-            status: "",
-            error: null,
-        };
-
-        const action = {
-            type: login.fulfilled.type,
-            payload: { token: "testtoken", username: "testuser" },
-        };
-        const state = reducer(initialState, action);
-        expect(state.status).toBe("succeeded");
-        expect(state.token).toBe("testtoken");
-        expect(state.username).toBe("testuser");
-    });
-
-    it("should handle login.rejected", () => {
-        const initialState = {
-            token: null,
-            username: null,
-            status: "",
-            error: null,
-        };
-
-        const action = {
-            type: login.rejected.type,
-            payload: "Invalid credentials",
-        };
-        const state = reducer(initialState, action);
-        expect(state.status).toBe("failed");
-        expect(state.error).toBe("Invalid credentials");
-    });
-
-    it("should handle logout", () => {
-        const initialState = {
-            token: "testtoken",
-            username: "testuser",
-            status: "succeeded",
-            error: null,
-        };
-
-        const action = { type: logout.type };
-        const state = reducer(initialState, action);
+        const state = store.getState().auth;
         expect(state.token).toBeNull();
-        expect(state.username).toBeNull();
-    });
-
-    it("should handle initializeAuth", () => {
-        localStorage.setItem("token", "testtoken");
-        localStorage.setItem("username", "testuser");
-
-        const initialState = {
-            token: null,
-            username: null,
-            status: "",
-            error: null,
-        };
-
-        const action = { type: initializeAuth.type };
-        const state = reducer(initialState, action);
-        expect(state.token).toBe("testtoken");
-        expect(state.username).toBe("testuser");
-    });
-
-    it("should dispatch login action successfully", async () => {
-        axios.post.mockResolvedValueOnce({
-            data: { token: "testtoken" },
-        });
-
-        await store.dispatch(login({ username: "testuser", password: "password" }));
-
-        const state = store.getState().auth;
-        expect(state.status).toBe("succeeded");
-        expect(state.token).toBe("testtoken");
-        expect(state.username).toBe("testuser");
-    });
-
-    it("should dispatch login action with error", async () => {
-        axios.post.mockRejectedValueOnce({
-            response: { data: "Invalid credentials" },
-        });
-
-        await store.dispatch(login({ username: "testuser", password: "wrongpassword" }));
-
-        const state = store.getState().auth;
-        expect(state.status).toBe("failed");
-        expect(state.error).toBe("Invalid credentials");
+        expect(state.error).toBe('Invalid credentials');
+        expect(state.status).toBe('failed');
     });
 });

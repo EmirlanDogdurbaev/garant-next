@@ -1,3 +1,4 @@
+import React from 'react';
 import Layout from "@/components/Layout/Layout";
 import ModalFilter from "@/components/UI/ModalFilter/ModalFilter";
 import Link from "next/link";
@@ -8,7 +9,7 @@ import {useDispatch, useSelector} from "react-redux";
 import {fetchCategories} from "@/store/slices/categories/categoriesSlice";
 import {useEffect, useState} from "react";
 import styles from "../../styles/CatalogPage.module.scss"
-import React from 'react';
+
 
 export default function CatalogPage() {
     const {t} = useTranslation();
@@ -31,9 +32,7 @@ export default function CatalogPage() {
 
     console.log(results)
 
-    const isNoResults = !results || (Array.isArray(results) && results.length === 0 && (selectedCategory || (inputValue?.length || 0) > 0));
-
-
+    
     return (
         <Layout>
             <div className={styles.CatalogPage}>

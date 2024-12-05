@@ -1,6 +1,6 @@
 import Link from "next/link";
 import AdminNav from "@/components/AdminNav/AdminNav";
-
+import React from "react"
 export default function AdminLayout({children}) {
     return (
         <>

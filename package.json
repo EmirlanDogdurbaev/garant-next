@@ -10,13 +10,11 @@
     "test": "jest"
   },
   "dependencies": {
-    "@testing-library/user-event": "^14.5.2",
     "axios": "^1.7.9",
     "eslint": "9.16.0",
     "eslint-config-next": "15.0.3",
     "i18next": "^24.0.2",
-    "jest-fetch-mock": "^3.0.3",
-    "next": "15.0.3",
+    "next": "^13.5.7",
     "next-i18next": "^15.4.0",
     "punycode": "^2.3.1",
     "rc-slider": "^11.1.7",
@@ -27,8 +25,6 @@
     "react-redux": "^9.1.2",
     "react-select": "^5.8.3",
     "react-slideshow-image": "^4.3.2",
-    "redux-mock-store": "^1.5.5",
-    "redux-thunk": "^3.1.0",
     "sass": "^1.81.0",
     "swiper": "^11.1.15"
   },
@@ -39,10 +35,11 @@
     "@reduxjs/toolkit": "^2.4.0",
     "@testing-library/jest-dom": "^6.6.3",
     "@testing-library/react": "^16.0.1",
-    "axios-mock-adapter": "^2.1.0",
+    "@testing-library/user-event": "^14.5.2",
     "babel-jest": "^29.7.0",
     "jest": "^29.7.0",
     "jest-environment-jsdom": "^29.7.0",
-    "jest-esm-transformer": "^1.0.0"
+    "redux-mock-store": "^1.5.5",
+    "redux-thunk": "^3.1.0"
   }
 }

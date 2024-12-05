@@ -9,6 +9,7 @@ import vacanciesReducer from "./slices/vacancies/vacanciesSlice";
 import authReducer from "./slices/auth/authSlice";
 import paginationReducer from "./slices/pagination/pagination";
 import collectionsReducer from "@/store/slices/collections/collectionsSlice";
+
 const store = configureStore({
     reducer: {
         language: languageReducer,
@@ -23,9 +24,7 @@ const store = configureStore({
         pagination: paginationReducer
     },
     middleware: (getDefaultMiddleware) =>
-        getDefaultMiddleware({
-            serializableCheck: false,
-        }),
+        getDefaultMiddleware(),
 });
 
 export default store;
