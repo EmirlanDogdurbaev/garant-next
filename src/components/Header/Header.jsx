@@ -6,6 +6,12 @@ import styles from "./Header.module.scss";
 import {Fade} from "react-slideshow-image";
 import Link from "next/link";
 import React from 'react';
+import img1 from "../../../public/img1.jpg"
+import img2 from "../../../public/img2.jpg"
+import img3 from "../../../public/img3.jpg"
+import img4 from "../../../public/img4.jpg"
+import img5 from "../../../public/img5.jpg"
+import 'react-slideshow-image/dist/styles.css'
 
 const Header = () => {
     const {t} = useTranslation();
@@ -18,7 +24,7 @@ const Header = () => {
     }, [selectedLanguage]);
 
     const settings = {
-        duration: 10000,
+        duration: 1000,
         transitionDuration: 3000,
         infinite: true,
         indicators: false,
@@ -26,13 +32,13 @@ const Header = () => {
     };
 
     const backgrounds = [
-        "https://res.cloudinary.com/dxlerkcn8/image/upload/v1732253899/Property_1_Default_r4ewp3.png",
-        "https://res.cloudinary.com/dxlerkcn8/image/upload/v1732253899/Property_1_Variant2_rodhvo.png",
-        "https://res.cloudinary.com/dxlerkcn8/image/upload/v1732253899/Property_1_Variant4_mks8c3.png",
-        "https://res.cloudinary.com/dxlerkcn8/image/upload/v1732253899/Property_1_Variant3_blp2jz.png",
-        "https://res.cloudinary.com/dxlerkcn8/image/upload/v1732253899/Property_1_Variant5_f4dr1j.png",
-        "https://res.cloudinary.com/dxlerkcn8/image/upload/v1732253899/Property_1_Variant5_f4dr1j.png"
+        img1,
+        img2,
+        img3,
+        img4,
+        img5,
     ];
+
 
     return (
         <section className={styles.sliderContainer}>
@@ -41,7 +47,7 @@ const Header = () => {
                     <div
                         key={index}
                         className={styles.bgSlide}
-                        style={{backgroundImage: `url("${bg}")`}}
+                        style={{backgroundImage: `url("${bg.src}") !important` }}
                     />
                 ))}
             </Fade>

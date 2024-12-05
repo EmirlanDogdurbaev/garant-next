@@ -28,12 +28,12 @@
 
   }
 
-  .cont2{
+  .cont2 {
     padding: 20px;
     margin: 0 auto;
     max-width: 1440px;
 
-    h3{
+    h3 {
       margin: 0;
     }
   }
@@ -81,11 +81,12 @@
       .thumbnailContainer {
         display: flex;
         justify-content: space-between;
+        overflow: hidden;
+
 
         .thumbnail {
           width: 100px;
           height: 60px;
-          object-fit: cover;
           cursor: pointer;
           transition: transform 0.2s;
           border: 1px solid white;
@@ -374,7 +375,7 @@
   }
 }
 
-.linkk:hover{
+.linkk:hover {
   cursor: pointer;
 }
 

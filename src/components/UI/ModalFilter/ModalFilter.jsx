@@ -60,8 +60,7 @@ function ModalFilter({ onClose }) {
         setMinValue(0);
         setMaxValue(12000000);
         setProductType('Garant');
-        dispatch(setPriceRange({ min: 0, max: 12000000 }));
-        dispatch(searchByPriceRange({ min: 0, max: 12000000 }));
+
     };
 
     const formatNumber = (number) => {
