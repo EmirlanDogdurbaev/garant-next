@@ -30,25 +30,35 @@
     display: flex;
     justify-content: center;
     align-items: center;
-    background-color: #ddd;
+    background-color: #fff;
 
     .reviews_slider_cont {
       width: 85%;
       margin: 0 auto;
-      background-color: #ddd;
+      background-color: #fff;
       overflow: hidden;
+      align-items: center;
 
 
 
       .slide {
         display: flex;
-        background-color: #ddd;
+        background-color: #fff;
         flex-direction: column;
         align-items: center;
         text-align: center;
         padding: 20px;
         border-radius: 10px;
+        min-height: 100%;
 
+
+        .inner{
+          height:400px;
+          display: flex;
+          align-items: center;
+          flex-direction: column;
+          justify-content: space-around;
+        }
         .quoteIcon {
           margin-bottom: 20px;
         }
@@ -310,4 +320,12 @@
       font-size: 16px;
     }
   }
+}
+
+
+.operModal{
+  background-color: transparent;
+  border: none;
+  color: #E7572A;
+  cursor: pointer;
 }

@@ -31,7 +31,7 @@ const Reviews = () => {
         <div className={styles.Reviews}>
             <section className={styles.title}>
                 <h3>{t("reviews.title")}</h3>
-                <button onClick={() => setModalOpen(true)}>{t("reviews.button")}</button    >
+                <button onClick={() => setModalOpen(true)} className={styles.operModal}>{t("reviews.button")}</button    >
             </section>
             <section className={styles.container}>
                 <Swiper
@@ -46,7 +46,7 @@ const Reviews = () => {
                 >
                     {reviews?.map((review) => (
                         <SwiperSlide className={styles.slide} key={review.id}>
-                            <div>
+                            <div className={styles.inner}>
                                 <div className={styles.quoteIcon}>
                                     <svg xmlns="http://www.w3.org/2000/svg" width="57" height="56" viewBox="0 0 57 56" fill="none">
                                         <path

@@ -6,6 +6,7 @@ import {useTranslation} from "react-i18next";
 import {fetchByDistr, fetchByProducer} from "@/store/slices/products/productsSlice";
 import Link from "next/link";
 import React from 'react';
+
 const Catalog = () => {
     const {t} = useTranslation();
     const dispatch = useDispatch();
@@ -45,6 +46,7 @@ const Catalog = () => {
                                 src={product.photos[0].url}
                                 alt="Описание изображения"
                                 className={styles.productImage}
+                                height={200}
 
                             />
                             <aside className={styles.productAside}>
@@ -68,7 +70,7 @@ const Catalog = () => {
                     {bottomProductsToShow.map(product => (
                         <Link href={`/catalog/${product.collection_id ? "product" : "collection"}/${product.id}`}
                               key={product.id} className={styles.productCard}>
-                            <img src={product.photos[0].url} alt={product.name} className={styles.productImage}/>
+                            <img src={product.photos[0].url} alt={product.name} className={styles.productImage} height={200}/>
                             <aside className={styles.productAside}>
                                 <h3 className={styles.productName}>{product.name}</h3>
                                 <p className={styles.productPrice}>{product.price}</p>
