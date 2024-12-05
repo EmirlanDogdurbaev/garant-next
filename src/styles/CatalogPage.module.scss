@@ -34,7 +34,6 @@
 
   .results_container {
     display: flex;
-
     max-width: 1350px;
     margin: 0 auto;
     padding-bottom: 40px;
@@ -58,7 +57,7 @@
       background-color: white;
       padding: 16px;
       box-shadow: 0 4px 8px rgba(0, 0, 0, 0.1);
-      width: 310px;
+      width: 290px;
       height: 379px;
       overflow: hidden;
       position: relative;
@@ -148,7 +147,5 @@
         color: #333;
       }
     }
-
-
   }
 }
