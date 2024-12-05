@@ -56,7 +56,7 @@ export default function allBrands() {
                         ))}
                     </div>
                 ) : (
-                    <р4>Список категорий пуст.</р4>
+                    <р>Список категорий пуст.</р>
                 )}
             </div>
         </AdminLayout>
