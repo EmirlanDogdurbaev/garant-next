@@ -168,7 +168,7 @@ const UpdateProduct = () => {
             <div className={styles.AddCollection}>
                 <div className={styles.inner}>
                     <section className={styles.title}>
-                        <h2>Коллекции / обновить товар</h2>
+                        <h2>Товары / обновить товар</h2>
                         <div className={styles.line}></div>
                     </section>
 

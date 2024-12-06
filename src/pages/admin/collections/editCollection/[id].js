@@ -1,4 +1,4 @@
-import styles from "./UpdateProducts.module.scss";
+import styles from "./editCollections.module.scss";
 import {useEffect, useState} from "react";
 import axios from "axios";
 import Select from "react-select";

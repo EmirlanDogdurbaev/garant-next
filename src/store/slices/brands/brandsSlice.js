@@ -82,15 +82,37 @@ export const deleteBrand = createAsyncThunk(
             return rejectWithValue(error.response?.data || error.message);
         }
     }
+
+);
+
+export const fetchBrandById = createAsyncThunk(
+    "brands/fetchBrandById",
+    async (id, thunkAPI) => {
+        const response = await axios.get(`${API_URL}/brand/${id}`);
+        return response.data;
+    }
 );
 
 export const brands = createSlice({
     name: "brands",
     initialState: {
         brands: [],
+        brand: null,
     },
     extraReducers: (builder) => {
         builder
+            .addCase(fetchBrandById.pending, (state) => {
+                state.loading = true;
+                state.error = null;
+            })
+            .addCase(fetchBrandById.fulfilled, (state, action) => {
+                state.loading = false;
+                state.brand = action.payload;
+            })
+            .addCase(fetchBrandById.rejected, (state, action) => {
+                state.loading = false;
+                state.error = action.error.message;
+            })
             .addCase(fetchBrands.pending, (state) => {
                 state.loading = true;
                 state.error = null;
@@ -121,10 +143,13 @@ export const brands = createSlice({
             })
             .addCase(updateBrand.fulfilled, (state, action) => {
                 state.loading = false;
-                const updatedBrand = action.payload;
-                state.brands = state.brands.map((brand) =>
-                    brand.id === updatedBrand.id ? updatedBrand : brand
-                );
+                // Обновляем бренд в массиве брендов
+                const index = state.brands.findIndex((brand) => brand.id === action.payload.id);
+                if (index !== -1) {
+                    state.brands[index] = action.payload;
+                }
+                // Также обновляем текущий бренд
+                state.brand = action.payload;
             })
             .addCase(updateBrand.rejected, (state, action) => {
                 state.loading = false;
