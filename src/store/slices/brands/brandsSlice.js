@@ -1,6 +1,7 @@
 import {API_URL} from "@/store/api/api.js";
 import {createAsyncThunk, createSlice} from "@reduxjs/toolkit";
 import axios from "axios";
+import {log} from "next/dist/server/typescript/utils";
 
 export const fetchBrands = createAsyncThunk(
     "brands/fetchBrands",
@@ -68,12 +69,15 @@ export const deleteBrand = createAsyncThunk(
     "brands/deleteBrand",
     async (id, {rejectWithValue}) => {
         try {
-            await axios.delete(`${API_URL}/brand/`, {id}, {
+            await axios.delete(`${API_URL}/brand`, {id}, {
                 headers: {
                     Authorization: `Bearer ${localStorage.getItem("token")}`,
+                    "Content-Type": "application/json",
                 },
             });
-            return brandId;
+
+            console.log()
+            return id;
         } catch (error) {
             return rejectWithValue(error.response?.data || error.message);
         }

@@ -1,40 +1,90 @@
-import styles from "./editCollections.module.scss";
-import {useState, useEffect} from "react";
+import styles from "./UpdateProducts.module.scss";
+import {useEffect, useState} from "react";
 import axios from "axios";
+import Select from "react-select";
+import {useDispatch, useSelector} from "react-redux";
 import {useRouter} from "next/router";
+import {fetchAllCollections} from "@/store/slices/collections/collectionsSlice";
+import {fetchCategories} from "@/store/slices/categories/categoriesSlice";
 import {API_URL} from "@/store/api/api";
-import AdminLayout from "@/pages/admin/layout";
-import React from 'react';
-const editCollection = () => {
-    const router = useRouter();
-    const {id} = router.query;
 
-    const [formState, setFormState] = useState(null);
+const UpdateProducts = () => {
+    const router = useRouter();
+    const {id} = router.query
+    const dispatch = useDispatch();
+    const categoriesList = useSelector((state) => state.categories.categories);
+    const collectionsList = useSelector((state) => state.collections.data);
     const [photos, setPhotos] = useState([]);
     const [error, setError] = useState(null);
     const [loading, setLoading] = useState(true);
 
+    const [formState, setFormState] = useState({
+        price: 0,
+        isProducer: false,
+        isPainted: false,
+        isPopular: false,
+        isNew: false,
+        category_id: null,
+        collection_id: null,
+        items: [
+            {name: "", description: "", language_code: "ru"},
+            {name: "", description: "", language_code: "kgz"},
+            {name: "", description: "", language_code: "en"},
+        ],
+    });
+
     useEffect(() => {
-        if (id) {
-            axios
-                .get(`${API_URL}/getCollectionById?collection_id=${id}`, {
+        // Загружаем списки категорий и коллекций
+        dispatch(fetchAllCollections());
+        dispatch(fetchCategories());
+
+        // Загружаем данные товара
+        const fetchProductData = async () => {
+            try {
+                const response = await axios.get(`${API_URL}/getItemById?item_id=${id}`, {
                     headers: {
                         Authorization: `Bearer ${localStorage.getItem("token")}`,
                     },
-                })
-                .then((response) => {
-                    const {price, isProducer, isPainted, isPopular, isNew, collections, photos} = response.data;
-                    setFormState({price, isProducer, isPainted, isPopular, isNew, collections});
-                    setPhotos(photos || []);
-                    setLoading(false);
-                })
-                .catch((err) => {
-                    console.error("Ошибка загрузки данных:", err);
-                    setError(err.response?.data || err.message);
-                    setLoading(false);
                 });
-        }
-    }, [id]);
+
+                console.log(response.data)
+                const productData = response.data;
+
+                // Обновляем состояние формы
+                setFormState({
+                    price: productData.price || 0,
+                    isProducer: productData.isProducer || false,
+                    isPainted: productData.isPainted || false,
+                    isPopular: productData.is_popular || false,
+                    isNew: productData.is_new || false,
+                    category_id: productData.category_id || null,
+                    collection_id: productData.collection_id || null,
+                    items: productData.items || [
+                        {name: "", description: "", language_code: "ru"},
+                        {name: "", description: "", language_code: "kgz"},
+                        {name: "", description: "", language_code: "en"},
+                    ],
+                });
+
+                // Заполняем фотографии
+                setPhotos(
+                    productData.photos.map((photo) => ({
+                        file: null, // В случае загрузки из URL файлов не будет
+                        isMain: photo.isMain,
+                        hashColor: photo.hashColor,
+                        url: photo.url, // Для отображения существующих фото
+                    }))
+                );
+
+                setLoading(false);
+            } catch (err) {
+                setError("Ошибка загрузки данных товара.");
+                console.error(err);
+            }
+        };
+
+        fetchProductData();
+    }, [dispatch, id]);
 
     const handleFormChange = (field, value) => {
         setFormState((prev) => ({
@@ -44,9 +94,12 @@ const editCollection = () => {
     };
 
     const handleCollectionChange = (index, field, value) => {
-        const updatedCollections = [...formState.collections];
-        updatedCollections[index][field] = value;
-        setFormState({...formState, collections: updatedCollections});
+        const updatedItems = [...formState.items];
+        updatedItems[index][field] = value;
+        setFormState((prev) => ({
+            ...prev,
+            items: updatedItems,
+        }));
     };
 
     const handleAddPhoto = () => {
@@ -78,97 +131,112 @@ const editCollection = () => {
         const formData = new FormData();
 
         formData.append(
-            "collection",
+            "item",
             JSON.stringify({
                 price: formState.price,
                 isProducer: formState.isProducer,
                 isPainted: formState.isPainted,
-                isPopular: formState.isPopular,
-                isNew: formState.isNew,
-                collections: formState.collections,
+                is_popular: formState.isPopular,
+                is_new: formState.isNew,
+                items: formState.items,
+                collection_id: formState.collection_id,
+                category_id: formState.category_id,
+                size: "M",
             })
         );
 
-       
-
         photos.forEach((photo, index) => {
-            if (photo.file && photo.isMain !== null && photo.hashColor !== "") {
+            if (photo.file) {
                 formData.append(`photos`, photo.file);
-                formData.append(`isMain_${photo.file.name}`, photo.isMain);
-                formData.append(`hashColor_${photo.file.name}`, photo.hashColor);
-            } else {
-                console.log(`Пропущено фото с индексом ${index} из-за отсутствия данных`);
+                formData.append(`photos[${index}][isMain]`, photo.isMain);
+                formData.append(`photos[${index}][hashColor]`, photo.hashColor);
             }
         });
 
         try {
-            const response = await axios.put(`${API_URL}/collection?collection_id=${id}`, formData, {
+            const response = await axios.put(`${API_URL}/items?item_id=${id}`, formData, {
                 headers: {
                     "Content-Type": "multipart/form-data",
                     Authorization: `Bearer ${localStorage.getItem("token")}`,
                 },
             });
-
-            alert("Коллекция успешно обновлена");
-            router.push("/admin/collections");
-        } catch (error) {
-            setError(error.response?.data || error.message);
-            console.error("Ошибка:", error);
+            alert("Успешно обновлено:", response.data);
+        } catch (err) {
+            setError(err.response?.data || "Ошибка при обновлении товара.");
+            console.error("Ошибка:", err);
         }
     };
 
-    if (loading) return <p>Загрузка данных...</p>;
-    if (error) return <p style={{color: "red"}}>{error}</p>;
+    if (loading) return <p>Загрузка...</p>;
 
     return (
-        <AdminLayout>
-            <main className={styles.Form}>
-                <form onSubmit={handleSubmit}>
-                    <section className={styles.title}>
-                        <h2>Коллекции / Изменить коллекцию {id}</h2>
-                        <div className={styles.line}></div>
-                    </section>
+        <div className={styles.AddCollection}>
+            <div className={styles.inner}>
+                <section className={styles.title}>
+                    <h2>Коллекции / добавить товар</h2>
+                    <div className={styles.line}></div>
+                </section>
 
-                    {formState.collections.map((collection, index) => (
+                <form onSubmit={handleSubmit}>
+                    {/* Select for categories */}
+                    <div className={styles.select_section}>
+                        <h3>Выберите категорию</h3>
+                        <Select
+                            options={categoriesList.map((category) => ({
+                                value: category.id,
+                                label: category.name,
+                            }))}
+                            styles={customStyles}
+                            name="category"
+                            placeholder="Выберите категорию"
+                            onChange={(selectedOption) =>
+                                handleFormChange("category_id", selectedOption.value)
+                            }
+                        />
+                    </div>
+
+                    {/* Select for collections */}
+                    <div className={styles.select_section}>
+                        <h3>Выберите коллекцию</h3>
+                        <Select
+                            options={collectionsList.map((collection) => ({
+                                value: collection.ID,
+                                label: collection.name,
+                            }))}
+                            styles={customStyles}
+                            name="collection"
+                            placeholder="Выберите коллекцию"
+                            onChange={(selectedOption) =>
+                                handleFormChange("collection_id", selectedOption.value)
+                            }
+                        />
+                    </div>
+
+                    {formState.items.map((item, index) => (
                         <section key={index} className={styles.info_container}>
                             <h4>
-                                {collection.language_code === "ru"
+                                {item.language_code === "ru"
                                     ? "Русский"
-                                    : collection.language_code === "kgz"
+                                    : item.language_code === "kgz"
                                         ? "Кыргызча"
                                         : "English"}
                             </h4>
-                            <span>
-                                <label>
-                                    <h5>Название коллекции</h5>
-                                    <input
-                                        type="text"
-                                        placeholder="Название"
-                                        value={collection.name}
-                                        onChange={(e) =>
-                                            handleCollectionChange(index, "name", e.target.value)
-                                        }
-                                    />
-                                </label>
-                                <label>
-                                    <h5>Цена</h5>
-                                    <input
-                                        type="number"
-                                        placeholder="xxx"
-                                        value={formState.price}
-                                        onChange={(e) =>
-                                            handleFormChange("price", parseFloat(e.target.value))
-                                        }
-                                    />
-                                </label>
-                            </span>
-                            <label htmlFor="" className={styles.textarea}>
+                            <label>
+                                <h5>Название</h5>
+                                <input
+                                    type="text"
+                                    placeholder="Название"
+                                    value={item.name}
+                                    onChange={(e) =>
+                                        handleCollectionChange(index, "name", e.target.value)
+                                    }
+                                />
+                            </label>
+                            <label>
                                 <h5>Описание</h5>
                                 <textarea
-                                    cols="180"
-                                    rows="10"
-                                    placeholder="Описание коллекции"
-                                    value={collection.description}
+                                    placeholder="Описание"
+                                    value={item.description}
                                     onChange={(e) =>
                                         handleCollectionChange(index, "description", e.target.value)
                                     }
@@ -176,6 +244,27 @@ const editCollection = () => {
                             </label>
                         </section>
                     ))}
+
+                    <div className={styles.filters}>
+                        <label>
+                            <input
+                                type="checkbox"
+                                checked={formState.isPopular}
+                                onChange={() =>
+                                    handleFormChange("isPopular", !formState.isPopular)
+                                }
+                            />
+                            Популярный товар
+                        </label>
+                        <label>
+                            <input
+                                type="checkbox"
+                                checked={formState.isNew}
+                                onChange={() => handleFormChange("isNew", !formState.isNew)}
+                            />
+                            Новый товар (новинка)
+                        </label>
+                    </div>
 
                     <div className={styles.photos}>
                         <p>Фотографии</p>
@@ -230,19 +319,15 @@ const editCollection = () => {
                         </div>
                     </div>
 
+
                     <button type="submit" className={styles.saveButton}>
                         Сохранить
                     </button>
-
-                    {error && (
-                        <p style={{color: "red"}}>
-                            {typeof error === "string" ? error : error.message || "Неизвестная ошибка"}
-                        </p>
-                    )}
+                    {error && <p style={{color: "red"}}>{error}</p>}
                 </form>
-            </main>
-        </AdminLayout>
+            </div>
+        </div>
     );
 };
 
-export default editCollection;
+export default UpdateProducts;
