@@ -41,7 +41,7 @@ const UpdateProducts = () => {
         // Загружаем данные товара
         const fetchProductData = async () => {
             try {
-                const response = await axios.get(`${API_URL}/getItemById?item_id=${id}`, {
+                const response = await axios.get(`${API_URL}/getCollectionById?item_id=${id}`, {
                     headers: {
                         Authorization: `Bearer ${localStorage.getItem("token")}`,
                     },
