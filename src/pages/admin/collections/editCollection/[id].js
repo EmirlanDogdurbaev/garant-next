@@ -89,6 +89,8 @@ const editCollection = () => {
             })
         );
 
+       
+
         photos.forEach((photo, index) => {
             if (photo.file && photo.isMain !== null && photo.hashColor !== "") {
                 formData.append(`photos`, photo.file);

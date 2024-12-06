@@ -17,7 +17,7 @@ const Login = () => {
         try {
             const response = await dispatch(login({ password, username })).unwrap();
             console.log("Успешный вход:", response);
-            router.push("/admin/products");
+            router.push("/admin/products/allProducts");
         } catch (err) {
             console.error("Ошибка входа:", err);
         }

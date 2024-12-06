@@ -92,13 +92,13 @@ const AddCollection = () => {
             console.log(`${pair[0]}: ${pair[1]}`);
         }
 
-        console.table(formData)
-
         try {
             const response = await axios.post(`${API_URL}/collection`, formData, {
                 headers: {"Content-Type": "multipart/form-data"},
             });
-            alert("Success:", response.data);
+            alert("Success: коллекция успешно создана", );
+            router.push("/admin/collections");
+
         } catch (error) {
             setError(error.response?.data || error.message);
             console.error("Error:", error);

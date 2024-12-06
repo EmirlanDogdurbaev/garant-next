@@ -19,20 +19,20 @@ export default function allBrands() {
         dispatch(deleteBrand(id))
             .unwrap()
             .then(() => {
-                alert("Категория успешно удалена");
+                alert("карточка клиента успешно удалена");
             })
             .catch((error) => {
-                console.error("Ошибка при удалении категории:", error);
-                alert(error.message || "Не удалось удалить категорию.");
+                console.error("Ошибка при удалении карточки клиента:", error);
+                alert(error.message || "Не удалось удалить карточку клиента.");
             });
     };
     return (
         <AdminLayout>
             <div className={styles.container}>
                 <header className={styles.header}>
-                    <h1>Категории</h1>
+                    <h1>Клиенты</h1>
                     <Link href="/admin/brands/addBrands">
-                        + Добавить новую категорию
+                        + Добавить новую карточку клиента
                     </Link>
                 </header>
 

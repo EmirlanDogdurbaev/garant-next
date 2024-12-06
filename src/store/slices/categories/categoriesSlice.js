@@ -38,6 +38,7 @@ export const fetchCategoriesById = createAsyncThunk(
     }
 );
 
+
 export const createCategory = createAsyncThunk(
     "categories/createCategory",
     async (categoryList, {rejectWithValue}) => {
@@ -47,7 +48,10 @@ export const createCategory = createAsyncThunk(
                 {categories: categoryList},
                 {headers: getAuthHeaders()}
             );
+            alert("успешно создано категория")
+            
             return response.data;
+            
         } catch (error) {
             return rejectWithValue(error.response?.data || error.message);
         }

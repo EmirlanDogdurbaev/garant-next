@@ -29,6 +29,7 @@ export const createBrand = createAsyncThunk(
                     "Content-Type": "multipart/form-data",
                 },
             });
+            alert("успешно создано")
             return response.data;
         } catch (error) {
             return rejectWithValue(error.response?.data || error.message);

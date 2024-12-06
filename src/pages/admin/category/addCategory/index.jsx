@@ -36,6 +36,7 @@ const addCategory = () => {
         ];
 
         dispatch(createCategory(category_list));
+        
         setData({ ru: "", en: "", kgz: "" });
     };
 

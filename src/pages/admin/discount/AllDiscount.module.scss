@@ -1,11 +1,10 @@
 .AllVacancy {
   padding: 30px 0;
-  background-color: #FFFFFF;
+  background-color: #ffffff;
 
   .inner {
     max-width: 1350px;
     margin: 0 auto;
-
 
     h3 {
       font-size: 30px;
@@ -35,9 +34,9 @@
       .add_btn {
         padding: 10px 20px;
         min-width: 200px;
-        border: 1px solid #4759FF;
+        border: 1px solid #4759ff;
         border-radius: 5px;
-        background-color: #4759FF;
+        background-color: #4759ff;
         color: white;
         font-size: 18px;
         display: flex;
@@ -68,10 +67,10 @@
       text-align: left;
     }
 
-    .customTable th, .customTable td {
+    .customTable th,
+    .customTable td {
       padding: 20px 15px;
       border-bottom: 1px solid #ddd;
-
     }
 
     .customTable th {
@@ -83,12 +82,12 @@
       display: flex;
       gap: 10px;
       justify-content: flex-end;
-
     }
 
     .actionButton {
-      background-color: #f0f4ff;
+      background-color: red;
       border: none;
+      color: #fff;
       border-radius: 5px;
       cursor: pointer;
       display: flex;
@@ -99,13 +98,12 @@
     }
 
     .actionButton:hover {
-      background-color: #e0e8ff;
+      background-color: rgb(249, 100, 100);
     }
 
     .actionButton svg {
       color: #6b7cff;
     }
-
 
     .pagination {
       display: flex;
@@ -137,6 +135,48 @@
         }
       }
     }
-
   }
+}
+
+.box{
+  display: flex;
+  flex-direction: column;
+  gap: 20px;
+}
+
+.btn_yes {
+  padding: 5px 20px;
+  width: 100px;
+  border: 1px solid #4759ff;
+  border-radius: 5px;
+  background-color: #4759ff;
+  color: white;
+  font-size: 18px;
+  display: flex;
+  align-items: center;
+  justify-content: center;
+  gap: 10px;
+  text-align: center;
+}
+
+.btn_no{
+  padding: 10px 20px;
+  min-width: 100px;
+  border: 1px solid red;
+  border-radius: 5px;
+  background-color: red;
+  color: white;
+  font-size: 18px;
+  display: flex;
+  align-items: center;
+  justify-content: center;
+  gap: 10px;
+  text-align: center;
+}
+
+.cont{
+  margin: 10px 0;
+  display: flex;
+  gap: 5px;
+  justify-content: center;
 }

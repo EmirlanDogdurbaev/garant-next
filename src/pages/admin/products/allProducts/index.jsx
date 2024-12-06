@@ -20,11 +20,13 @@ const AllProducts = () => {
             .unwrap()
             .then(() => {
                 alert("Продукт успешно удалён!");
+                dispatch(fetchAllProducts());
             })
             .catch((error) => {
                 console.error("Ошибка при удалении продукта:", error);
                 alert(error || "Не удалось удалить продукт.");
             });
+            
     };
 
     const startIndex = (currentPage - 1) * itemsPerPage2;

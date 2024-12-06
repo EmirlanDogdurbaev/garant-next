@@ -1,40 +1,47 @@
 import styles from "./editCategory.module.scss";
-import {useDispatch, useSelector} from "react-redux";
-import {useEffect, useState} from "react";
-import {fetchCategoriesById, updateCategory} from "@/store/slices/categories/categoriesSlice";
-import {useRouter} from "next/router";
+import { useDispatch, useSelector } from "react-redux";
+import { useEffect, useState } from "react";
+import { fetchCategoriesById, updateCategory } from "@/store/slices/categories/categoriesSlice";
+import { useRouter } from "next/router";
 import Link from "next/link";
 import AdminLayout from "@/pages/admin/layout";
-import React from 'react';
+import React from "react";
+
 const EditCategory = () => {
     const router = useRouter();
-    const {id} = router.query;
+    const { id } = router.query; // Получаем ID из URL
     const dispatch = useDispatch();
 
-    const {category, status, error} = useSelector((state) => state.categories);
+    // Данные категории из Redux
+    const category = useSelector((state) => state.categories.categories); // Здесь должен быть объект с массивом categories
+    const { status, error } = useSelector((state) => state.categories);
 
+    // Локальное состояние для хранения данных
     const [data, setData] = useState({
         ru: "",
         en: "",
         kgz: "",
     });
 
+    // Загружаем данные категории по ID
     useEffect(() => {
         if (id) {
             dispatch(fetchCategoriesById(id));
         }
     }, [dispatch, id]);
 
+    // Устанавливаем данные в локальное состояние после загрузки
     useEffect(() => {
-        if (category) {
+        if (category?.categories) {
             setData({
-                ru: category.find((lang) => lang.language_code === "ru")?.name || "",
-                en: category.find((lang) => lang.language_code === "en")?.name || "",
-                kgz: category.find((lang) => lang.language_code === "kgz")?.name || "",
+                ru: category.categories.find((cat) => cat.language_code === "ru")?.name || "",
+                en: category.categories.find((cat) => cat.language_code === "en")?.name || "",
+                kgz: category.categories.find((cat) => cat.language_code === "kgz")?.name || "",
             });
         }
     }, [category]);
 
+    // Обработка изменений в полях ввода
     const handleInputChange = (event, language) => {
         setData((prevData) => ({
             ...prevData,
@@ -42,21 +49,25 @@ const EditCategory = () => {
         }));
     };
 
+    // Обработка отправки формы
     const handleFormSubmit = (event) => {
         event.preventDefault();
 
+        // Проверка на заполненность всех полей
         if (!data.ru.trim() || !data.en.trim() || !data.kgz.trim()) {
             alert("Заполните все поля!");
             return;
         }
 
+        // Формируем данные для отправки
         const categoryData = [
-            {language_code: "ru", name: data.ru.trim()},
-            {language_code: "en", name: data.en.trim()},
-            {language_code: "kgz", name: data.kgz.trim()},
+            { language_code: "ru", name: data.ru.trim() },
+            { language_code: "en", name: data.en.trim() },
+            { language_code: "kgz", name: data.kgz.trim() },
         ];
 
-        dispatch(updateCategory({id, categoryData}))
+        // Отправляем данные
+        dispatch(updateCategory({ id, categoryData }))
             .unwrap()
             .then(() => {
                 alert("Категория успешно обновлена!");
@@ -77,6 +88,7 @@ const EditCategory = () => {
                     <p>Загрузка данных...</p>
                 ) : (
                     <form onSubmit={handleFormSubmit}>
+                        {/* Поле для ввода на русском */}
                         <label>
                             <h5>Название категории (Русский)</h5>
                             <input
@@ -87,6 +99,8 @@ const EditCategory = () => {
                                 disabled={status === "loading"}
                             />
                         </label>
+
+                        {/* Поле для ввода на английском */}
                         <label>
                             <h5>Название категории (English)</h5>
                             <input
@@ -97,6 +111,8 @@ const EditCategory = () => {
                                 disabled={status === "loading"}
                             />
                         </label>
+
+                        {/* Поле для ввода на кыргызском */}
                         <label>
                             <h5>Название категории (Кыргызча)</h5>
                             <input
@@ -107,17 +123,20 @@ const EditCategory = () => {
                                 disabled={status === "loading"}
                             />
                         </label>
+
+                        {/* Кнопка сохранения */}
                         <button type="submit" disabled={status === "loading"}>
                             {status === "loading" ? "Сохраняем..." : "Сохранить"}
                         </button>
-                        <Link href="/admin/category">
-                            Отмена
-                        </Link>
+
+                        {/* Ссылка для отмены */}
+                        <Link href="/admin/category">Отмена</Link>
+
+                        {/* Сообщение об ошибке */}
                         {error && <p className={styles.error}>Ошибка: {error}</p>}
                     </form>
                 )}
             </div>
-
         </AdminLayout>
     );
 };
