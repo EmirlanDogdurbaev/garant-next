@@ -1,100 +1,184 @@
 import styles from "./Footer.module.scss";
-import {useTranslation} from "react-i18next";
-import {useDispatch, useSelector} from "react-redux";
-import {useEffect} from "react";
-import {fetchVacancies} from "@/store/slices/vacancies/vacanciesSlice";
+import { useTranslation } from "react-i18next";
+import { useDispatch, useSelector } from "react-redux";
+import { useEffect } from "react";
+import { fetchVacancies } from "@/store/slices/vacancies/vacanciesSlice";
 import Link from "next/link";
-import {FaPhone} from "react-icons/fa";
-import React from 'react';
+import { FaPhone } from "react-icons/fa";
+import React from "react";
 const Footer = () => {
-    const {t} = useTranslation();
-    const dispatch = useDispatch();
-    const {vacancies} = useSelector((state) => state.vacancies);
+  const { t } = useTranslation();
+  const dispatch = useDispatch();
+  const { vacancies } = useSelector((state) => state.vacancies);
 
-    useEffect(() => {
-        dispatch(fetchVacancies())
-    }, [dispatch])
+  useEffect(() => {
+    dispatch(fetchVacancies());
+  }, [dispatch]);
 
-    const data3 = vacancies.slice(0, 3);
-    return (
-        <footer className={styles.footer}>
-            <div className={styles.container}>
-                <div className={styles.map}>
-                    <iframe
-                        title="map"
-                        src="https://www.google.com/maps/embed?pb=!1m18!1m12!1m3!1d2923.550353012155!2d74.57187427432002!3d42.87462257915624!2m3!1f0!2f0!3f0!3m2!1i1024!2i768!4f13.1!3m3!1m2!1s0x389ec819891ce20f%3A0x9632671e0b842a48!2z0YPQuy4g0JzQtdGA0LrQsNGC0L3QuNGP!5e0!3m2!1sru!2skg!4v1700000000000"
-                        width="100%"
-                        height="300"
-                        allowFullScreen=""
-                        loading="lazy"
-                    ></iframe>
-                </div>
+  const data3 = vacancies.slice(0, 3);
+  return (
+    <footer className={styles.footer}>
+      <div className={styles.container}>
+        <div className={styles.map}>
+          <iframe
+            title="map"
+            src="https://www.google.com/maps/embed?pb=!1m18!1m12!1m3!1d2923.550353012155!2d74.57187427432002!3d42.87462257915624!2m3!1f0!2f0!3f0!3m2!1i1024!2i768!4f13.1!3m3!1m2!1s0x389ec819891ce20f%3A0x9632671e0b842a48!2z0YPQuy4g0JzQtdGA0LrQsNGC0L3QuNGP!5e0!3m2!1sru!2skg!4v1700000000000"
+            width="100%"
+            height="400"
+            allowFullScreen=""
+            loading="lazy"
+          ></iframe>
+        </div>
 
-                <div className={styles.info}>
-                    <div className={styles.adresses}>
-                        <h6>{t("footer.addresses")}</h6>
-                        <ul>
-                            <Link href="https://maps.app.goo.gl/JdbygE2Ehi4WX5VA9">
-                                <p>
-                                    <b>{t("footer.city1")}: </b>
-                                    <br/>
-                                    {t("footer.address1")}
-                                </p>
-                            </Link>
-                            <Link href="https://maps.app.goo.gl/cJjc97mkECiUzkVJ8">
-                                <p>
-                                    <b>{t("footer.city2")}: </b>
-                                    <br/>
-                                    {t("footer.address2")}
-                                </p>
-                            </Link>
-                        </ul>
-                    </div>
-                    <div className={styles.contacts}>
-                        <h6>{t("footer.contacts")}</h6>
-                        <ul>
-                            <li>
-                                <a href="tel:+996500000104">
-                                    <FaPhone className={styles.icon}/> +996 500 000 104
-                                </a>
-                            </li>
-                            <li>
-                                <a href="tel:+996997000104">
-                                    {" "}
-                                    <FaPhone className={styles.icon}/> +996 997 000 104
-                                </a>
-                            </li>
-                            <li>
-                                <a href="tel:+996222000104">
-                                    {" "}
-                                    <FaPhone className={styles.icon}/> +996 222 000 104
-                                </a>
-                            </li>
-                        </ul>
-                    </div>
-                    <div className={styles.vacancies}>
-                        <h6>{t("footer.vacancies")}</h6>
-                        <ul>
-
-                            {data3.map((vacancies) => (
-                                <li key={vacancies.id}>
-                                    <Link href={`/vacancies`}>{vacancies.title}</Link>
-                                </li>
-                            ))}
-                            <Link href="/vacancies">{t("footer.see_more")}</Link>
-                        </ul>
-                    </div>
-                </div>
-            </div>
-            <div className={styles.bottom}>
+        <div className={styles.info}>
+          <div className={styles.adresses}>
+            <h6>{t("footer.addresses")}</h6>
+            <ul>
+              <Link href="https://maps.app.goo.gl/JdbygE2Ehi4WX5VA9">
                 <p>
-                    Первый отечественный бренд на рынке сантехники от компании ОсОО "Стройдом.кг".
-                    <br/>
-                    © 2023 Iskender.kg – Отечественный бренд сантехники
+                  <b>{t("footer.city1")}: </b>
+                  <br />
+                  {t("footer.address1")}
                 </p>
-            </div>
-        </footer>
-    );
+              </Link>
+              <Link href="https://maps.app.goo.gl/cJjc97mkECiUzkVJ8">
+                <p>
+                  <b>{t("footer.city2")}: </b>
+                  <br />
+                  {t("footer.address2")}
+                </p>
+              </Link>
+            </ul>
+          </div>
+          <div className={styles.contacts}>
+            <h6>{t("footer.contacts")}</h6>
+            <ul>
+              <li>
+                <a href="tel:+996500000104">
+                  <FaPhone className={styles.icon} /> +996 500 000 104
+                </a>
+              </li>
+              <li>
+                <a href="tel:+996997000104">
+                  {" "}
+                  <FaPhone className={styles.icon} /> +996 997 000 104
+                </a>
+              </li>
+              <li>
+                <a href="tel:+996222000104">
+                  {" "}
+                  <FaPhone className={styles.icon} /> +996 222 000 104
+                </a>
+              </li>
+            </ul>
+          </div>
+          <div className={styles.vacancies}>
+            <h6>{t("footer.vacancies")}</h6>
+            <ul>
+              {data3.map((vacancies) => (
+                <li key={vacancies.id}>
+                  <Link href={`/vacancies`}>{vacancies.title}</Link>
+                </li>
+              ))}
+              <Link href="/vacancies" className={styles.link}>
+                {t("footer.see_more")}
+              </Link>
+            </ul>
+          </div>
+
+          <div className={styles.contacts}>
+            
+            <ul style={{ display: "flex" , alignItems:"center", flexDirection:"row"}}>
+              <li>
+                <Link href={"https://wa.me/+996705088199"}>
+                  <svg
+                    xmlns="http://www.w3.org/2000/svg"
+                    width="30"
+                    height="30"
+                    viewBox="0 0 25 25"
+                    fill="none"
+                  >
+                    <path
+                      d="M21.0182 3.93135C19.9103 2.81257 18.5907 1.92548 17.1365 1.32179C15.6822 0.718104 14.1224 0.409888 12.5478 0.415104C5.95031 0.415104 0.573229 5.79219 0.573229 12.3897C0.573229 14.5043 1.12906 16.5584 2.16823 18.3709L0.476562 24.5818L6.82031 22.9143C8.5724 23.8689 10.542 24.3764 12.5478 24.3764C19.1453 24.3764 24.5224 18.9993 24.5224 12.4018C24.5224 9.19969 23.2778 6.19094 21.0182 3.93135ZM12.5478 22.3464C10.7595 22.3464 9.0074 21.863 7.47281 20.9568L7.11031 20.7393L3.34031 21.7301L4.34323 18.0568L4.10156 17.6822C3.10777 16.0957 2.58018 14.2617 2.57906 12.3897C2.57906 6.90385 7.0499 2.43302 12.5357 2.43302C15.1941 2.43302 17.6953 3.47219 19.5682 5.35719C20.4958 6.28019 21.2308 7.37818 21.7307 8.58746C22.2306 9.79674 22.4854 11.0932 22.4803 12.4018C22.5045 17.8876 18.0336 22.3464 12.5478 22.3464ZM18.0095 14.903C17.7074 14.758 16.2332 14.033 15.9674 13.9243C15.6895 13.8276 15.4961 13.7793 15.2907 14.0693C15.0853 14.3714 14.5174 15.048 14.3482 15.2414C14.1791 15.4468 13.9978 15.4709 13.6957 15.3139C13.3936 15.1689 12.427 14.8426 11.2911 13.8276C10.397 13.0301 9.8049 12.0514 9.62365 11.7493C9.45448 11.4472 9.59948 11.2901 9.75656 11.133C9.88948 11.0001 10.0586 10.7826 10.2036 10.6134C10.3486 10.4443 10.4091 10.3114 10.5057 10.118C10.6024 9.9126 10.5541 9.74344 10.4816 9.59844C10.4091 9.45344 9.8049 7.97927 9.56323 7.3751C9.32156 6.7951 9.06781 6.8676 8.88656 6.85552H8.30656C8.10115 6.85552 7.78698 6.92802 7.50906 7.2301C7.24323 7.53219 6.4699 8.25719 6.4699 9.73135C6.4699 11.2055 7.54531 12.6314 7.69031 12.8247C7.83531 13.0301 9.8049 16.0509 12.8016 17.3439C13.5145 17.658 14.0703 17.8393 14.5053 17.9722C15.2182 18.2018 15.8707 18.1655 16.3903 18.093C16.9703 18.0084 18.1666 17.368 18.4082 16.6672C18.662 15.9664 18.662 15.3743 18.5774 15.2414C18.4928 15.1084 18.3116 15.048 18.0095 14.903Z"
+                      fill="white"
+                      fillOpacity="0.8"
+                    />
+                  </svg>
+                </Link>
+              </li>
+              <li>
+                <Link
+                  href={
+                    "https://www.instagram.com/iskender_home?igsh=MXZ2NHliOWllbHo5OA=="
+                  }
+                >
+                  <svg
+                    xmlns="http://www.w3.org/2000/svg"
+                    width="35"
+                    height="35"
+                    viewBox="0 0 29 29"
+                    fill="none"
+                  >
+                    <path
+                      d="M2.63672 13.1819C2.63672 8.21107 2.63672 5.72497 4.18163 4.18138C5.72654 2.63779 8.21131 2.63647 13.1822 2.63647H15.8185C20.7894 2.63647 23.2755 2.63647 24.8191 4.18138C26.3627 5.72629 26.364 8.21107 26.364 13.1819V15.8183C26.364 20.7892 26.364 23.2752 24.8191 24.8188C23.2742 26.3624 20.7894 26.3637 15.8185 26.3637H13.1822C8.21131 26.3637 5.72522 26.3637 4.18163 24.8188C2.63804 23.2739 2.63672 20.7892 2.63672 15.8183V13.1819Z"
+                      stroke="white"
+                      strokeOpacity="0.8"
+                    />
+                    <path
+                      d="M20.4324 10.5456C21.5244 10.5456 22.4096 9.66035 22.4096 8.56834C22.4096 7.47632 21.5244 6.59106 20.4324 6.59106C19.3403 6.59106 18.4551 7.47632 18.4551 8.56834C18.4551 9.66035 19.3403 10.5456 20.4324 10.5456Z"
+                      fill="white"
+                      fillOpacity="0.8"
+                    />
+                    <path
+                      d="M14.5004 19.1137C17.0484 19.1137 19.114 17.0482 19.114 14.5001C19.114 11.9521 17.0484 9.88647 14.5004 9.88647C11.9523 9.88647 9.88672 11.9521 9.88672 14.5001C9.88672 17.0482 11.9523 19.1137 14.5004 19.1137Z"
+                      stroke="white"
+                      strokeOpacity="0.8"
+                    />
+                  </svg>
+                </Link>
+              </li>
+            </ul>
+          </div>
+        </div>
+      </div>
+      <main className={styles.wrap}>
+            <section className={styles.content}>
+            <div className={styles.left}>
+                   <h4> Garant Premium</h4>
+                    <div className={styles.down}>
+                        <p className={styles.big}>Первый отечественный бренд на рынке сантехники от компании ОсОО
+                            “Стройдом.кг”</p>
+                        <p className={styles.small}>© 2023 Iskender.kg - Отечественный бренд сантехники</p>
+                    </div>
+                </div>
+                <div className={styles.left}>
+                <Link href={"https://wa.me/+996705088199"}>
+                        <svg xmlns="http://www.w3.org/2000/svg" width="30" height="30" viewBox="0 0 25 25" fill="none">
+                            <path
+                                d="M21.0182 3.93135C19.9103 2.81257 18.5907 1.92548 17.1365 1.32179C15.6822 0.718104 14.1224 0.409888 12.5478 0.415104C5.95031 0.415104 0.573229 5.79219 0.573229 12.3897C0.573229 14.5043 1.12906 16.5584 2.16823 18.3709L0.476562 24.5818L6.82031 22.9143C8.5724 23.8689 10.542 24.3764 12.5478 24.3764C19.1453 24.3764 24.5224 18.9993 24.5224 12.4018C24.5224 9.19969 23.2778 6.19094 21.0182 3.93135ZM12.5478 22.3464C10.7595 22.3464 9.0074 21.863 7.47281 20.9568L7.11031 20.7393L3.34031 21.7301L4.34323 18.0568L4.10156 17.6822C3.10777 16.0957 2.58018 14.2617 2.57906 12.3897C2.57906 6.90385 7.0499 2.43302 12.5357 2.43302C15.1941 2.43302 17.6953 3.47219 19.5682 5.35719C20.4958 6.28019 21.2308 7.37818 21.7307 8.58746C22.2306 9.79674 22.4854 11.0932 22.4803 12.4018C22.5045 17.8876 18.0336 22.3464 12.5478 22.3464ZM18.0095 14.903C17.7074 14.758 16.2332 14.033 15.9674 13.9243C15.6895 13.8276 15.4961 13.7793 15.2907 14.0693C15.0853 14.3714 14.5174 15.048 14.3482 15.2414C14.1791 15.4468 13.9978 15.4709 13.6957 15.3139C13.3936 15.1689 12.427 14.8426 11.2911 13.8276C10.397 13.0301 9.8049 12.0514 9.62365 11.7493C9.45448 11.4472 9.59948 11.2901 9.75656 11.133C9.88948 11.0001 10.0586 10.7826 10.2036 10.6134C10.3486 10.4443 10.4091 10.3114 10.5057 10.118C10.6024 9.9126 10.5541 9.74344 10.4816 9.59844C10.4091 9.45344 9.8049 7.97927 9.56323 7.3751C9.32156 6.7951 9.06781 6.8676 8.88656 6.85552H8.30656C8.10115 6.85552 7.78698 6.92802 7.50906 7.2301C7.24323 7.53219 6.4699 8.25719 6.4699 9.73135C6.4699 11.2055 7.54531 12.6314 7.69031 12.8247C7.83531 13.0301 9.8049 16.0509 12.8016 17.3439C13.5145 17.658 14.0703 17.8393 14.5053 17.9722C15.2182 18.2018 15.8707 18.1655 16.3903 18.093C16.9703 18.0084 18.1666 17.368 18.4082 16.6672C18.662 15.9664 18.662 15.3743 18.5774 15.2414C18.4928 15.1084 18.3116 15.048 18.0095 14.903Z"
+                                fill="white" fillOpacity="0.8"/>
+                        </svg>
+                    </Link>
+                    <Link href={"https://www.instagram.com/iskender_home?igsh=MXZ2NHliOWllbHo5OA=="}>
+
+                        <svg xmlns="http://www.w3.org/2000/svg" width="35" height="35" viewBox="0 0 29 29"
+                             fill="none">
+                            <path
+                                d="M2.63672 13.1819C2.63672 8.21107 2.63672 5.72497 4.18163 4.18138C5.72654 2.63779 8.21131 2.63647 13.1822 2.63647H15.8185C20.7894 2.63647 23.2755 2.63647 24.8191 4.18138C26.3627 5.72629 26.364 8.21107 26.364 13.1819V15.8183C26.364 20.7892 26.364 23.2752 24.8191 24.8188C23.2742 26.3624 20.7894 26.3637 15.8185 26.3637H13.1822C8.21131 26.3637 5.72522 26.3637 4.18163 24.8188C2.63804 23.2739 2.63672 20.7892 2.63672 15.8183V13.1819Z"
+                                stroke="white" strokeOpacity="0.8"/>
+                            <path
+                                d="M20.4324 10.5456C21.5244 10.5456 22.4096 9.66035 22.4096 8.56834C22.4096 7.47632 21.5244 6.59106 20.4324 6.59106C19.3403 6.59106 18.4551 7.47632 18.4551 8.56834C18.4551 9.66035 19.3403 10.5456 20.4324 10.5456Z"
+                                fill="white" fillOpacity="0.8"/>
+                            <path
+                                d="M14.5004 19.1137C17.0484 19.1137 19.114 17.0482 19.114 14.5001C19.114 11.9521 17.0484 9.88647 14.5004 9.88647C11.9523 9.88647 9.88672 11.9521 9.88672 14.5001C9.88672 17.0482 11.9523 19.1137 14.5004 19.1137Z"
+                                stroke="white" strokeOpacity="0.8"/>
+                        </svg>
+                    </Link>
+                </div>
+            </section>
+        </main>
+    </footer>
+  );
 };
 
 export default Footer;
