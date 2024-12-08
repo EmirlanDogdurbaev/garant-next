@@ -1,16 +1,16 @@
-import  { useState, useEffect } from 'react';
+import {useState, useEffect} from 'react';
 import Slider from 'rc-slider';
 import styles from './ModalFilter.module.scss';
 import "rc-slider/assets/index.css";
-import { useDispatch, useSelector } from "react-redux";
+import {useDispatch, useSelector} from "react-redux";
 import {searchByPriceRange, setPriceRange} from "@/store/slices/filter/search";
 import React from 'react';
-
 function ModalFilter({ onClose }) {
     const [isClosing, setIsClosing] = useState(false);
-    const [minValue, setMinValue] = useState(0);
-    const [maxValue, setMaxValue] = useState(12000000);
-    const [productType, setProductType] = useState('Garant');
+    const [minValue, setMinValue] = useState(1);
+    const [maxValue, setMaxValue] = useState(100000);
+    const [productType, setProductType] = useState(true);
+    const [isPainted, setIsPainted] = useState(true);
 
     const dispatch = useDispatch();
     const { min, max } = useSelector((state) => state.search.filters.priceRange);
@@ -25,22 +25,22 @@ function ModalFilter({ onClose }) {
             setIsClosing(true);
             setTimeout(() => {
                 onClose();
-            }, 500); // Время на анимацию
+            }, 500);
         }
     };
 
     const handleSliderChange = (value) => {
-        setMinValue(value[0]);
+        setMinValue(Math.max(1, value[0]));
         setMaxValue(value[1]);
     };
 
     const handleMinInputChange = (e) => {
-        const value = Math.max(0, Number(e.target.value.replace(/\D/g, ''))); // Убираем все нецифровые символы
+        const value = Math.max(1, Number(e.target.value.replace(/\D/g, "")));
         setMinValue(value);
     };
 
     const handleMaxInputChange = (e) => {
-        const value = Math.max(0, Number(e.target.value.replace(/\D/g, ''))); // Убираем все нецифровые символы
+        const value = Math.max(0, Number(e.target.value.replace(/\D/g, ""))); // Убираем все нецифровые символы
         setMaxValue(value);
     };
 
@@ -51,37 +51,45 @@ function ModalFilter({ onClose }) {
             onClose();
         }, 500);
 
-        const priceRange = { min: minValue, max: maxValue };
-        dispatch(setPriceRange(priceRange));
-        dispatch(searchByPriceRange({ priceRange, productType }));
+        const filters = {
+            min: minValue,
+            max: maxValue,
+            productType,
+            isPainted,
+        };
+        dispatch(setPriceRange({ min: minValue, max: maxValue }));
+        dispatch(searchByPriceRange(filters));
     };
 
     const handleClear = () => {
-        setMinValue(0);
-        setMaxValue(12000000);
-        setProductType('Garant');
-
+        setMinValue(1);
+        setMaxValue(100000);
+        setProductType(true);
+        setIsPainted(true);
     };
 
     const formatNumber = (number) => {
-        return number.toLocaleString('ru-RU');
+        return number.toLocaleString("ru-RU");
     };
 
     return (
-        <div className={`${styles.overlay} ${isClosing ? styles.fadeOut : ''}`} onClick={handleOverlayClick}>
-            <div className={`${styles.wrap} ${isClosing ? styles.fadeOutWrap : ''}`}>
+        <div
+            className={`${styles.overlay} ${isClosing ? styles.fadeOut : ""}`}
+            onClick={handleOverlayClick}
+        >
+            <div className={`${styles.wrap} ${isClosing ? styles.fadeOutWrap : ""}`}>
                 <form onSubmit={handleFormSubmit}>
                     <div className={styles.box}>
                         <div className={styles.range}>
                             <p>Цены</p>
                             <Slider
                                 range
-                                min={0}
-                                max={12000000}
-                                step={2000}
+                                min={1}
+                                max={100000}
+                                step={100}
                                 value={[minValue, maxValue]}
                                 onChange={handleSliderChange}
-                                tipFormatter={(value) => formatNumber(value)} // Форматирование подсказки
+                                tipFormatter={(value) => formatNumber(value)}
                             />
                         </div>
                         <div className={styles.vals}>
@@ -108,8 +116,8 @@ function ModalFilter({ onClose }) {
                     type="radio"
                     name="product"
                     id="iskender"
-                    checked={productType === 'iskender'}
-                    onChange={() => setProductType('iskender')}
+                    checked={productType === true}
+                    onChange={() => setProductType(true)}
                 />
                 <p>Продукция Искендер</p>
               </span>
@@ -118,17 +126,32 @@ function ModalFilter({ onClose }) {
                     type="radio"
                     name="product"
                     id="partners"
-                    checked={productType === 'partners'}
-                    onChange={() => setProductType('partners')}
+                    checked={productType === false}
+                    onChange={() => setProductType(false)}
                 />
                 <p>Продукция партнеров</p>
+              </span>
+                        </div>
+                        <div className={styles.additionalFilters}>
+              <span>
+                <input
+                    type="checkbox"
+                    id="isPainted"
+                    checked={isPainted === true}
+                    onChange={() =>
+                        setIsPainted((prev) => (prev === true ? undefined : true))
+                    }
+                />
+                <p>Окрашенные</p>
               </span>
                         </div>
                         <div className={styles.buttons}>
                             <button className={styles.btn1} type="button" onClick={handleClear}>
                                 Очистить
                             </button>
-                            <button className={styles.btn2} type="submit">Применить</button>
+                            <button className={styles.btn2} type="submit">
+                                Применить
+                            </button>
                         </div>
                     </div>
                 </form>

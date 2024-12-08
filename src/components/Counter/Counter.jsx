@@ -1,3 +1,5 @@
+"use client"
+
 import styles from './Counter.module.scss';
 import CounterCard from "./CounterCard/CounterCard.jsx";
 import { useTranslation } from "react-i18next";

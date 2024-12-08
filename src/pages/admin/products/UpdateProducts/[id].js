@@ -145,7 +145,7 @@ const UpdateProduct = () => {
                 },
             });
 
-            console.log("Response from server:", response.data); // Лог ответа от сервера
+            console.log("Response from server:", response.data);
             alert("Товар успешно обновлен:", response.data);
         } catch (err) {
             console.error("Error response from server:", err.response?.data);

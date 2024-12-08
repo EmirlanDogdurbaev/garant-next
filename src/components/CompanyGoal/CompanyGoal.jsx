@@ -1,6 +1,8 @@
+'use client'
 import styles from './CompanyGoal.module.scss'
 import {useTranslation} from "react-i18next";
 import React from 'react';
+
 const CompanyGoal = () => {
     const {t} = useTranslation();
     return (

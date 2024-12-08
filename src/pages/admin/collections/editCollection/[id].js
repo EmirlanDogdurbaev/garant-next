@@ -41,7 +41,7 @@ const UpdateProducts = () => {
         // Загружаем данные товара
         const fetchProductData = async () => {
             try {
-                const response = await axios.get(`${API_URL}/getCollectionById?item_id=${id}`, {
+                const response = await axios.get(`${API_URL}/getCollectionById?collection_id=${id}`, {
                     headers: {
                         Authorization: `Bearer ${localStorage.getItem("token")}`,
                     },
@@ -181,35 +181,35 @@ const UpdateProducts = () => {
                     {/* Select for categories */}
                     <div className={styles.select_section}>
                         <h3>Выберите категорию</h3>
-                        <Select
-                            options={categoriesList.map((category) => ({
-                                value: category.id,
-                                label: category.name,
-                            }))}
-                            styles={customStyles}
-                            name="category"
-                            placeholder="Выберите категорию"
-                            onChange={(selectedOption) =>
-                                handleFormChange("category_id", selectedOption.value)
-                            }
-                        />
+                        {/*<Select*/}
+                        {/*    options={categoriesList.map((category) => ({*/}
+                        {/*        value: category.id,*/}
+                        {/*        label: category.name,*/}
+                        {/*    }))}*/}
+                        {/*    styles={customStyles}*/}
+                        {/*    name="category"*/}
+                        {/*    placeholder="Выберите категорию"*/}
+                        {/*    onChange={(selectedOption) =>*/}
+                        {/*        handleFormChange("category_id", selectedOption.value)*/}
+                        {/*    }*/}
+                        {/*/>*/}
                     </div>
 
                     {/* Select for collections */}
                     <div className={styles.select_section}>
                         <h3>Выберите коллекцию</h3>
-                        <Select
-                            options={collectionsList.map((collection) => ({
-                                value: collection.ID,
-                                label: collection.name,
-                            }))}
-                            styles={customStyles}
-                            name="collection"
-                            placeholder="Выберите коллекцию"
-                            onChange={(selectedOption) =>
-                                handleFormChange("collection_id", selectedOption.value)
-                            }
-                        />
+                        {/*<Select*/}
+                        {/*    options={collectionsList.map((collection) => ({*/}
+                        {/*        value: collection.ID,*/}
+                        {/*        label: collection.name,*/}
+                        {/*    }))}*/}
+                        {/*    styles={customStyles}*/}
+                        {/*    name="collection"*/}
+                        {/*    placeholder="Выберите коллекцию"*/}
+                        {/*    onChange={(selectedOption) =>*/}
+                        {/*        handleFormChange("collection_id", selectedOption.value)*/}
+                        {/*    }*/}
+                        {/*/>*/}
                     </div>
 
                     {formState.items.map((item, index) => (

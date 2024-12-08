@@ -3,6 +3,7 @@
 .main {
   width: 100%;
   background-color: #212529;
+  padding: 20px 0;
 }
 
 .inner2 {
@@ -28,7 +29,9 @@
     color: #fff;
     font-size: 15px;
     line-height: 1.75;
-    font-weight: bold;
+    padding: 10px;
+    cursor: pointer;
+    font-weight: normal;
   }
 
   &__menu {

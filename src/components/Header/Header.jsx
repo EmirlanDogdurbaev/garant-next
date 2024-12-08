@@ -1,8 +1,12 @@
+"use client"
+
 import {useSelector} from "react-redux";
 import {useTranslation} from "react-i18next";
 import {useEffect} from "react";
 import i18n from "../../i18n";
 import styles from "./Header.module.scss";
+
+
 import {Fade} from "react-slideshow-image";
 import Link from "next/link";
 import React from 'react';
@@ -47,7 +51,7 @@ const Header = () => {
                     <div
                         key={index}
                         className={styles.bgSlide}
-                        style={{backgroundImage: `url("${bg.src}") !important` }}
+                        style={{backgroundImage: `url("${bg.src}") !important`}}
                     />
                 ))}
             </Fade>
@@ -62,7 +66,7 @@ const Header = () => {
                         <p>{t("header.b2b")}</p>
                     </section>
                     <p className={styles.desk}>{t("header.description")}</p>
-                    <Link href={"/page"} className={styles.btn_to_category}>
+                    <Link href={"/catalog"} className={styles.btn_to_category}>
                         {t("header.toCatalog")}
                     </Link>
                 </div>

@@ -1,3 +1,5 @@
+
+
 import Header from "@/components/Header/Header.jsx";
 import Counter from "@/components/Counter/Counter";
 import CompanyGoal from "@/components/CompanyGoal/CompanyGoal";

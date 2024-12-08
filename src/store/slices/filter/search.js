@@ -37,20 +37,39 @@ export const searchByInputValue = createAsyncThunk(
 
 export const searchByPriceRange = createAsyncThunk(
     "products/searchByPriceRange",
-    async ({ priceRange, productType }, { getState, dispatch, rejectWithValue }) => {
+    async (filters, { getState, rejectWithValue }) => {
       try {
-        dispatch(clearResults());
         const language = getState().language.selectedLanguage;
-        const isProducer = productType === "iskender"; // Преобразуем тип продукта в `isProducer`
-        const response = await axios.get(
-            `${API_URL}/search?lang=${language}&is_producer=${isProducer}&price_min=${priceRange.min}&price_max=${priceRange.max}`
+
+        // Формируем объект параметров запроса
+        const queryParams = {
+          lang: language,
+          is_producer: filters.productType,
+          is_painted: filters.isPainted,
+          min: filters.min,
+          max: filters.max,
+        };
+
+        // Удаляем undefined значения, чтобы запрос был чистым
+        const filteredParams = Object.fromEntries(
+            Object.entries(queryParams).filter(([_, value]) => value !== undefined)
         );
+
+        console.log(queryParams)
+        // Преобразуем объект в строку запроса
+        const queryString = new URLSearchParams(filteredParams).toString();
+
+        // Отправляем запрос с динамическими параметрами
+        const response = await axios.get(`${API_URL}/search?${queryString}`);
+
+        console.log(response.data);
         return [...response.data.collections, ...response.data.items];
       } catch (error) {
         return rejectWithValue(error.response?.data || "Failed to fetch data");
       }
     }
 );
+
 
 
 export const fetchByProducerIsPainted = createAsyncThunk(
@@ -107,7 +126,7 @@ const search = createSlice({
     error: null,
     filters: {
       category: null,
-      priceRange: { min: 0, max: 10000 },
+      priceRange: { min: 1, max: 100000 },
       inputValue: "",
     },
   },

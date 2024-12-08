@@ -58,7 +58,7 @@ const ProductDetailPage = ({initialData, initialLanguage}) => {
         dispatch(fetchRecommendationCollection(language));
     }, [dispatch, language]);
 
-    // Получение уникальных цветов
+
     const uniqueColors = useMemo(() => {
         if (product?.photos) {
             return [...new Set(product.photos.map((photo) => photo.hashColor))];
@@ -67,8 +67,6 @@ const ProductDetailPage = ({initialData, initialLanguage}) => {
     }, [product]);
 
 
-    console.log(product)
-    // Фильтрация изображений по цвету
     const filteredThumbnails = useMemo(() => {
         if (selectedColor && product?.photos) {
             return product.photos
@@ -104,6 +102,7 @@ const ProductDetailPage = ({initialData, initialLanguage}) => {
     if (!product || Object.keys(product).length === 0) {
         return <div className={styles.notFound}>{t("product_not_found")}</div>;
     }
+
 
     return (
         <Layout>
@@ -155,19 +154,26 @@ const ProductDetailPage = ({initialData, initialLanguage}) => {
                     <div className={styles.infoSection}>
                         <h2 className={styles.title}>{product?.name}</h2>
                         <p className={styles.price}>
-                            {product?.price} {t("currency")}
+                            {/*{product?.price} ||   {product?.new_price}*/}
+
+                            {product?.new_price ? (
+                                product.new_price
+                            ) : (
+                                product.price
+                            )}
+
                         </p>
                         <div className={styles.description}>
-                            <h3>{t("description")}</h3>
+                            {/*<h3>{t("description")}</h3> /*/}
                             <p>{product?.description}</p>
                         </div>
                     </div>
                 </section>
 
-                {collection.length > 0 ? <section className={styles.cont2}>
+                <section className={styles.cont2}>
                     <h3>{t("detail_page.block1")}</h3>
                     <CardSlider cards={collection || []}/>
-                </section> : ("")}
+                </section>
 
 
                 <section className={styles.cont2}>

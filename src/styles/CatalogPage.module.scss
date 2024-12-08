@@ -10,11 +10,34 @@
     padding: 30px 0;
 
     .top {
+      width: 90%;
+      margin: 0 auto;
       display: flex;
       justify-content: center;
       gap: 40px;
 
+      input{
+        flex-grow: 1;
+      }
+
+      @media (max-width: 550px) {
+        display: flex;
+        flex-direction: column;
+        align-items: flex-end;
+        max-width: 99%;
+        margin: 0 auto;
+        gap: 10px;
+
+        .filter{
+
+          order: -1;
+          padding: 10px;
+        }
+      }
+
       .filter {
+        cursor: pointer;
+        padding: 10px 30px;
         max-width: 170px;
         border-radius: 100px;
         flex-shrink: 1;
@@ -37,6 +60,7 @@
     max-width: 1350px;
     margin: 0 auto;
     padding-bottom: 40px;
+    justify-content: center;
 
     .show {
       text-align: center;

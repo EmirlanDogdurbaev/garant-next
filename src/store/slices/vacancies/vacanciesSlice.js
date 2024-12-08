@@ -9,7 +9,6 @@ export const fetchVacancies = createAsyncThunk(
             const language = getState().language.selectedLanguage;
 
             const response = await axios.get(`${API_URL}/vacancies?lang=${language}`);
-            console.log(response.data)
             return response.data;
         } catch (error) {
             return rejectWithValue(error.response?.data || "Failed fetch data")
@@ -27,8 +26,6 @@ export const createVacancy = createAsyncThunk(
                     "Content-Type": "application/json",
                 },
             });
-
-            console.log(response.data)
             return response.data;
         } catch (error) {
             return rejectWithValue(error.response?.data || error.message);

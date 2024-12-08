@@ -25,12 +25,10 @@ export default function CatalogPage() {
     const {error, loading} = useSelector((state) => state.search)
 
 
-    console.log(results)
     useEffect(() => {
         dispatch(fetchCategories());
     }, [dispatch, language]);
 
-    console.log(results)
 
     
     return (
