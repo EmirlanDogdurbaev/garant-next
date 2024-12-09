@@ -14,8 +14,12 @@
     gap: 30px;
 
     @media (max-width: 768px) {
+
       flex-direction: column;
-      align-items: center;
+      align-items: flex-start;
+      padding: 50px 0;
+      width: 88%;
+      margin: 0 auto;
     }
   }
 
@@ -289,6 +293,7 @@
 
   .left {
     flex-direction: column;
+    gap: 20px;
     text-align: center;
   }
 

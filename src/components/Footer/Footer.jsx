@@ -109,13 +109,13 @@ const Footer = () => {
                             </defs>
                         </svg>
 
-                        <div className={styles.down}>
-                            <p className={styles.big}>Первый отечественный бренд на рынке сантехники от компании ОсОО
+                        <div className={styles.down} >
+                            <p className={styles.big} style={{marginBottom:"10px"}}>Первый отечественный бренд на рынке сантехники от компании ОсОО
                                 “Стройдом.кг”</p>
-                            <p className={styles.small}>© 2023 Iskender.kg - Отечественный бренд сантехники</p>
+                            <p className={styles.small}>© 2023 Garant-premium - Отечественный бренд сантехники</p>
                         </div>
                     </div>
-                    <div className={styles.left}>
+                    <div className={styles.right}>
                         <Link href={"https://wa.me/+996705088199"}>
                             <svg xmlns="http://www.w3.org/2000/svg" width="30" height="30" viewBox="0 0 25 25"
                                  fill="none">
