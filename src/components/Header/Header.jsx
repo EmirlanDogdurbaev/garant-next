@@ -1,31 +1,38 @@
-"use client"
+"use client";
 
-import {useSelector} from "react-redux";
-import {useTranslation} from "react-i18next";
-import {useEffect} from "react";
+import { useSelector } from "react-redux";
+import { useTranslation } from "react-i18next";
+import { useEffect, useState } from "react";
 import i18n from "../../i18n";
 import styles from "./Header.module.scss";
 
-
-import {Fade} from "react-slideshow-image";
+import { Fade } from "react-slideshow-image";
 import Link from "next/link";
-import React from 'react';
-import img1 from "../../../public/img1.jpg"
-import img2 from "../../../public/img2.jpg"
-import img3 from "../../../public/img3.jpg"
-import img4 from "../../../public/img4.jpg"
-import img5 from "../../../public/img5.jpg"
-import 'react-slideshow-image/dist/styles.css'
+import React from "react";
+import img1 from "../../../public/img1.jpg";
+import img2 from "../../../public/img2.jpg";
+import img3 from "../../../public/img3.jpg";
+import img4 from "../../../public/img4.jpg";
+import img5 from "../../../public/img5.jpg";
+import "react-slideshow-image/dist/styles.css";
 
 const Header = () => {
-    const {t} = useTranslation();
+    const { t } = useTranslation();
     const selectedLanguage = useSelector(
         (state) => state.language.selectedLanguage
     );
 
+    // Используем состояние для сброса ключа при каждом возврате
+    const [key, setKey] = useState(0);
+
     useEffect(() => {
         i18n.changeLanguage(selectedLanguage);
     }, [selectedLanguage]);
+
+    useEffect(() => {
+        // Сброс ключа компонента при каждом возврате на страницу
+        setKey((prevKey) => prevKey + 1);
+    }, []);
 
     const settings = {
         duration: 1000,
@@ -35,33 +42,27 @@ const Header = () => {
         arrows: false,
     };
 
-    const backgrounds = [
-        img1,
-        img2,
-        img3,
-        img4,
-        img5,
-    ];
-
+    const backgrounds = [img1, img2, img3, img4, img5];
 
     return (
         <section className={styles.sliderContainer}>
-            <Fade {...settings}>
+            {/* Добавляем ключ, чтобы принудительно пересоздать компонент */}
+            <Fade key={key} {...settings}>
                 {backgrounds.map((bg, index) => (
                     <div
                         key={index}
                         className={styles.bgSlide}
-                        style={{backgroundImage: `url("${bg.src}") !important`}}
+                        style={{ backgroundImage: `url("${bg.src}")` }}
                     />
                 ))}
             </Fade>
 
             <div className={styles.content}>
                 <div className={styles.container}>
-          <span>
-            <h1>{t("header.title")}</h1>
-            <h4>{t("header.subtitle")}</h4>
-          </span>
+                    <span>
+                        <h1>{t("header.title")}</h1>
+                        <h4>{t("header.subtitle")}</h4>
+                    </span>
                     <section className={styles.b2b}>
                         <p>{t("header.b2b")}</p>
                     </section>

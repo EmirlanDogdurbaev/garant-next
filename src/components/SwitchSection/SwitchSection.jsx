@@ -1,3 +1,4 @@
+"use client"
 import styles from './SwitchSection.module.scss';
 import {useEffect, useState} from "react";
 import SwitchButtons from "../UI/SwitchButtons/SwitchButtons.jsx";

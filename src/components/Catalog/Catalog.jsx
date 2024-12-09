@@ -1,3 +1,4 @@
+"use client"
 import styles from "./Catalog.module.scss";
 import img from "../../../public/img.png";
 import {useDispatch, useSelector} from "react-redux";

@@ -1,3 +1,5 @@
+"use client"
+
 import styles from "./DiscountProductCard.module.scss";
 import CardItem from "./CardItem/CardItem.jsx";
 import {Swiper, SwiperSlide} from "swiper/react";

@@ -1,3 +1,5 @@
+"use client"
+
 import styles from "./Brands.module.scss";
 import {useDispatch, useSelector} from "react-redux";
 import {useEffect} from "react";
