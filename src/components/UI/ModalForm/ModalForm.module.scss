@@ -203,7 +203,8 @@ textarea.error::placeholder {
 @media screen and (max-width: 550px) {
 
   .wrap {
-    width: 320px;
+    max-width: 400px;
+    min-width: 320px;
     height: 580px;
     padding: 20px;
     padding-top: 50px;
