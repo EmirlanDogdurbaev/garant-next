@@ -15,18 +15,22 @@ export default function Home() {
         <>
             <Head>
                 <title>Garant Premium | У нас вы найдете лучшие товары по выгодным ценам </title>
-                <meta name="description" content="Добро пожаловать в наш магазин! У нас вы найдете лучшие товары по выгодным ценам." />
-                <meta name="keywords" content="Магазин, Товары, Покупка, Скидки, Бренды, Отзывы" />
-                <meta property="og:title" content=" Garant Premium || Iskender  Главная | " />
-                <meta property="og:description" content="Лучшие товары, скидки и бренды в одном месте. Покупайте прямо сейчас!" />
-                <meta property="og:image" content="/path-to-default-image.jpg" />
-                <meta property="og:url" content="https://yourdomain.com" />
-                <meta property="og:type" content="website" />
-                <meta name="twitter:card" content="summary_large_image" />
-                <meta name="twitter:title" content=" Garant Premium || Iskender  Главная |" />
-                <meta name="twitter:description" content="Лучшие товары, скидки и бренды в одном месте. Покупайте прямо сейчас!" />
-                <meta name="twitter:image" content="/path-to-default-image.jpg" />
-                <link rel="canonical" href="https://garant-asia.com" />
+                <meta name="description"
+                      content="Добро пожаловать в наш магазин! У нас вы найдете лучшие товары по выгодным ценам."/>
+                <meta name="keywords" content="Магазин, Товары, Покупка, Скидки, Бренды, Отзывы"/>
+                <meta property="og:title" content=" Garant Premium || Iskender  Главная | "/>
+                <meta property="og:description"
+                      content="Лучшие товары, скидки и бренды в одном месте. Покупайте прямо сейчас!"/>
+                <meta property="og:image" content="/path-to-default-image.jpg"/>
+                <meta property="og:url" content="https://garant-asia.com"/>
+                <meta property="og:type" content="website"/>
+                <meta name="twitter:card" content="summary_large_image"/>
+                <meta name="twitter:title" content=" Garant Premium || Iskender  Главная |"/>
+                <meta name="twitter:description"
+                      content="Лучшие товары, скидки и бренды в одном месте. Покупайте прямо сейчас!"/>
+                <meta name="twitter:image" content="/path-to-default-image.jpg"/>
+                <link rel="canonical" href="https://garant-asia.com"/>
+                <link rel="icon" type="image/svg+xml" href="/public/logov1.svg"/>
             </Head>
 
             <Layout>

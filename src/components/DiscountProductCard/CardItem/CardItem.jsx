@@ -13,7 +13,7 @@ const CardItem = ({items}) => {
                 <article>
                     <div className={styles.top_content}>
                         {items.is_producer === true && (
-                            <span className={styles.iskender}>iskender</span>
+                            <span className={styles.iskender}>Garant</span>
                         )}
 
                         <Link
