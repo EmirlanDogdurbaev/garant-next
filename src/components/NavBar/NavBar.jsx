@@ -96,7 +96,7 @@ const NavBar = () => {
                 >
                   {t("nav.item1")}
                 </button>
-              </li>{" "}
+              </li>
               <li>
                 <button
                   onClick={() =>

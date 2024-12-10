@@ -1,4 +1,3 @@
-"use client"
 
 import styles from "./Reviews.module.scss";
 import {Swiper, SwiperSlide} from "swiper/react";
@@ -16,6 +15,7 @@ const Reviews = () => {
     const { data: reviews, loading, error } = useSelector((state) => state.reviews);
     const [isModalOpen, setModalOpen] = useState(false);
 
+    console.log(reviews)
 
     useEffect(() => {
         dispatch(fetchReviews());

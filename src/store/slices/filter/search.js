@@ -107,16 +107,22 @@ export const fetchByDistributivFilter = createAsyncThunk(
 );
 
 export const fetchByProducerFilter = createAsyncThunk(
-  "products/fetchByProducer",
-  async (_, { getState }) => {
-    const language = getState().language.selectedLanguage;
-    const response = await axios.get(
-      `${API_URL}/search?lang=${language}&is_producer=true`
-    );
+  "products/fetchByProducerFilter",
+  async (_, { getState, dispatch, rejectWithValue }) => {
+    try {
+      dispatch(clearResults());
+      const language = getState().language.selectedLanguage;
+      const response = await axios.get(
+          `${API_URL}/search?lang=${language}&is_producer=true`
+      );
 
-    return [...response.data.items, ...response.data.collections];
+      return [...response.data.items, ...response.data.collections];
+    } catch (error) {
+      return rejectWithValue(error.response?.data || "Failed to fetch data");
+    }
   }
 );
+
 
 const search = createSlice({
   name: "search",
@@ -149,6 +155,7 @@ const search = createSlice({
     },
     clearResults: (state) => {
       state.results = [];
+      state.error = null
     },
     clearError(state) {
       state.error = null;

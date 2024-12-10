@@ -10,6 +10,7 @@ import {fetchCategories} from "@/store/slices/categories/categoriesSlice";
 import {useEffect, useState} from "react";
 import styles from "../../styles/CatalogPage.module.scss"
 import Head from "next/head";
+import {fetchPopularProducts} from "@/store/slices/products/productsSlice";
 
 
 export default function CatalogPage() {
@@ -24,10 +25,13 @@ export default function CatalogPage() {
     const language = useSelector((state) => state.language.selectedLanguage);
     const inputValue = useSelector((state) => state.search.filters.inputValue);
     const {error, loading} = useSelector((state) => state.search)
+    const product = useSelector((state) => state.products.popularProducts)
 
+    console.log(product)
 
     useEffect(() => {
         dispatch(fetchCategories());
+        dispatch(fetchPopularProducts())
     }, [dispatch, language]);
 
 
@@ -36,14 +40,14 @@ export default function CatalogPage() {
         <>
             <Head>
                 <title>Каталог товаров | Ваш проект</title>
-                <meta name="description" content="Описание страницы каталога товаров для поисковых систем." />
-                <meta name="keywords" content="каталог, товары, цены, купить, название вашего проекта" />
-                <meta name="robots" content="index, follow" />
-                <meta property="og:title" content="Каталог товаров | Garant Premium" />
-                <meta property="og:description" content="Описание страницы каталога для социальных сетей." />
-                <meta property="og:image" content="/path-to-image.jpg" />
-                <meta property="og:url" content="https://garant-asia.com/catalog" />
-                <link rel="canonical" href="https://garant-asia.com/catalog" />
+                <meta name="description" content="Описание страницы каталога товаров для поисковых систем."/>
+                <meta name="keywords" content="каталог, товары, цены, купить, название вашего проекта"/>
+                <meta name="robots" content="index, follow"/>
+                <meta property="og:title" content="Каталог товаров | Garant Premium"/>
+                <meta property="og:description" content="Описание страницы каталога для социальных сетей."/>
+                <meta property="og:image" content="/path-to-image.jpg"/>
+                <meta property="og:url" content="https://garant-asia.com/catalog"/>
+                <link rel="canonical" href="https://garant-asia.com/catalog"/>
             </Head>
             <Layout>
                 <div className={styles.CatalogPage}>
@@ -62,38 +66,66 @@ export default function CatalogPage() {
 
                     <section className={styles.results_container}>
                         {error ? (
-                            <div className={styles.noResults}>{t("noResults")}</div>
+                            <div className={styles.noResults}>Товары не найдены </div>
+                        ) : Array.isArray(results) && results.length > 0 ? (
+                            <div className={styles.card_cont}>
+                                {results.map((item) => (
+                                    <Link
+                                        key={item.id}
+                                        href={`/catalog/${item.collection_id ? "product" : "collection"}/${item.id}`}
+                                        className={styles.card}
+                                    >
+                                        {item.isProducer && <span className={styles.brand}>Garant</span>}
+                                        <div>
+                                            <img
+                                                src={item.photos?.[0]?.url || "/default-image.jpg"}
+                                                alt={item.name || "Изображение товара"}
+                                            />
+                                            <aside>
+                                                <h4>{item.name || "Без названия"}</h4>
+                                                <div className={styles.line}/>
+                                                <p>{item.price ? `${item.price} som` : "Цена не указана"}</p>
+                                            </aside>
+                                        </div>
+                                    </Link>
+                                ))}
+                            </div>
                         ) : (
-                            Array.isArray(results) && results.length > 0 ? (
-                                <div className={styles.card_cont}>
-                                    {results.map((item) => (
-                                        <Link
-                                            key={item.id}
-                                            href={`/catalog/${item.collection_id ? "product" : "collection"}/${item.id}`}
-                                            className={styles.card}
-                                        >
-                                            {item.isProducer && <span className={styles.brand}>Garant</span>}
-                                            <div>
-                                                <img src={item.photos?.[0]?.url || ""} alt={item.name}/>
-                                                <aside>
-                                                    <h4>{item.name}</h4>
-                                                    <div className={styles.line}/>
-                                                    <p>{item.price} som</p>
-                                                </aside>
-                                            </div>
-                                        </Link>
-                                    ))}
-                                </div>
-                            ) : (
-                                <div className={styles.noResults}>{t("noProductsFound")}</div>
-                            )
+                            <div>
+                                {Array.isArray(product) && product.length > 0 ? (
+                                    <div className={styles.card_cont}>
+                                        {product.map((item) => (
+                                            <Link
+                                                key={item.id}
+                                                href={`/catalog/${item.collection_id ? "product" : "collection"}/${item.id}`}
+                                                className={styles.card}
+                                            >
+                                                {item.isProducer && <span className={styles.brand}>Garant</span>}
+                                                <div>
+                                                    <img
+                                                        src={item.photos?.[0]?.url || "/default-image.jpg"}
+                                                        alt={item.name || "Изображение товара"}
+                                                    />
+                                                    <aside>
+                                                        <h4>{item.name || "Без названия"}</h4>
+                                                        <div className={styles.line}/>
+                                                        <p>{item.price ? `${item.price} som` : "Цена не указана"}</p>
+                                                    </aside>
+                                                </div>
+                                            </Link>
+                                        ))}
+                                    </div>
+                                ) : (
+                                    <p className={styles.noProducts}>{t("noResults")}</p>
+                                )}
+                            </div>
                         )}
+                        {isModalOpen && <ModalFilter onClose={() => setModalOpen(false)}/>}
                     </section>
-
-                    {isModalOpen && <ModalFilter onClose={() => setModalOpen(false)}/>}
                 </div>
             </Layout>
         </>
 
     )
-};
+}
+;
