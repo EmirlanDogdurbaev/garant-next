@@ -151,8 +151,9 @@ const ProductDetailPage = ({initialData, initialLanguage}) => {
                 <meta name="twitter:image" content={mainImage}/>
                 <link
                     rel="canonical"
-                    href={`https://yourdomain.com/catalog/product/${id}`}
-                />
+                    href={`https://yourdomain.com/catalog/product/${id}`}/>
+                <link rel="icon" type="image/svg+xml" href="/logo_black.svg"/>
+
             </Head>
 
             <Layout>

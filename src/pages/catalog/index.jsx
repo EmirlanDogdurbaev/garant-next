@@ -48,6 +48,7 @@ export default function CatalogPage() {
                 <meta property="og:image" content="/path-to-image.jpg"/>
                 <meta property="og:url" content="https://garant-asia.com/catalog"/>
                 <link rel="canonical" href="https://garant-asia.com/catalog"/>
+                <link rel="icon" type="image/svg+xml" href="/logo_black.svg"/>
             </Head>
             <Layout>
                 <div className={styles.CatalogPage}>
