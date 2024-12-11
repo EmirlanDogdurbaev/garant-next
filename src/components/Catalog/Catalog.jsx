@@ -66,23 +66,21 @@ const Catalog = () => {
                         >
                             <div className={styles.brandLabel}>Garant</div>
                             {Array.isArray(product.photos) && product.photos.length > 0 ? (
-                                product.photos.slice(1).map((photo, index) => (
-                                    <img
-                                        key={index}
-                                        src={photo?.url || "azx"}
-                                        alt={product.name || "Default Name"}
-                                        className={styles.productImage}
-                                        height={200}
-                                    />
-                                ))
+                                <img
+                                    src={product.photos[0]?.url || "azx"} // Отображаем только первую фотографию
+                                    alt={product.name || "Default Name"} // Резервное имя
+                                    className={styles.productImage}
+                                    height={200}
+                                />
                             ) : (
                                 <img
-                                    src="azx"
+                                    src="azx" // Резервное изображение
                                     alt="Default Image"
                                     className={styles.productImage}
                                     height={200}
                                 />
                             )}
+
                             <aside className={styles.productAside}>
                                 <h3 className={styles.productName}>{product.name}</h3>
                                 <p className={styles.productPrice}>{product.price}</p>
