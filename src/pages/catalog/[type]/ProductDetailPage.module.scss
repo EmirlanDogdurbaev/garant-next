@@ -55,12 +55,17 @@
         position: relative;
         width: 450px;
         height: 500px;
+        background-color: #444444;
+        background-size: cover;
+        background-position: center;
 
 
         .mainImage {
           width: 100%;
           height: 100%;
           border: 1px solid #ddd;
+          object-fit: cover;
+          object-position: center;
         }
 
         span {

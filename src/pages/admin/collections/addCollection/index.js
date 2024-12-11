@@ -59,49 +59,58 @@ const AddCollection = () => {
     };
 
     const handleSubmit = async (e) => {
+        console.log("Функция handleSubmit вызвана!");
         e.preventDefault();
+        console.log("preventDefault сработал");
 
         const formData = new FormData();
 
-        formData.append(
-            "collection",
-            JSON.stringify({
-                price: formState.price,
-                isProducer: formState.isProducer,
-                isPainted: formState.isPainted,
-                isPopular: formState.isPopular,
-                isNew: formState.isNew,
-                collections: formState.collections,
-            })
-        );
-
-        const currentPhotos = [...photos];
-
-        currentPhotos.forEach((photo, index) => {
-            if (photo.file && photo.isMain !== null && photo.hashColor !== "") {
-
-                formData.append(`photos`, photo.file);
-                formData.append(`isMain_${photo.file.name}`, photo.isMain);
-                formData.append(`hashColor_${photo.file.name}`, photo.hashColor);
-            } else {
-                console.log(`Skipping photo with index ${index} due to missing data`);
-            }
-        });
-
-        for (const pair of formData.entries()) {
-            console.log(`${pair[0]}: ${pair[1]}`);
-        }
-
         try {
-            const response = await axios.post(`${API_URL}/collection`, formData, {
-                headers: {"Content-Type": "multipart/form-data"},
+            formData.append(
+                "collection",
+                JSON.stringify({
+                    price: formState.price,
+                    isProducer: formState.isProducer,
+                    isPainted: formState.isPainted,
+                    isPopular: formState.isPopular,
+                    isNew: formState.isNew,
+                    collections: formState.collections,
+                })
+            );
+
+            console.log("FormData для collection добавлен");
+
+            const currentPhotos = [...photos];
+
+            console.log("Текущее значение photos:", currentPhotos);
+
+            currentPhotos.forEach((photo, index) => {
+                if (photo.file && photo.isMain !== null && photo.hashColor !== "") {
+                    console.log(`Добавляю фото с индексом ${index}`);
+                    formData.append(`photos`, photo.file);
+                    formData.append(`isMain_${photo.file.name}`, photo.isMain);
+                    formData.append(`hashColor_${photo.file.name}`, photo.hashColor);
+                } else {
+                    console.log(`Пропускаю фото с индексом ${index} из-за отсутствующих данных`);
+                }
             });
-            alert("Success: коллекция успешно создана", );
+
+            console.log("FormData готов, выводим содержимое:");
+            for (const pair of formData.entries()) {
+                console.log(`${pair[0]}: ${pair[1]}`);
+            }
+
+            console.log("Отправляю запрос...");
+            const response = await axios.post(`${API_URL}/collection`, formData, {
+                headers: { "Content-Type": "multipart/form-data" },
+            });
+            console.log("Ответ сервера:", response);
+            alert("Success: коллекция успешно создана");
             router.push("/admin/collections");
 
         } catch (error) {
             setError(error.response?.data || error.message);
-            console.error("Error:", error);
+            console.error("Ошибка при отправке:", error);
         }
     };
 

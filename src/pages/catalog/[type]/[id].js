@@ -44,6 +44,8 @@ const ProductDetailPage = ({initialData, initialLanguage}) => {
     const [currentIndex, setCurrentIndex] = useState(0);
     const [selectedColor, setSelectedColor] = useState(null);
 
+
+
     useEffect(() => {
         if (!router.isReady) return;
 
@@ -52,9 +54,11 @@ const ProductDetailPage = ({initialData, initialLanguage}) => {
         } else if (type === "product" && id && product?.id !== id) {
             dispatch(fetchProductById(id));
         } else if (type === "collection" && id) {
+            console.log(id)
             dispatch(fetchCollectionById(id));
         }
     }, [router.isReady, type, id, initialData, dispatch, product?.id]);
+
 
     useEffect(() => {
         if (
@@ -65,11 +69,11 @@ const ProductDetailPage = ({initialData, initialLanguage}) => {
             dispatch(
                 fetchProductInCollection({
                     collectionId: product.collection_id,
-                    language,
+
                 })
             );
         }
-    }, [product?.collection_id, dispatch, language]);
+    }, [product?.collection_id, dispatch,]);
 
     useEffect(() => {
         dispatch(fetchRecommendationCollection(language));
@@ -166,7 +170,7 @@ const ProductDetailPage = ({initialData, initialLanguage}) => {
 
                     <section className={styles.cont}>
                         <div className={styles.imageSection}>
-                            <aside className={styles.box}>
+                            <aside className={styles.box} style={{backgroundImage: `url(${mainImage})`}}>
                                 <img
                                     src={mainImage}
                                     alt={product?.name}

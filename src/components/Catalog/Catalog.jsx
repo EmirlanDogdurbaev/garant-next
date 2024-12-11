@@ -30,6 +30,7 @@ const Catalog = () => {
     const bottomProductsToShow = bottomProducts.slice(0, 4);
 
 
+    console.log(topProductsToShow)
     const handleSearchAndNavigate = (action, path) => {
         dispatch(action());
         router.push(path);
@@ -67,8 +68,8 @@ const Catalog = () => {
                             <div className={styles.brandLabel}>Garant</div>
                             {Array.isArray(product.photos) && product.photos.length > 0 ? (
                                 <img
-                                    src={product.photos[0]?.url || "azx"} // Отображаем только первую фотографию
-                                    alt={product.name || "Default Name"} // Резервное имя
+                                    src={product.photos[0]?.url || "azx"}
+                                    alt={product.name || "Default Name"}
                                     className={styles.productImage}
                                     height={200}
                                 />

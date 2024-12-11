@@ -5,10 +5,11 @@ import {API_URL} from "@/store/api/api.js";
 export const fetchCollectionById = createAsyncThunk(
     "products/fetchCollectionById",
     async (id, {getState, rejectWithValue}) => {
+        console.log(id)
         try {
             const language = getState().language.selectedLanguage;
             const response = await axios.get(
-                `${API_URL}/collection?collection_id=${id}&lang=${language}`
+                `${API_URL}/collection?collection_id=1&lang=${language}`
             );
             return response.data;
         } catch (error) {
@@ -33,11 +34,12 @@ export const fetchProductById = createAsyncThunk(
 
 export const fetchProductInCollection = createAsyncThunk(
     "products/fetchProductInCollection",
-    async (productId, {getState, rejectWithValue}) => {
+    async (collectionId, {getState, rejectWithValue}) => {
         try {
+            console.log(collectionId)
             const language = getState().language.selectedLanguage;
             const response = await axios.get(
-                `${API_URL}/items/collection?collection_id=${productId}&lang=${language}`
+                `${API_URL}/items/collection?collection_id=${collectionId.collectionId}&lang=${language}`
             );
             return response.data;
         } catch (error) {
