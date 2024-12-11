@@ -9,7 +9,7 @@ export const fetchCollectionById = createAsyncThunk(
         try {
             const language = getState().language.selectedLanguage;
             const response = await axios.get(
-                `${API_URL}/collection?collection_id=1&lang=${language}`
+                `${API_URL}/collection?collection_id=${id}&lang=${language}`
             );
             return response.data;
         } catch (error) {
