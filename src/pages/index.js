@@ -30,7 +30,7 @@ export default function Home() {
                       content="Лучшие товары, скидки и бренды в одном месте. Покупайте прямо сейчас!"/>
                 <meta name="twitter:image" content="/path-to-default-image.jpg"/>
                 <link rel="canonical" href="https://garant-asia.com"/>
-                <link rel="icon" type="image/svg+xml" href="/logov1.svg"/>
+                <link rel="icon" type="image/svg+xml" href="/logo_black.svg"/>
             </Head>
 
             <Layout>
