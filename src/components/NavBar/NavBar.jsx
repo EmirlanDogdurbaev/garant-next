@@ -166,7 +166,9 @@ const NavBar = () => {
           ) : (
             <>
               <div className={classes.languageSelector}>
-                {t("nav.production")}
+               <Link href={"/catalog"} style={{color:"white"}}>
+                 {t("nav.production")}
+               </Link>
                 <div className={classes.dropdownMenu}>
                   <div className={`${classes.inner} ${classes.custom}`}>
                     <div
