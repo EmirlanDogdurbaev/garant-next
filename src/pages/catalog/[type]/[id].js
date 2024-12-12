@@ -45,11 +45,11 @@ const ProductDetailPage = ({initialData, initialLanguage}) => {
     const [selectedColor, setSelectedColor] = useState(null);
 
 
-
     useEffect(() => {
         if (!router.isReady) return;
 
         if (initialData) {
+            console.log(initialData)
             dispatch(setSelectedProduct(initialData));
         } else if (type === "product" && id && product?.id !== id) {
             dispatch(fetchProductById(id));
@@ -69,7 +69,6 @@ const ProductDetailPage = ({initialData, initialLanguage}) => {
             dispatch(
                 fetchProductInCollection({
                     collectionId: product.collection_id,
-
                 })
             );
         }
@@ -170,7 +169,7 @@ const ProductDetailPage = ({initialData, initialLanguage}) => {
 
                     <section className={styles.cont}>
                         <div className={styles.imageSection}>
-                            <aside className={styles.box} style={{backgroundImage: `url(${mainImage})`}}>
+                            <aside className={styles.box}>
                                 <img
                                     src={mainImage}
                                     alt={product?.name}
@@ -259,16 +258,19 @@ const ProductDetailPage = ({initialData, initialLanguage}) => {
                         <div className={styles.infoSection}>
                             <h2 className={styles.title}>{product?.name}</h2>
                             <ul className="color-list">
-                                {Array.isArray(product.colors) && product.colors.map((i, index) => (
-                                    <li
-                                        key={index}
-                                        style={{backgroundColor: `${i.hash_color}`}}
-                                        className={`color-item ${
-                                            selectedColor === i.hash_color ? "active" : ""
-                                        }`}
-                                        onClick={() => handleColorSelect(i.hash_color)}
-                                    ></li>
-                                ))}
+                                {Array.isArray(product.colors) && product.colors.map((i, index) => {
+                                    console.log(i)
+                                    return (
+                                        <li
+                                            key={index}
+                                            style={{backgroundColor: `${i.hash_color}`}}
+                                            className={`color-item ${
+                                                selectedColor === i.hash_color ? "active" : ""
+                                            }`}
+                                            onClick={() => handleColorSelect(i.hash_color)}
+                                        ></li>
+                                    )
+                                })}
                             </ul>
                             <p className={styles.price}>
                                 {product?.new_price ? product.new_price : product.price}

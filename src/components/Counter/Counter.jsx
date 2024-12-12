@@ -20,7 +20,7 @@ const Counter = () => {
         },
         {
             count: "70 000~",
-            description: t("about.customer"),
+            description: t("about.prod"),
             id: 3
         }
     ];

@@ -27,7 +27,6 @@ export default function CatalogPage() {
     const {error, loading} = useSelector((state) => state.search)
     const product = useSelector((state) => state.products.popularProducts)
 
-    console.log(product)
 
     useEffect(() => {
         dispatch(fetchCategories());

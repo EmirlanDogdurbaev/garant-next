@@ -34,6 +34,17 @@ const NavBar = () => {
   }, [dispatch]);
 
   useEffect(() => {
+    if (isMenuActive) {
+      document.body.style.overflow = "hidden";
+    } else {
+      document.body.style.overflow = "";
+    }
+    return () => {
+      document.body.style.overflow = "";
+    };
+  }, [isMenuActive]);
+
+  useEffect(() => {
     if (typeof window !== "undefined") {
       const token = localStorage.getItem("token");
       setIsLoggedIn(!!token);
