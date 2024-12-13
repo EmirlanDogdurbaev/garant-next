@@ -28,6 +28,7 @@ export default function CatalogPage() {
     const product = useSelector((state) => state.products.popularProducts)
 
 
+    console.log(results)
     useEffect(() => {
         dispatch(fetchCategories());
         dispatch(fetchPopularProducts())
@@ -84,7 +85,13 @@ export default function CatalogPage() {
                                             <aside>
                                                 <h4>{item.name || "Без названия"}</h4>
                                                 <div className={styles.line}/>
-                                                <p>{item.price ? `${item.price} som` : "Цена не указана"}</p>
+                                                <p className={styles.price}>
+                                                    {item.new_price !== 0 ? <>{item.new_price}</> :
+                                                        item.price !== 0 ? <>{item.price} сом</> :
+                                                            "Цена не указано"
+                                                    }
+
+                                                </p>
                                             </aside>
                                         </div>
                                     </Link>
@@ -109,7 +116,12 @@ export default function CatalogPage() {
                                                     <aside>
                                                         <h4>{item.name || "Без названия"}</h4>
                                                         <div className={styles.line}/>
-                                                        <p>{item.price ? `${item.price} som` : "Цена не указана"}</p>
+                                                        <p className={styles.price}>
+                                                            {item.new_price !== 0 ? <>{item.new_price}</> :
+                                                                item.price !== 0 ? <>{item.price} сом</> :
+                                                                    "Цена не указано"
+                                                            }
+                                                        </p>
                                                     </aside>
                                                 </div>
                                             </Link>

@@ -122,6 +122,7 @@ const ProductDetailPage = ({initialData, initialLanguage}) => {
         return <div className={styles.notFound}>{t("product_not_found")}</div>;
     }
 
+    console.log(product)
     return (
         <>
             <Head>
@@ -272,12 +273,17 @@ const ProductDetailPage = ({initialData, initialLanguage}) => {
                                     )
                                 })}
                             </ul>
+
                             <p className={styles.price}>
-                                {product?.new_price ? product.new_price : product.price}
+                                {product.new_price !== 0 ? <>{product.new_price}</> :
+                                product.price !== 0 ? <>{product.price}</>:
+                                    "Цена не указано"
+                                }
                             </p>
 
+
                             <div className={styles.description}>
-                                <p>{product?.description}</p>
+                                <p>{product.description}</p>
                             </div>
                         </div>
                     </section>

@@ -51,7 +51,10 @@ const CardSlider = ({cards}) => {
                                 <aside>
                                     <h4>{card.name}</h4>
                                     <div className={styles.line}/>
-                                    <p>{card.price} som</p>
+                                    <p> {card.new_price !== 0 ? <>{card.new_price}</> :
+                                        card.price !== 0 ? <>{card.price} сом</> :
+                                            "Цена не указано"
+                                    }</p>
                                 </aside>
                             </div>
                         </Link>
