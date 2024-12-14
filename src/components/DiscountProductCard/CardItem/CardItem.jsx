@@ -1,6 +1,7 @@
 import styles from "./CardItem.module.scss";
 import Link from "next/link";
 import React from 'react';
+
 const CardItem = ({items}) => {
     const url = items?.photo?.[0]?.url;
 
@@ -44,10 +45,16 @@ const CardItem = ({items}) => {
                 </article>
                 <span className={styles.price}>
           <h4>
-            {items.new_price || "N/A"} сом
+       {item.new_price !== 0 ? <>{item.new_price}</> :
+           item.price !== 0 ? <>{item.price} сом</> :
+               "Цена не указано"
+       }
           </h4>
           <h4 className={styles.old}>
-            {items.old_price || "N/A"} сом
+       {item.new_price !== 0 ? <>{item.new_price}</> :
+           item.price !== 0 ? <>{item.price} сом</> :
+               "Цена не указано"
+       }
           </h4>
         </span>
             </div>
