@@ -42,7 +42,7 @@ const CardSlider = ({cards}) => {
                 {cards.map((card) => (
                     <SwiperSlide key={card.id} className={styles.card}>
                         <Link
-                            href={`/catalog/${card.collection_id ? "product" : "collection"}/${card.id}`}
+                            href={`/catalog/${card.collection_id != null ? "product" : "collection"}/${card.id}`}
                             className={styles.Product}
                         >
                             {card.isProducer ? <span className={styles.brand}>Garant</span> : ""}
@@ -53,7 +53,7 @@ const CardSlider = ({cards}) => {
                                     <div className={styles.line}/>
                                     <p> {card.new_price !== 0 ? <>{card.new_price}</> :
                                         card.price !== 0 ? <>{card.price} сом</> :
-                                            "Цена не указано"
+                                            "Цена не указана"
                                     }</p>
                                 </aside>
                             </div>

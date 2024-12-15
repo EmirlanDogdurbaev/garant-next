@@ -27,6 +27,8 @@ const Catalog = () => {
     }, []);
 
     const topProductsToShow = topProducts.slice(0, 4);
+
+    console.log(topProductsToShow)
     const bottomProductsToShow = bottomProducts.slice(0, 4);
 
 
@@ -60,8 +62,9 @@ const Catalog = () => {
                     {topProductsToShow.map((product) => (
                         <Link
                             href={`/catalog/${
-                                product.collection_id ? "product" : "collection"
+                                product.collection_id != null ? "product" : "collection"
                             }/${product.id}`}
+
                             key={product.id}
                             className={styles.productCard}
                         >

@@ -5,6 +5,8 @@ import React from 'react';
 const CardItem = ({items}) => {
     const url = items?.photo?.[0]?.url;
 
+    console.log(items)
+
     return (
         <div className={styles.CardItem}>
 
@@ -18,7 +20,7 @@ const CardItem = ({items}) => {
                         )}
 
                         <Link
-                            href={`/catalog/${items.collection_id ? "product" : "collection"}/${items.id}`}
+                            href={`/catalog/${items.collection_id != null ? "product" : "collection"}/${items.id}`}
                             className={styles.link}
                         >
                             <svg

@@ -80,7 +80,7 @@ export default function CatalogPage() {
                                 {results.map((item) => (
                                     <Link
                                         key={item.id}
-                                        href={`/catalog/${item.collection_id ? "product" : "collection"}/${item.id}`}
+                                        href={`/catalog/${item.collection_id != null ? "product" : "collection"}/${item.id}`}
                                         className={styles.card}
                                     >
                                         {item.isProducer && <span className={styles.brand}>Garant</span>}
@@ -111,7 +111,7 @@ export default function CatalogPage() {
                                         {product.map((item) => (
                                             <Link
                                                 key={item.id}
-                                                href={`/catalog/${item.collection_id ? "product" : "collection"}/${item.id}`}
+                                                href={`/catalog/${item.collection_id != null ? "product" : "collection"}/${item.id}`}
                                                 className={styles.card}
                                             >
                                                 {item.isProducer && <span className={styles.brand}>Garant</span>}
