@@ -57,7 +57,12 @@
     "title": "Our partners"
   },
   "vacancies": {
-    "title": "Vacancies"
+    "title": "Vacancies",
+    "currency":"som",
+    "vacancy":"Vacancy",
+    "responsibilities":"Responsibilities",
+    "terms":"Terms",
+    "information":"Information"
   },
   "catalog_page":{
     "search":"Search",

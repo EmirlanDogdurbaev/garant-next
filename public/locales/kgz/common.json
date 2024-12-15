@@ -50,7 +50,12 @@
     "title": "Бизди тандайт"
   },
   "vacancies":{
-    "title":"Вакансиялар"
+    "title":"Вакансиялар",
+    "currency":"сом",
+    "vacancy":"Обязанности",
+    "responsibilities":"Обязанности",
+    "terms":"Шарттары",
+    "information":"Кошуу маалымат"
   },
   "catalog_page":{
     "search":"Издөө",

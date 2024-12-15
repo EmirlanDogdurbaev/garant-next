@@ -50,7 +50,12 @@
     "title": "Нас выбирают"
   },
   "vacancies":{
-    "title":"Вакансии"
+    "title":"Вакансии",
+    "currency":"сом",
+    "vacancy":"Вакансии",
+    "responsibilities":"Обязанности",
+    "terms":"Условия",
+    "information":"Доп. информация"
   },
   "catalog_page":{
     "search":"Поиск",
