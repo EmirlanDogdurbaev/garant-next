@@ -11,6 +11,12 @@ import {useEffect, useState} from "react";
 import styles from "../../styles/CatalogPage.module.scss"
 import Head from "next/head";
 import {fetchPopularProducts} from "@/store/slices/products/productsSlice";
+import {
+    fetchByDistributivFilter,
+    fetchByProducerFilter,
+    fetchByProducerIsPainted, searchByCategory, searchByInputValue,
+    searchByPriceRange
+} from "@/store/slices/filter/search";
 
 
 export default function CatalogPage() {
@@ -32,6 +38,7 @@ export default function CatalogPage() {
     useEffect(() => {
         dispatch(fetchCategories());
         dispatch(fetchPopularProducts())
+
     }, [dispatch, language]);
 
 

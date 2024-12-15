@@ -148,9 +148,9 @@ export const fetchDiscountProducts = createAsyncThunk(
     async (_, {rejectWithValue, getState}) => {
         try {
             const language = getState().language.selectedLanguage;
-    
+
             const response = await axios.get(`${API_URL}/discounts?lang=${language}`);
-         
+            console.log(response.data)
             return response.data;
         } catch (error) {
             return rejectWithValue(error.response?.data || "Failed to fetch data");

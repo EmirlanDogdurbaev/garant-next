@@ -11,7 +11,6 @@ export const searchByCategory = createAsyncThunk(
       const response = await axios.get(
         `${API_URL}/items?category_id=${categoryId}&lang=${language}`
       );
-
       return response.data;
     } catch (error) {
       return rejectWithValue(error.response?.data || "Failed to fetch data");

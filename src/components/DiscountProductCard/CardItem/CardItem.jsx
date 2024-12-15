@@ -45,14 +45,14 @@ const CardItem = ({items}) => {
                 </article>
                 <span className={styles.price}>
           <h4>
-       {item.new_price !== 0 ? <>{item.new_price}</> :
-           item.price !== 0 ? <>{item.price} сом</> :
+       {items.new_price !== 0 ? <>{items.new_price}</> :
+           items.price !== 0 ? <>{items.price} сом</> :
                "Цена не указано"
        }
           </h4>
           <h4 className={styles.old}>
-       {item.new_price !== 0 ? <>{item.new_price}</> :
-           item.price !== 0 ? <>{item.price} сом</> :
+       {items.new_price !== 0 ? <>{items.new_price}</> :
+           items.price !== 0 ? <>{items.price} сом</> :
                "Цена не указано"
        }
           </h4>

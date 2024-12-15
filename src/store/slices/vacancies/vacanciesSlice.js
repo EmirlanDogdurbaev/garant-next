@@ -7,7 +7,6 @@ export const fetchVacancies = createAsyncThunk(
     async (_, {getState, rejectWithValue}) => {
         try {
             const language = getState().language.selectedLanguage;
-
             const response = await axios.get(`${API_URL}/vacancies?lang=${language}`);
             return response.data;
         } catch (error) {
@@ -65,7 +64,7 @@ export const deleteVacancyById = createAsyncThunk(
 
 export const updateVacancy = createAsyncThunk(
     "vacancies/updateVacancy",
-    async ({ data }, { rejectWithValue }) => {
+    async ({data}, {rejectWithValue}) => {
         try {
             console.log(data)
 
@@ -86,7 +85,6 @@ export const updateVacancy = createAsyncThunk(
         }
     }
 );
-
 
 
 export const getVacancy = createSlice({

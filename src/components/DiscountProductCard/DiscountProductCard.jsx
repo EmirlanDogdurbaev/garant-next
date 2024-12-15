@@ -9,14 +9,17 @@ import {useEffect} from "react";
 import {useTranslation} from "react-i18next";
 import {fetchDiscountProducts} from "@/store/slices/products/productsSlice";
 import React from 'react';
+
 const DiscountProductCard = () => {
     const {t} = useTranslation();
     const dispatch = useDispatch();
     const items = useSelector((state) => state.products.discount)
+    const language = useSelector((state) => state.language.selectedLanguage)
+    console.log(items)
 
     useEffect(() => {
         dispatch(fetchDiscountProducts());
-    }, [dispatch]);
+    }, [dispatch, language]);
 
 
     return (

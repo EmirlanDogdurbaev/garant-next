@@ -1,8 +1,10 @@
 import { useState } from "react";
 import styles from "./JobCard.module.scss";
 import React from 'react';
+import {useTranslation} from "react-i18next";
 const JobCard = ({ job }) => {
     const [isOpen, setIsOpen] = useState(false);
+    const {t} = useTranslation();
 
     const toggleDetails = () => {
         setIsOpen(!isOpen);
@@ -20,7 +22,7 @@ const JobCard = ({ job }) => {
 
             <div className={`${styles.details} ${isOpen ? styles.detailsOpen : ""}`}>
                 <div className={styles.section}>
-                    <h4>Требования</h4>
+                    <h4>{t("vacancies.title")}</h4>
                     <ul className={styles.list}>
                         {job.requirements.map((req, index) => (
                             <li key={index}>{req}</li>
