@@ -87,7 +87,12 @@ const Catalog = () => {
 
                             <aside className={styles.productAside}>
                                 <h3 className={styles.productName}>{product.name}</h3>
-                                <p className={styles.productPrice}>{product.price}</p>
+                                <p className={styles.productPrice}>
+                                    {product.new_price !== 0 ? <>{product.new_price} {t("vacancies.currency")}</> :
+                                        product.price !== 0 ? <>{product.price} {t("vacancies.currency")}</> :
+                                            " "
+                                    }
+                                </p>
                             </aside>
                         </Link>
                     ))}

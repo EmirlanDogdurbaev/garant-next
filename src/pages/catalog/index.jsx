@@ -34,7 +34,6 @@ export default function CatalogPage() {
     const product = useSelector((state) => state.products.popularProducts)
 
 
-    console.log(results)
     useEffect(() => {
         dispatch(fetchCategories());
         dispatch(fetchPopularProducts())
@@ -93,9 +92,9 @@ export default function CatalogPage() {
                                                 <h4>{item.name || "Без названия"}</h4>
                                                 <div className={styles.line}/>
                                                 <p className={styles.price}>
-                                                    {item.new_price !== 0 ? <>{item.new_price}</> :
-                                                        item.price !== 0 ? <>{item.price} сом</> :
-                                                            "Цена не указано"
+                                                    {item.new_price !== 0 ? <>{item.new_price} {t("vacancies.currency")}</> :
+                                                        item.price !== 0 ? <>{item.price} {t("vacancies.currency")}</> :
+                                                            " "
                                                     }
 
                                                 </p>
@@ -124,9 +123,9 @@ export default function CatalogPage() {
                                                         <h4>{item.name || "Без названия"}</h4>
                                                         <div className={styles.line}/>
                                                         <p className={styles.price}>
-                                                            {item.new_price !== 0 ? <>{item.new_price}</> :
-                                                                item.price !== 0 ? <>{item.price} сом</> :
-                                                                    "Цена не указано"
+                                                            {item.new_price !== 0 ? <>{item.new_price} {t("vacancies.currency")}</> :
+                                                                item.price !== 0 ? <>{item.price} {t("vacancies.currency")}</> :
+                                                                    " "
                                                             }
                                                         </p>
                                                     </aside>

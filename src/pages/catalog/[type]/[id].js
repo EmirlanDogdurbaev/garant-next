@@ -259,25 +259,27 @@ const ProductDetailPage = ({initialData, initialLanguage}) => {
                         <div className={styles.infoSection}>
                             <h2 className={styles.title}>{product?.name}</h2>
                             <ul className="color-list">
-                                {Array.isArray(product.colors) && product.colors.map((i, index) => {
-                                    console.log(i)
-                                    return (
-                                        <li
-                                            key={index}
-                                            style={{backgroundColor: `${i.hash_color}`}}
-                                            className={`color-item ${
-                                                selectedColor === i.hash_color ? "active" : ""
-                                            }`}
-                                            onClick={() => handleColorSelect(i.hash_color)}
-                                        ></li>
-                                    )
-                                })}
+                                {Array.isArray(product.colors) &&
+                                    product.colors
+                                        .filter((color, index, self) =>
+                                            index === self.findIndex(c => c.hash_color === color.hash_color)
+                                        )
+                                        .map((color, index) => (
+                                            <li
+                                                key={index}
+                                                style={{ backgroundColor: color.hash_color }}
+                                                className={`color-item ${selectedColor === color.hash_color ? "active" : ""}`}
+                                                onClick={() => handleColorSelect(color.hash_color)}
+                                            ></li>
+                                        ))
+                                }
+
                             </ul>
 
                             <p className={styles.price}>
-                                {product.new_price !== 0 ? <>{product.new_price}</> :
+                                {product.new_price !== 0 ? <>{product.new_price} {t("vacancies.currency")}</> :
                                 product.price !== 0 ? <>{product.price}</>:
-                                    "Цена не указано"
+                                    " "
                                 }
                             </p>
 

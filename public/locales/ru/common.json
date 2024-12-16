@@ -55,7 +55,8 @@
     "vacancy":"Вакансии",
     "responsibilities":"Обязанности",
     "terms":"Условия",
-    "information":"Доп. информация"
+    "information":"Доп. информация",
+    "apply": "Откликнуться"
   },
   "catalog_page":{
     "search":"Поиск",
@@ -77,6 +78,9 @@
     "phone_num":"Телефон",
     "vacancies":"Вакансии",
     "see_more":"Смотреть больше..."
+  },
+  "price": {
+    "price" : "Price not specified"
   }
 
 }

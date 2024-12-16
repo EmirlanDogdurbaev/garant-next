@@ -53,9 +53,10 @@
     "title":"Вакансиялар",
     "currency":"сом",
     "vacancy":"Обязанности",
-    "responsibilities":"Обязанности",
+    "responsibilities":"Милдеттери",
     "terms":"Шарттары",
-    "information":"Кошуу маалымат"
+    "information":"Кошуу маалымат",
+    "apply": "Кайрылуу"
   },
   "catalog_page":{
     "search":"Издөө",
@@ -77,6 +78,9 @@
     "phone_num":"Телефон номерлери",
     "vacancies":"Вакансиялар",
     "see_more":"Көбүрөөк көрүү..."
+  },
+  "price": {
+    "price" : "Price not specified"
   }
 
 }

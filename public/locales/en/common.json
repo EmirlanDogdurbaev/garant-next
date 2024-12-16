@@ -62,7 +62,8 @@
     "vacancy":"Vacancy",
     "responsibilities":"Responsibilities",
     "terms":"Terms",
-    "information":"Information"
+    "information":"Information",
+    "apply": "Apply"
   },
   "catalog_page":{
     "search":"Search",
@@ -84,5 +85,8 @@
     "phone_num":"Phone numbers",
     "vacancies":"Vacancies",
     "see_more":"See more..."
+  },
+  "price": {
+    "price" : "Price not specified"
   }
 }

@@ -1,10 +1,11 @@
 import styles from "./CardItem.module.scss";
 import Link from "next/link";
 import React from 'react';
+import {useTranslation} from "react-i18next";
 
 const CardItem = ({items}) => {
     const url = items?.photo?.[0]?.url;
-
+    const {t} = useTranslation();
     console.log(items)
 
     return (
@@ -47,15 +48,15 @@ const CardItem = ({items}) => {
                 </article>
                 <span className={styles.price}>
           <h4>
-       {items.new_price !== 0 ? <>{items.new_price}</> :
-           items.price !== 0 ? <>{items.price} сом</> :
-               "Цена не указано"
+       {items.new_price !== 0 ? <>{items.new_price} {t("vacancies.currency")}</> :
+           items.price !== 0 ? <>{items.price} {t("vacancies.currency")}</> :
+               " "
        }
           </h4>
           <h4 className={styles.old}>
-       {items.new_price !== 0 ? <>{items.new_price}</> :
-           items.price !== 0 ? <>{items.price} сом</> :
-               "Цена не указано"
+       {items.old_price !== 0 ? <>{items.old_price}  {t("vacancies.currency")}</> :
+           items.old_price !== 0 ? <>{items.old_price}  {t("vacancies.currency")}</> :
+               " "
        }
           </h4>
         </span>

@@ -15,7 +15,7 @@ const JobCard = ({ job }) => {
             <div className={styles.header} onClick={toggleDetails}>
                 <h3 className={styles.title}>{job.title}</h3>
                 <div className={styles.divided}>
-                    <span className={styles.salary}>{job.salary} som</span>
+                    <span className={styles.salary}>{job.salary} {t("vacancies.currency")}</span>
                     <button className={styles.toggleButton}>{isOpen ? "-" : "+"}</button>
                 </div>
             </div>
@@ -31,7 +31,7 @@ const JobCard = ({ job }) => {
                 </div>
 
                 <div className={styles.section}>
-                    <h4>Обязанности</h4>
+                    <h4>{t("vacancies.responsibilities")}</h4>
                     <ul className={styles.list}>
                         {/* eslint-disable-next-line react/prop-types */}
                         {job.responsibilities.map((resp, index) => (
@@ -41,7 +41,7 @@ const JobCard = ({ job }) => {
                 </div>
 
                 <div className={styles.section}>
-                    <h4>Условия</h4>
+                    <h4>{t("vacancies.terms")}</h4>
                     <ul className={styles.list}>
                         {/* eslint-disable-next-line react/prop-types */}
                         {job.conditions.map((cond, index) => (
@@ -51,7 +51,7 @@ const JobCard = ({ job }) => {
                 </div>
 
                 <div className={styles.section}>
-                    <h4>Доп. информация</h4>
+                    <h4>{t("vacancies.information")}</h4>
                     <p>{job.additionalInfo}</p>
                 </div>
 
@@ -60,7 +60,7 @@ const JobCard = ({ job }) => {
                         href={`https://wa.me/+996705088199?text=Я%20хочу%20откликнуться%20на%20вашу%20вакансию`}
                         className={styles.applyButton}
                     >
-                        Откликнуться
+                        {t("vacancies.apply")}
                     </a>
                 </div>
             </div>

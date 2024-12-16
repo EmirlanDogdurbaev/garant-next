@@ -85,13 +85,13 @@
 
       .thumbnailContainer {
         display: flex;
-        justify-content: space-between;
+        justify-content: flex-start;
         overflow: hidden;
 
 
         .thumbnail {
           width: 100px;
-          height: 60px;
+          height: 70px;
           cursor: pointer;
           transition: transform 0.2s;
           border: 1px solid white;
