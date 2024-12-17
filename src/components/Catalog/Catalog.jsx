@@ -19,20 +19,19 @@ const Catalog = () => {
     const topProducts = useSelector((state) => state.products.filteredProducts);
     const bottomProducts = useSelector((state) => state.products.distr);
 
+    const language = useSelector((state) => state.language.selectedLanguage)
     const router = useRouter();
 
     useEffect(() => {
         dispatch(fetchByDistr());
         dispatch(fetchByProducer());
-    }, []);
+    }, [dispatch, language]);
 
     const topProductsToShow = topProducts.slice(0, 4);
 
-    console.log(topProductsToShow)
     const bottomProductsToShow = bottomProducts.slice(0, 4);
 
 
-    console.log(topProductsToShow)
     const handleSearchAndNavigate = (action, path) => {
         dispatch(action());
         router.push(path);
@@ -78,7 +77,7 @@ const Catalog = () => {
                                 />
                             ) : (
                                 <img
-                                    src="azx" // Резервное изображение
+                                    src="azx"
                                     alt="Default Image"
                                     className={styles.productImage}
                                     height={200}
@@ -143,6 +142,60 @@ const Catalog = () => {
                             <aside className={styles.productAside}>
                                 <h3 className={styles.productName}>{product.name}</h3>
                                 <p className={styles.productPrice}>{product.price}</p>
+                            </aside>
+                        </Link>
+                    ))}
+                </div>
+            </section>
+
+            <section className={styles.section}>
+                <div className={styles.sectionContent}>
+                    <h2>{t("catalog.subtitle1")}</h2>
+                    <p>{t("catalog.description1")}</p>
+                    <button className={styles.link} onClick={() =>
+                        handleSearchAndNavigate(
+                            fetchByDistributivFilter,
+                            "/catalog"
+                        )
+                    }>
+                        {t("catalog.link")}
+                    </button>
+                </div>
+                <div className={styles.productGrid}>
+                    {topProductsToShow.map((product) => (
+                        <Link
+                            href={`/catalog/${
+                                product.collection_id != null ? "product" : "collection"
+                            }/${product.id}`}
+
+                            key={product.id}
+                            className={styles.productCard}
+                        >
+                            <div className={styles.brandLabel}>Garant</div>
+                            {Array.isArray(product.photos) && product.photos.length > 0 ? (
+                                <img
+                                    src={product.photos[0]?.url || "azx"}
+                                    alt={product.name || "Default Name"}
+                                    className={styles.productImage}
+                                    height={200}
+                                />
+                            ) : (
+                                <img
+                                    src="azx"
+                                    alt="Default Image"
+                                    className={styles.productImage}
+                                    height={200}
+                                />
+                            )}
+
+                            <aside className={styles.productAside}>
+                                <h3 className={styles.productName}>{product.name}</h3>
+                                <p className={styles.productPrice}>
+                                    {product.new_price !== 0 ? <>{product.new_price} {t("vacancies.currency")}</> :
+                                        product.price !== 0 ? <>{product.price} {t("vacancies.currency")}</> :
+                                            " "
+                                    }
+                                </p>
                             </aside>
                         </Link>
                     ))}
