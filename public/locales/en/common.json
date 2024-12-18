@@ -1,6 +1,6 @@
 {
   "nav": {
-    "production": "Production Garant premium",
+    "production": "Iskender",
     "item1": "Standard Collections",
     "item2": "Painted Collections",
     "distribution": "Distribution",
@@ -18,8 +18,8 @@
   }
   ,
   "header": {
-    "title": "Garant ",
-    "subtitle": "premium",
+    "title": "Iskender ",
+    "subtitle": "group",
     "b2b": "B2B Wholesale",
     "description": "With over 10 years of experience in designing and manufacturing high-quality bathroom furniture, we proudly present our bathroom collections.",
     "toCatalog": "To Catalog"
@@ -29,7 +29,7 @@
     "years2": "in the market",
     "customer": "satisfied customers",
     "prod": "products per year",
-    "garant": "Garant premium",
+    "garant": "Iskender group",
     "title": " — is a leading international manufacturer of designer bathroom furniture",
     "description": "Our constant aim is to fulfil the needs of our customers. We have achieved this through our values working in perfect symbiosis, respond to the market by providing a wide range of bathroom furniture that is highly competitive in terms of design,quality and price."
   },
@@ -43,10 +43,12 @@
   "catalog": {
     "title": "Catalogue",
     "link": "See more",
-    "subtitle1": "Own production ‘Garant’",
+    "subtitle1": "Own production Iskender",
     "description1": "We create unique furniture to offer our customers unique furniture, entirely made by us in Kyrgyzstan, with passion and attention...",
-    "subtitle2": "Furniture from trusted partners",
+    "subtitle2": "Garant",
     "description2": "We offer not only our own furniture, but also carefully selected furniture from trusted partners. Each item is quality controlled to meet our standards and harmoniously complement the Garant premium collections",
+    "subtitle3": "Aqualuxe",
+    "description3": "We offer not only our own furniture, but also carefully selected furniture from trusted partners. Each item is quality controlled to meet our standards and harmoniously complement the Garant premium collections",
     "link2": "Go"
   },
   "reviews": {
