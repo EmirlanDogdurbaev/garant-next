@@ -11,13 +11,15 @@ import {
 import Link from "next/link";
 import React from "react";
 import {useRouter} from "next/navigation";
-import {fetchByDistributivFilter} from "@/store/slices/filter/search";
+import {fetchByAquaFilter, fetchByDistributivFilter} from "@/store/slices/filter/search";
 
 const Catalog = () => {
     const {t} = useTranslation();
     const dispatch = useDispatch();
     const topProducts = useSelector((state) => state.products.filteredProducts);
     const bottomProducts = useSelector((state) => state.products.distr);
+    const middleProducts = useSelector((state) => state.search.results);
+
 
     const language = useSelector((state) => state.language.selectedLanguage)
     const router = useRouter();
@@ -25,7 +27,10 @@ const Catalog = () => {
     useEffect(() => {
         dispatch(fetchByDistr());
         dispatch(fetchByProducer());
+        dispatch(fetchByAquaFilter());
     }, [dispatch, language]);
+
+    console.log(middleProducts)
 
     const topProductsToShow = topProducts.slice(0, 4);
 
@@ -58,7 +63,7 @@ const Catalog = () => {
                     </button>
                 </div>
                 <div className={styles.productGrid}>
-                    {topProductsToShow.map((product) => (
+                    {middleProducts.map((product) => (
                         <Link
                             href={`/catalog/${
                                 product.collection_id != null ? "product" : "collection"
@@ -67,7 +72,7 @@ const Catalog = () => {
                             key={product.id}
                             className={styles.productCard}
                         >
-                            <div className={styles.brandLabel}>Garant</div>
+                            <div className={styles.brandLabel}>Aqualuxe</div>
                             {Array.isArray(product.photos) && product.photos.length > 0 ? (
                                 <img
                                     src={product.photos[0]?.url || "azx"}
@@ -120,6 +125,7 @@ const Catalog = () => {
                             key={product.id}
                             className={styles.productCard}
                         >
+                            <div className={styles.brandLabel}>Garant</div>
                             {Array.isArray(product.photos) && product.photos.length > 0 ? (
                                 product.photos.map((photo, index) => (
                                     <img
@@ -171,7 +177,7 @@ const Catalog = () => {
                             key={product.id}
                             className={styles.productCard}
                         >
-                            <div className={styles.brandLabel}>Garant</div>
+                            <div className={styles.brandLabel}>Iskender</div>
                             {Array.isArray(product.photos) && product.photos.length > 0 ? (
                                 <img
                                     src={product.photos[0]?.url || "azx"}

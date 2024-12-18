@@ -40,26 +40,10 @@ export const searchByPriceRange = createAsyncThunk(
         try {
             const language = getState().language.selectedLanguage;
 
-            // Формируем объект параметров запроса
-            const queryParams = {
-                lang: language,
-                is_producer: filters.productType,
-                is_painted: filters.isPainted,
-                min: filters.min,
-                max: filters.max,
-            };
 
-            // Удаляем undefined значения, чтобы запрос был чистым
-            const filteredParams = Object.fromEntries(
-                Object.entries(queryParams).filter(([_, value]) => value !== undefined)
-            );
-
-            console.log(queryParams)
-            // Преобразуем объект в строку запроса
-            const queryString = new URLSearchParams(filteredParams).toString();
 
             // Отправляем запрос с динамическими параметрами
-            const response = await axios.get(`${API_URL}/search?${queryString}`);
+            const response = await axios.get(`${API_URL}/search?lang=${language}&min=${filters.min}&max=${filters.max}`);
 
             console.log(response.data);
             return [...response.data.collections, ...response.data.items];
@@ -104,13 +88,30 @@ export const fetchByProducerIsStandart = createAsyncThunk(
 );
 
 export const fetchByDistributivFilter = createAsyncThunk(
-    "products/fetchByDistributiv",
+    "products/fetchByDistributivFilter",
     async (_, {getState, dispatch, rejectWithValue}) => {
         try {
             dispatch(clearResults());
             const language = getState().language.selectedLanguage;
             const response = await axios.get(
-                `${API_URL}/search?lang=${language}&is_producer=false`
+                `${API_URL}/search?lang=${language}&is_garant=true`
+            );
+
+            return [...response.data.items, ...response.data.collections];
+        } catch (error) {
+            return rejectWithValue(error.response?.data || "Failed to fetch data");
+        }
+    }
+);
+
+export const fetchByAquaFilter = createAsyncThunk(
+    "products/fetchByAquaFilter",
+    async (_, {getState, dispatch, rejectWithValue}) => {
+        try {
+            dispatch(clearResults());
+            const language = getState().language.selectedLanguage;
+            const response = await axios.get(
+                `${API_URL}/search?lang=${language}&is_aqua=true`
             );
 
             return [...response.data.items, ...response.data.collections];
@@ -218,6 +219,17 @@ const search = createSlice({
                 state.status = "succeeded";
             })
             .addCase(fetchByDistributivFilter.rejected, (state, action) => {
+                state.error = action.payload;
+                state.status = "failed";
+            })
+            .addCase(fetchByAquaFilter.pending, (state) => {
+                state.status = "loading";
+            })
+            .addCase(fetchByAquaFilter.fulfilled, (state, action) => {
+                state.results = action.payload;
+                state.status = "succeeded";
+            })
+            .addCase(fetchByAquaFilter.rejected, (state, action) => {
                 state.error = action.payload;
                 state.status = "failed";
             })

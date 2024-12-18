@@ -82,7 +82,9 @@ export default function CatalogPage() {
                                         href={`/catalog/${item.collection_id != null ? "product" : "collection"}/${item.id}`}
                                         className={styles.card}
                                     >
-                                        {item.isProducer && <span className={styles.brand}>Garant</span>}
+                                        {item.isProducer ? <span className={styles.brand}>Iskender</span> : ""}
+                                        {item.isGarant ? <span className={styles.brand}>Garant</span> : ""}
+                                        {item.isAqua ? <span className={styles.brand}>Aqualux</span> : ""}
                                         <div>
                                             <img
                                                 src={item.photos?.[0]?.url || "/default-image.jpg"}
@@ -113,7 +115,9 @@ export default function CatalogPage() {
                                                 href={`/catalog/${item.collection_id != null ? "product" : "collection"}/${item.id}`}
                                                 className={styles.card}
                                             >
-                                                {item.isProducer && <span className={styles.brand}>Garant</span>}
+                                                {item.isProducer ? <span className={styles.brand}>Iskender</span> : ""}
+                                                {item.isGarant ? <span className={styles.brand}>Garant</span> : ""}
+                                                {item.isAqua ? <span className={styles.brand}>Aqualux</span> : ""}
                                                 <div>
                                                     <img
                                                         src={item.photos?.[0]?.url || "/default-image.jpg"}

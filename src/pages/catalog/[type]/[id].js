@@ -44,6 +44,7 @@ const ProductDetailPage = ({initialData, initialLanguage}) => {
     const [currentIndex, setCurrentIndex] = useState(0);
     const [selectedColor, setSelectedColor] = useState(null);
 
+    console.log(product)
 
     useEffect(() => {
         if (!router.isReady) return;
@@ -122,7 +123,6 @@ const ProductDetailPage = ({initialData, initialLanguage}) => {
         return <div className={styles.notFound}>{t("product_not_found")}</div>;
     }
 
-    console.log(product)
     return (
         <>
             <Head>

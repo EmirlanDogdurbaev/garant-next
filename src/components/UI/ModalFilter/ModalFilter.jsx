@@ -54,8 +54,6 @@ function ModalFilter({ onClose }) {
         const filters = {
             min: minValue,
             max: maxValue,
-            productType,
-            isPainted,
         };
         dispatch(setPriceRange({ min: minValue, max: maxValue }));
         dispatch(searchByPriceRange(filters));
@@ -111,39 +109,9 @@ function ModalFilter({ onClose }) {
                             </div>
                         </div>
                         <div className={styles.radios}>
-              <span>
-                <input
-                    type="radio"
-                    name="product"
-                    id="iskender"
-                    checked={productType === true}
-                    onChange={() => setProductType(true)}
-                />
-                <p>Продукция Искендер</p>
-              </span>
-                            <span>
-                <input
-                    type="radio"
-                    name="product"
-                    id="partners"
-                    checked={productType === false}
-                    onChange={() => setProductType(false)}
-                />
-                <p>Продукция партнеров</p>
-              </span>
-                        </div>
-                        <div className={styles.additionalFilters}>
-              <span>
-                <input
-                    type="checkbox"
-                    id="isPainted"
-                    checked={isPainted === true}
-                    onChange={() =>
-                        setIsPainted((prev) => (prev === true ? undefined : true))
-                    }
-                />
-                <p>Окрашенные</p>
-              </span>
+
+
+
                         </div>
                         <div className={styles.buttons}>
                             <button className={styles.btn1} type="button" onClick={handleClear}>

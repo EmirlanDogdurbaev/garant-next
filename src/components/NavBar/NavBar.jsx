@@ -12,6 +12,7 @@ import {
 import Logo from "@/components/Logo/Logo";
 import {useRouter} from "next/navigation";
 import {
+    fetchByAquaFilter,
     fetchByDistributivFilter,
     fetchByProducerFilter,
     fetchByProducerIsPainted, fetchByProducerIsStandart,
@@ -131,14 +132,22 @@ const NavBar = () => {
                                         )
                                     }
                                 >
-                                    {t("nav.distribution")}
+                                 garant
                                 </button>
                             </li>
                             <li>
-                                <Link className={classes.navbar__link} href="/vacancies">
-                                    {t("nav.vacancies")}
-                                </Link>
+                                <button className={styles.btn}
+                                    onClick={() =>
+                                        handleSearchAndNavigate(
+                                            fetchByAquaFilter,
+                                            "/catalog"
+                                        )
+                                    }
+                                >
+                                    aqua
+                                </button>
                             </li>
+
                             <li>
                                 <button>
                                     <svg
@@ -224,13 +233,18 @@ const NavBar = () => {
                                     handleSearchAndNavigate(fetchByDistributivFilter, "/catalog")
                                 }
                             >
-                                {t("nav.distribution")}
+                             garant
                             </div>
 
                             <li className={classes.navbar__item}>
-                                <Link className={classes.navbar__link} href="/vacancies">
-                                    {t("nav.vacancies")}
-                                </Link>
+                                <button   className={`${classes.navbar__link} ${classes.languageSelector} ${classes.btn}`} onClick={() =>
+                                    handleSearchAndNavigate(
+                                        fetchByAquaFilter,
+                                        "/catalog"
+                                    )
+                                }>
+                               aqua
+                                </button>
                             </li>
 
                             <div className={classes.languageSelector}>
