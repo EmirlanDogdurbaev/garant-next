@@ -48,7 +48,6 @@ const Catalog = () => {
                 <h3>{t("catalog.title")}</h3>
                 <Link href={"/catalog"}> {t("catalog.link")}</Link>
             </section>
-
             <section className={styles.section}>
                 <div className={styles.sectionContent}>
                     <h2>{t("catalog.subtitle1")}</h2>
@@ -63,7 +62,7 @@ const Catalog = () => {
                     </button>
                 </div>
                 <div className={styles.productGrid}>
-                    {middleProducts.map((product) => (
+                    {topProductsToShow.map((product) => (
                         <Link
                             href={`/catalog/${
                                 product.collection_id != null ? "product" : "collection"
@@ -72,7 +71,7 @@ const Catalog = () => {
                             key={product.id}
                             className={styles.productCard}
                         >
-                            <div className={styles.brandLabel}>Aqualuxe</div>
+                            <div className={styles.brandLabel}>Iskender</div>
                             {Array.isArray(product.photos) && product.photos.length > 0 ? (
                                 <img
                                     src={product.photos[0]?.url || "azx"}
@@ -102,6 +101,7 @@ const Catalog = () => {
                     ))}
                 </div>
             </section>
+
 
             <section className={styles.section}>
                 <div className={styles.sectionContent_black}>
@@ -160,7 +160,7 @@ const Catalog = () => {
                     <p>{t("catalog.description1")}</p>
                     <button className={styles.link} onClick={() =>
                         handleSearchAndNavigate(
-                            fetchByDistributivFilter,
+                            fetchByAquaFilter,
                             "/catalog"
                         )
                     }>
@@ -168,7 +168,7 @@ const Catalog = () => {
                     </button>
                 </div>
                 <div className={styles.productGrid}>
-                    {topProductsToShow.map((product) => (
+                    {middleProducts.map((product) => (
                         <Link
                             href={`/catalog/${
                                 product.collection_id != null ? "product" : "collection"
@@ -177,7 +177,7 @@ const Catalog = () => {
                             key={product.id}
                             className={styles.productCard}
                         >
-                            <div className={styles.brandLabel}>Iskender</div>
+                            <div className={styles.brandLabel}>Aqualuxe</div>
                             {Array.isArray(product.photos) && product.photos.length > 0 ? (
                                 <img
                                     src={product.photos[0]?.url || "azx"}
@@ -207,6 +207,8 @@ const Catalog = () => {
                     ))}
                 </div>
             </section>
+
+
         </div>
     );
 };
