@@ -132,7 +132,7 @@ const NavBar = () => {
                                         )
                                     }
                                 >
-                                 garant
+                                Garant
                                 </button>
                             </li>
                             <li>
@@ -260,7 +260,7 @@ const NavBar = () => {
                                     handleSearchAndNavigate(fetchByDistributivFilter, "/catalog")
                                 }
                             >
-                             garant
+                             Garant
                             </div>
 
                             <li className={classes.navbar__item}>

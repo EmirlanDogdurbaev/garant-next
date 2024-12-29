@@ -130,6 +130,7 @@
     flex-direction: column;
     gap: 20px;
     align-items: flex-start;
+    text-transform: capitalize;
   }
 }
 
@@ -172,6 +173,11 @@
 
     &__item {
       margin: 0;
+      text-transform: capitalize;
+
+      button{
+        text-transform: capitalize;
+      }
     }
 
     &__menu {
