@@ -83,10 +83,12 @@
         font-weight: 800;
 
 
+
         @media (max-width: 550px) {
           flex-direction: column;
           align-items: flex-start;
           gap: 5px;
+          margin-bottom: 40px;
         }
 
         h4 {
@@ -96,12 +98,11 @@
           margin-bottom: 15px;
           font-family: Arial;
 
-
           @media (max-width: 650px) {
             font-size: 36px;
           }
           @media (max-width: 550px) {
-            font-size: 30px;
+            font-size: 40px;
           }
         }
 
@@ -111,11 +112,17 @@
           font-weight: 800;
           text-transform: uppercase;
           font-family: Arial;
-          @media (max-width: 650px) {
+          @media (max-width: 768px) {
+            font-size: 100px;
+          }  
+           @media (max-width: 650px) {
             font-size: 60px;
           }
           @media (max-width: 550px) {
-            font-size: 40px;
+            font-size: 70px;
+          }
+          @media (max-width: 430px) {
+            font-size: 60px;
           }
         }
       }

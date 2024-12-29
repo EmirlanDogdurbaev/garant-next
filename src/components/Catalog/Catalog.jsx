@@ -138,7 +138,7 @@ const Catalog = () => {
                                 ))
                             ) : (
                                 <img
-                                    src="azx" // Фallback для пустого массива или отсутствия photos
+                                    src="azx" 
                                     alt="Default Image"
                                     className={styles.productImage}
                                     height={200}
@@ -156,8 +156,8 @@ const Catalog = () => {
 
             <section className={styles.section}>
                 <div className={styles.sectionContent}>
-                    <h2>{t("catalog.subtitle1")}</h2>
-                    <p>{t("catalog.description1")}</p>
+                    <h2>{t("catalog.subtitle3")}</h2>
+                    <p>{t("catalog.description3")}</p>
                     <button className={styles.link} onClick={() =>
                         handleSearchAndNavigate(
                             fetchByAquaFilter,
