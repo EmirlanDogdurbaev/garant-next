@@ -14,6 +14,10 @@ import img2 from "../../../public/img2.jpg";
 import img3 from "../../../public/img3.jpg";
 import img4 from "../../../public/img4.jpg";
 import img5 from "../../../public/img5.jpg";
+
+import img6 from "../../../public/a.jpg";
+import img7 from "../../../public/b.jpg";
+import img8 from "../../../public/c.jpg";
 import "react-slideshow-image/dist/styles.css";
 
 const Header = () => {
@@ -42,7 +46,7 @@ const Header = () => {
         arrows: false,
     };
 
-    const backgrounds = [img1, img2, img3, img4, img5];
+    const backgrounds = [img1, img2, img3, img4, img5,img7,img6,img8];
 
     return (
         <section className={styles.sliderContainer}>
