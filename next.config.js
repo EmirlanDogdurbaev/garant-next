@@ -7,6 +7,9 @@ const nextConfig = {
     localeDetection: false,
   },
   trailingSlash: true,
+  images: {
+    domains: ['iskender.kg'], 
+  },
 
 }
 
