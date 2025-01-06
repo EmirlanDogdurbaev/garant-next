@@ -9,11 +9,6 @@ import styles from "./Header.module.scss";
 import { Fade } from "react-slideshow-image";
 import Link from "next/link";
 import React from "react";
-import img1 from "../../../public/img1.jpg";
-import img2 from "../../../public/img2.jpg";
-import img3 from "../../../public/img3.jpg";
-import img4 from "../../../public/img4.jpg";
-import img5 from "../../../public/img5.jpg";
 
 import img6 from "../../../public/a.jpg";
 import img7 from "../../../public/b.jpg";
@@ -46,7 +41,7 @@ const Header = () => {
         arrows: false,
     };
 
-    const backgrounds = [img1, img2, img3, img4, img5,img7,img6,img8];
+    const backgrounds = [img7,img6,img8];
 
     return (
         <section className={styles.sliderContainer}>
