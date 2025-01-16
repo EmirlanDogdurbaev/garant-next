@@ -58,10 +58,10 @@ const Header = () => {
 
             <div className={styles.content}>
                 <div className={styles.container}>
-                    <span>
+                    {/* <span>
                         <h1>{t("header.title")}</h1>
                         <h4>{t("header.subtitle")}</h4>
-                    </span>
+                    </span> */}
                     <section className={styles.b2b}>
                         <p>{t("header.b2b")}</p>
                     </section>
