@@ -111,7 +111,7 @@ const Footer = () => {
                         <div className={styles.down}>
                             <p className={styles.big} style={{marginBottom: "10px"}}>Первый отечественный бренд на рынке
                                 сантехники от компании ОсОО
-                                “Стройдом.кг”</p>
+                                “Гарант Азия”</p>
                             <p className={styles.small}>© 2023 Iskender.kg - Отечественный бренд сантехники</p>
                         </div>
                     </div>
