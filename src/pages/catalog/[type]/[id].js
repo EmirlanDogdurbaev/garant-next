@@ -44,35 +44,30 @@ const ProductDetailPage = ({ initialData, initialLanguage }) => {
   const [currentIndex, setCurrentIndex] = useState(0);
   const [selectedColor, setSelectedColor] = useState(null);
 
-  console.log(product);
+
 
   useEffect(() => {
     if (!router.isReady) return;
-
     if (initialData) {
-      console.log(initialData);
       dispatch(setSelectedProduct(initialData));
     } else if (type === "product" && id && product?.id !== id) {
       dispatch(fetchProductById(id));
     } else if (type === "collection" && id) {
-      console.log(id);
       dispatch(fetchCollectionById(id));
     }
   }, [router.isReady, type, id, initialData, dispatch, product?.id]);
 
   useEffect(() => {
-    if (
-      product?.collection_id &&
-      product.collection_id !== previousCollectionId.current
-    ) {
-      previousCollectionId.current = product.collection_id;
+    const collectionIdToUse = product?.collection_id || product?.id;
+    if (collectionIdToUse && collectionIdToUse !== previousCollectionId.current) {
+      previousCollectionId.current = collectionIdToUse;
       dispatch(
         fetchProductInCollection({
-          collectionId: product.collection_id,
+          collectionId: collectionIdToUse,
         })
       );
     }
-  }, [product?.collection_id, dispatch]);
+  }, [product?.collection_id, product?.id, dispatch]);
 
   useEffect(() => {
     dispatch(fetchRecommendationCollection(language));

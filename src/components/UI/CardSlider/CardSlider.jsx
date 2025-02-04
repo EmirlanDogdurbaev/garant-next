@@ -64,9 +64,9 @@ const CardSlider = ({ cards }) => {
                 <Image
                   src={card.photos?.[0]?.url || "/default-image.jpg"} 
                   alt={card.name || "Default Name"} 
-                  width={300} // Укажите нужные размеры
-                  height={300} // Укажите нужные размеры
-                  priority // Укажите, если это изображение важно
+                  width={300} 
+                  height={300} 
+                  priority 
                 />
                 <aside>
                   <h4>{card.name}</h4>

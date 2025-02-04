@@ -11,6 +11,7 @@ import { useEffect, useState } from "react";
 import styles from "../../styles/CatalogPage.module.scss";
 import Head from "next/head";
 import { fetchPopularProducts } from "@/store/slices/products/productsSlice";
+import Image from "next/image";
 
 export default function CatalogPage() {
   const { t } = useTranslation();
@@ -113,9 +114,12 @@ export default function CatalogPage() {
                       ""
                     )}
                     <div>
-                      <img
+                      <Image
                         src={item.photos?.[0]?.url || "/default-image.jpg"}
-                        alt={item.name || "Изображение товара"}
+                        alt={item.name || "Default Name"}
+                        priority
+                        width={100}
+                        height={100}
                       />
                       <aside>
                         <h4>{item.name || "Без названия"}</h4>
@@ -166,9 +170,12 @@ export default function CatalogPage() {
                           ""
                         )}
                         <div>
-                          <img
+                          <Image
                             src={item.photos?.[0]?.url || "/default-image.jpg"}
-                            alt={item.name || "Изображение товара"}
+                            alt={item.name || "Default Name"}
+                            width={100}
+                            height={100}
+                            priority
                           />
                           <aside>
                             <h4>{item.name || "Без названия"}</h4>
