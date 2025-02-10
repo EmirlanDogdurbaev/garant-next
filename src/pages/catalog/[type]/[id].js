@@ -306,14 +306,11 @@ const ProductDetailPage = ({ initialData, initialLanguage }) => {
               {/* <div className={styles.description}>
                 <p>{product.description}</p>
               </div> */}
-              {/* ---------- */}
               <div className={styles.description}>
                 {product.description.split("\n").map((paragraph, index) => (
                   <p key={index}>{paragraph}</p>
                 ))}
               </div>
-              {/* ---------- */}
-
             </div>
           </section>
 
