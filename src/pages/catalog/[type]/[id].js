@@ -144,10 +144,7 @@ const ProductDetailPage = ({ initialData, initialLanguage }) => {
             "Качественный продукт по отличной цене. Покупайте в Iskender Group."
           }
         />
-        <meta
-          property="og:image"
-          content={mainImage || "/iskender_main.svg"}
-        />
+        <meta property="og:image" content={mainImage || "/iskender_main.svg"} />
         <meta
           property="og:url"
           content={`https://iskender.kg/catalog/product/${id}`}
@@ -306,9 +303,17 @@ const ProductDetailPage = ({ initialData, initialLanguage }) => {
                 )}
               </p>
 
-              <div className={styles.description}>
+              {/* <div className={styles.description}>
                 <p>{product.description}</p>
+              </div> */}
+              {/* ---------- */}
+              <div className={styles.description}>
+                {product.description.split("\n").map((paragraph, index) => (
+                  <p key={index}>{paragraph}</p>
+                ))}
               </div>
+              {/* ---------- */}
+
             </div>
           </section>
 
